@@ -99,12 +99,16 @@ int main(){
     ofstream writefile(filename + ".txt");
 
 
-    long double** X;
+cout << "jjjjjjjjjjjjjjjj" << endl;
+    long double** X = {{1, 2, 3, 4},{2, 3, 1, 4},{2, 1, 1, 3}};
     for (int i = 0 ; i < 3 ; i ++){
         for (int j = 0; j < 4 ; j++){
+            
             X[i][j] = initial_val[i][j];
         }
     }
+
+cout << "jjjjjjjjjjjjjjjj" << endl;
 
     string write_contents;
     long double** k1;long double** k2;long double** k3;long double** k4;
