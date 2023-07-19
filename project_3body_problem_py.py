@@ -19,8 +19,8 @@ def DotPro(_lis1, _lis2):
     return result
 
 #initial condition
-x_initial = np.array([[-1/2, -1/3], [1/2, -1/3], [0, 2/3]])
-v_initial = np.array([[1/3, -2/3], [-1/3, 2/3], [-1, 0]])
+x_initial = np.array([[-1, -1], [1, 1], [-2, 2]])
+v_initial = np.array([[1, 1], [-1, -1], [-2, 1]])
 lis = [[],[],[]]
 for i in range(3):
     for j in range(2):
