@@ -1,13 +1,7 @@
-
-
-
-
 x_init = [0 0;1 0;1 1]; % [x1 x2; x3 x4; x5 x6] init position
 v_init = [1 0;0 1;-1/sqrt(2), -1/sqrt(2)]; % [x1' x2'; x3' x4'; x5' x6'] init velocity
 m = [1 1.5 2]; % masses
 G = 9.8;
-
-CM = (m(1)*x_init(1) + m(2)*x_init(2) + m(3)*x_init(3))/(m(1)+m(2)+m(3));
 init = [x_init v_init]';
 init = init(:)';
 
