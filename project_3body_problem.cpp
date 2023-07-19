@@ -14,11 +14,12 @@ string write_contents(long double _X[][4]){
     return result;
 }
 
+
 double m_val[3] = {1, 1, 1};
 double G = 9.8; double dt = 0.01; 
-double initial_val[3][4] = {{1, 0, 2, 1 },
-                            {0, 1, 1, 2},
-                            {0.5, 0.5, 0.5, 0.5}};
+double initial_val[3][4] = {{-0.5, -0.33, 0.33, -0.66 },
+                            {0.5, -0.33, -0.33, 0.66},
+                            {0, 0.66, -1, 0}};
 long double E = (0.5)*m_val[0]*(initial_val[0][2]*initial_val[0][2] + initial_val[0][3]*initial_val[0][3])
             - G*m_val[0]*m_val[1]/Norm(initial_val[0][0]-initial_val[1][0], initial_val[0][1]-initial_val[1][1])
               + (0.5)*m_val[1]*(initial_val[1][2]*initial_val[1][2] + initial_val[1][3]*initial_val[1][3])
@@ -29,7 +30,7 @@ long double E = (0.5)*m_val[0]*(initial_val[0][2]*initial_val[0][2] + initial_va
 
 long double T( long double _xv_array[][4]){
     long double T = E;
-cout << E << endl;
+// cout << E << endl;
     for (int i = 0 ; i < 3 ; i++){
         int j = (i+1)%3;
         T += G*m_val[i]*m_val[j]/Norm(_xv_array[i][0]-_xv_array[j][0], 
@@ -55,6 +56,13 @@ long double T_diff(long double _xv_array[][4]){
 }
 long double diff_T_xv(int i, int j, long double _xv_array[][4]){
     long double result = 0;
+
+cout<<sqrt((_xv_array[i][0]-_xv_array[j][0])*(_xv_array[i][0]-_xv_array[j][0])
+              +(_xv_array[i][1]-_xv_array[j][1])*(_xv_array[i][1]-_xv_array[j][1]))
+             *((_xv_array[i][0]-_xv_array[j][0])*(_xv_array[i][0]-_xv_array[j][0])
+              +(_xv_array[i][1]-_xv_array[j][1])*(_xv_array[i][1]-_xv_array[j][1]))<<endl;
+
+
     for ( int n = 0 ; n < 2 ; n++ ){
         int k = (i+n)%3; int l = (k+1)%3;
         result += pow(-1, n+2)*G*m_val[k]*m_val[l]*2*(_xv_array[k][j]-_xv_array[l][j])
@@ -114,7 +122,7 @@ int main(){
 
     long double k1[3][4];long double k2[3][4];long double k3[3][4];long double k4[3][4];
     long double extra_k[3][4];
-    for (long double t : {0.0, 0.001}){ //= 0.0; t < 5; t += dt){
+    for (long double t = 0.0; t < 0.03; t += dt){
         geod(X, k1);
         const_multiply_array(dt/2, k1, extra_k);sum_two_ptr(X, extra_k);geod(extra_k, k2);
         const_multiply_array(dt/2, k2, extra_k);sum_two_ptr(X, extra_k);geod(extra_k, k3);        
@@ -125,7 +133,7 @@ int main(){
                 X[i][j] = X[i][j] + (dt / 6) * (k1[i][j] + 2 * k2[i][j] + 3 * k3[i][j] + 4 * k4[i][j]);
 // cout << k1[i][j] << endl;
             }}
-cout << "-----------------------" << endl;
+// cout << "-----------------------" << endl;
         writefile << write_contents(X) << endl;
     }
     writefile.close(); cout << "program end!!!"<<endl;
