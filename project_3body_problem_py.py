@@ -19,17 +19,17 @@ def DotPro(_lis1, _lis2):
     return result
 
 #initial condition
-x_initial = np.array([[-1, -1], [1, 1], [-2, 2]])
-v_initial = np.array([[1, 1], [-1, -1], [-2, 1]])
+x_initial = np.array([[-1/2, -1/3], [1/2, -1/3], [0, 2/3]])
+v_initial = np.array([[1/3, -2/3], [-1/3, 2/3], [-1, 0]])
+m = np.array([1, 1, 1]) ; G = 9.8
 lis = [[],[],[]]
 for i in range(3):
     for j in range(2):
         lis[i].append(x_initial[i][j])
 for i in range(3):
-    for j in range(2):
+    for j in range(2):  
         lis[i].append(v_initial[i][j])
 initial_val = np.array(lis)
-m = np.array([1, 1, 1]) ; G = 9.8 
 
 #variables
 xv_symbol = symbols('xv_symbol:12')
