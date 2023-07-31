@@ -67,6 +67,18 @@ N = 1000;
 t = linspace(0, 200, N);
 [t, x] = ode45(g, t, init);
 
+function [t, x] = RK4(func, t, prior_x)
+
+for 
+    k1 = func(prior_x, t);
+    k2 = func((prior_x + k1*dt/2), (t + dt/2));
+    k3 = func((prior_x + k2*dt/2), (t + dt/2));
+    k4 = func((prior_x + k3*dt)  , (t + dt));
+    x = prior_x + (k1 + 2*k2 + 2*k3 + k4)/6;
+end
+
+[t, x] = RK4(g, t, init);
+
 % plot
 plot(x(:,1),x(:,2),'linewidth',2);
 hold on;
