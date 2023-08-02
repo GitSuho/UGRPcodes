@@ -51,7 +51,7 @@ for i = 1:3
     end
 end
 
-g = @(t,x) [x(3);
+g = @(x,t) [x(3);
             x(4);
             F{1,1}(x);
             F{1,2}(x);
@@ -65,19 +65,8 @@ g = @(t,x) [x(3);
             F{3,2}(x)];
 N = 1000;
 t = linspace(0, 200, N);
-[t, x] = ode45(g, t, init);
-
-function [t, x] = RK4(func, t, prior_x)
-
-for 
-    k1 = func(prior_x, t);
-    k2 = func((prior_x + k1*dt/2), (t + dt/2));
-    k3 = func((prior_x + k2*dt/2), (t + dt/2));
-    k4 = func((prior_x + k3*dt)  , (t + dt));
-    x = prior_x + (k1 + 2*k2 + 2*k3 + k4)/6;
-end
-
 [t, x] = RK4(g, t, init);
+
 
 % plot
 plot(x(:,1),x(:,2),'linewidth',2);
@@ -85,3 +74,18 @@ hold on;
 plot(x(:,5),x(:,6),'linewidth',2);
 plot(x(:,9),x(:,10),'linewidth',2);
 hold off;
+
+function [t, X] = RK4(func, t, prior_x)
+dt = t(2) - t(1);
+nt = length(t);
+X = zeros([nt, numel(prior_x)]);
+X(1,:) = prior_x;
+    for i = 1:nt
+        k1 = func(X(i), t(i));
+        k2 = func((X(i) + k1*dt/2), (t(i) + dt/2));
+        k3 = func((X(i) + k2*dt/2), (t(i) + dt/2));
+        k4 = func((X(i) + k3*dt)  , (t(i) + dt));
+        X(i+1) = X(i) + (k1 + 2*k2 + 2*k3 + k4)/6;
+    end
+end
+
