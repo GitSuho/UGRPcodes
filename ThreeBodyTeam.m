@@ -50,7 +50,7 @@ for i = 1:3
 end
 
 start = 0;
-terminal = 10;
+terminal = 5;
 div_N = 50;
 count_div = 10;
 plot(init(1), init(2));
@@ -66,6 +66,7 @@ for count = 1:count_div
     plot(x(:,1),x(:,2),'linewidth',2);
     plot(x(:,5),x(:,6),'linewidth',2);
     plot(x(:,9),x(:,10),'linewidth',2);
+    pause(0.1);
 end
 hold off;
 
@@ -93,4 +94,3 @@ function [t, X] = RK4(func, t, prior_x)
         X(i+1,:) = X(i,:) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
     end
 end
-
