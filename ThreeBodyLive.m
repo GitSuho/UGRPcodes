@@ -54,26 +54,27 @@ for i = 1:3
     end
 end
 
+hold off;
 hold on;
 dt = 1/div_N;
-X(1, :) = init;
 i = 1;
 while(1)
 
-    k1 = g(X(i, :));
-    k2 = g(X(i, :) + k1*dt/2); 
-    k3 = g(X(i, :) + k2*dt/2); 
-    k4 = g(X(i, :) + k3*dt); 
-    X(i+1, :) = X(i, :) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+    k1 = g(init(:));
+    k2 = g(init(:) + k1*dt/2); 
+    k3 = g(init(:) + k2*dt/2); 
+    k4 = g(init(:) + k3*dt); 
+    next(:) = init(:) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
     i = i + 1;
+    
+    for j = 1:3
+        plot([init(j), next(j)],[init(j+1), next(j+1)], 'black-', 'linewidth', 4);
+    end
 
-    plot(X(:,1), X(:,2));
-    plot(X(:,5), X(:,6));
-    plot(X(:,9), X(:,10));
+    init(:) = next(:);
     pause(10);
 
 end
-hold off;
 
 function dxdt = g(x) 
     global F; 
