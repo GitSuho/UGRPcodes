@@ -71,10 +71,9 @@ for count = 1:count_div
          [init(2), init(6), init(10), init(2)], ...
          'b-');
     plot((init(1)+init(5)+init(9))/3, ...
-         (init(2)+init(6)+init(10))/3, 'ro' )
-    pause(0.1)
+         (init(2)+init(6)+init(3, 2))/3, 'ro' )
 
-    t = linspace(start_p, terminal_p, (terminal_p-start_p)*div_N);
+    t = linspace(start_p, terminal_p, terminal_p*div_N);
     [t, x] = RK4(@g, t, init); 
     init = x(length(x),:);
     
@@ -83,10 +82,6 @@ for count = 1:count_div
     plot(x(:,9), x(:,10), 'linewidth', 2);
     pause(0.1);
 end
-plot([init(1), init(5), init(9), init(1)], ...
-     [init(2), init(6), init(10), init(2)]);
-plot((init(1)+init(5)+init(9))/3, ...
-     (init(2)+init(6)+init(10))/3, 'ro' )
 hold off;
 
 function dxdt = g(t, x) 

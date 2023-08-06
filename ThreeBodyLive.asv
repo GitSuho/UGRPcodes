@@ -67,12 +67,6 @@ for count = 1:count_div
     start_p = count * start / count_div ;
     terminal_p = count * terminal / count_div ;
     
-    plot([init(1), init(5), init(9), init(1)], ...
-         [init(2), init(6), init(10), init(2)], ...
-         'b-');
-    plot((init(1)+init(5)+init(9))/3, ...
-         (init(2)+init(6)+init(10))/3, 'ro' )
-    pause(0.1)
 
     t = linspace(start_p, terminal_p, (terminal_p-start_p)*div_N);
     [t, x] = RK4(@g, t, init); 
@@ -83,13 +77,23 @@ for count = 1:count_div
     plot(x(:,9), x(:,10), 'linewidth', 2);
     pause(0.1);
 end
-plot([init(1), init(5), init(9), init(1)], ...
-     [init(2), init(6), init(10), init(2)]);
-plot((init(1)+init(5)+init(9))/3, ...
-     (init(2)+init(6)+init(10))/3, 'ro' )
 hold off;
 
-function dxdt = g(t, x) 
+%%%%%%%%%%%%%
+dt = 1/div_N;
+X = init;
+while(1)
+    k1 = g(X(:)); 
+    k2 = g(X(:) + k1*dt/2); 
+    k3 = g(X(i,:) + k2*dt/2); 
+    k4 = g(X(i,:) + k3*dt); 
+    X(:) = X(:) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+
+
+end
+%%%%%%%%%%%%%
+
+function dxdt = g(x) 
     global F; 
     dxdt = zeros(size(x));
     for i = 1:3
