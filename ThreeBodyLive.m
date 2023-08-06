@@ -54,25 +54,28 @@ for i = 1:3
     end
 end
 
-hold off;
-hold on;
-dt = 1/div_N;
+%hold off;
+%hold on;
+dt = 1/1000;
 i = 1;
+X(1, :) = init;
 while(1)
 
-    k1 = g(init(:));
-    k2 = g(init(:) + k1*dt/2); 
-    k3 = g(init(:) + k2*dt/2); 
-    k4 = g(init(:) + k3*dt); 
-    next(:) = init(:) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
-    i = i + 1;
-    
-    for j = 1:3
-        plot([init(j), next(j)],[init(j+1), next(j+1)], 'black-', 'linewidth', 4);
+    for foo = 1:10
+        k1 = g(X(i, :));
+        k2 = g(X(i, :) + k1*dt/2); 
+        k3 = g(X(i, :) + k2*dt/2); 
+        k4 = g(X(i, :) + k3*dt); 
+        X(i+1, :) = X(i, :) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+        i = i + 1;
     end
-
-    init(:) = next(:);
-    pause(10);
+    hold off;
+    hold on;
+    plot(X(:, 1),X(:, 2), 'r-');
+    plot(X(:, 5),X(:, 6), 'g-');
+    plot(X(:, 9),X(:, 10), 'b-');
+    plot([X(i-1, 1), X(i-1, 5), X(i-1, 9), X(i-1, 1)],[X(i-1, 2), X(i-1, 6), X(i-1, 10), X(i-1, 2)], 'black:')
+    pause(0.1);
 
 end
 
