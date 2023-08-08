@@ -64,7 +64,8 @@ for i in range(3):
                 F[i][j] = F[i][j] - 1/T*diff(T, xv_symbol[i][j])*xv_symbol[k][l+2] \
                                   + 1/(2*T)*diff(T, xv_symbol[i][j])*xv_symbol[k][l+2]**2
 
-                              
+print(F)
+exit()   
 
 def geod(_X, t):
     _var = {xv_symbol[0, 0]: _X[0, 0], xv_symbol[0, 1]: _X[0, 1], xv_symbol[0, 2]: _X[0, 2], xv_symbol[0, 3]: _X[0, 3],
