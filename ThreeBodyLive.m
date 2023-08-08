@@ -1,14 +1,31 @@
+global m; global G;
 
 %Lagrange's Equilatetal Triangular Solutions
 % x_init = [-0.0833 0.7217 ; -0.5833 -0.1443 ; 0.4167 -0.1443];
 % v_init = [-2.7678 0.7959 ; -0.6464 -0.4289 ; -0.6464 2.0206];
 
-x_init = [-1 -1;0 0; 1 1]; 
-v_init = [0 1; 0 0; 0 -1]; 
-global m;
-m = [1 1 1];
-global G;
-G = 10;
+% %Ana Hudomal 16p
+% %butterfly 1
+% % dx0 = 0.30689; dy0 = 1.2551;
+% %butterfly 2
+% % dx0 = 0.39295; dy0 = 0.09758;
+% %bumblebee
+% % dx0 = 0.18428; dy0 = 0.58719;
+% x_init = [-1 0;1 0; 0 0]; 
+% v_init = [dx0 dy0; dx0 dy0; -2*dx0 -2*dy0]; 
+% m = [1 1 1];
+
+%Xiaoming Lia , Shijun Liao. December 2017 
+%I.Z_{100}^{i.c.}
+v_1 = 0.0670760777;
+v_2 = 0.5889627892;
+x_init = [-1 0 ; 1 0; 0 0];
+v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+m = [1, 1, 1];
+
+
+
+G = 1;
 init = [x_init v_init]';
 init = init(:)';
 
@@ -80,7 +97,7 @@ cycle = 20;
 % P = zeros(cycle, 12);
 
 X(1, :) = init;
-P(1, :) = init;
+% P(1, :) = init;
 
 % X(cycle, :) = init;
 % P(cycle, :) = init;
@@ -89,7 +106,7 @@ P(1, :) = init;
 while(1)
     % X(1,:) = X(cycle,:);
     % P(1,:) = P(cycle,:);
-    for foo = 2:cycle
+    for foo = 1:cycle
         k1 = g(X(i, :));
         k2 = g(X(i, :) + k1*dt/2); 
         k3 = g(X(i, :) + k2*dt/2); 
@@ -102,17 +119,22 @@ while(1)
         % l4 = eulagrange(P(i, :) + k3*dt); 
         % P(i+1, :) = P(i, :) + (l1 + 2*l2 + 2*l3 + l4)*dt/6;
         i = i + 1;
-        
     end
     hold off;
     hold on;
-    plot(X(:, 1),X(:, 2), 'r-');
-    plot(X(:, 5),X(:, 6), 'g-');
-    plot(X(:, 9),X(:, 10), 'b-');
-    % plot([X(i, 1), X(i, 5), X(i, 9), X(i, 1)],[X(i, 2), X(i, 6), X(i, 10), X(i, 2)], 'black:');
-    plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
-    plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
-    plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
+    plot(X(:, 1),X(:, 2), 'b-');
+    plot(X(:, 5),X(:, 6), 'r-');
+    plot(X(:, 9),X(:, 10), 'black-');
+    % plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
+    % plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
+    % plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
+    
+
+    i = 1;
+    X(1, :) = X(cycle+1, :);
+    % P(1, :) = P(cycle+1, :);
+
+
     pause(0.1);
 
 end
