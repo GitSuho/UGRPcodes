@@ -81,8 +81,8 @@ for i = 1:3 %particles' index
         next_1 = mod(i, 3)+1; next_2 = mod(i+1, 3)+1;
         r = (x_sym(next_1, 1) - x_sym(i, 1)).^2+(x_sym(next_1, 2)-(x_sym(i, 2)).^2)...
             + (x_sym(next_2, 1) - x_sym(i, 1)).^2+(x_sym(next_2, 2)-(x_sym(i, 2)).^2);
-        el{i, j} = G*m(i)*m(next_1)*(x_sym(next_1, j) - x_sym(i, j))/(r.^(1.5))...
-                 + G*m(i)*m(next_2)*(x_sym(next_2, j) - x_sym(i, j))/(r.^(1.5));
+        el{i, j} = G*m(next_1)*(x_sym(next_1, j) - x_sym(i, j))/(r.^(1.5))...
+                 + G*m(next_2)*(x_sym(next_2, j) - x_sym(i, j))/(r.^(1.5));
         EL{i, j} = @(x) eval(subs(el{i,j}, x_sym, reshape(x, [4, 3])'));
     end
 end
