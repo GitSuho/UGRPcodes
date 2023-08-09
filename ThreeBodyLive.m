@@ -15,13 +15,13 @@ global m; global G;
 % v_init = [dx0 dy0; dx0 dy0; -2*dx0 -2*dy0]; 
 % m = [1 1 1];
 
-%Xiaoming Lia , Shijun Liao. December 2017 
-%I.Z_{100}^{i.c.}
-v_1 = 0.0670760777;
-v_2 = 0.5889627892;
-x_init = [-1 0 ; 1 0; 0 0];
-v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-m = [1, 1, 1];
+% %Xiaoming Lia , Shijun Liao. December 2017 
+% %I.Z_{100}^{i.c.}
+% v_1 = 0.0670760777;
+% v_2 = 0.5889627892;
+% x_init = [-1 0 ; 1 0; 0 0];
+% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+% m = [1, 1, 1];
 
 
 
