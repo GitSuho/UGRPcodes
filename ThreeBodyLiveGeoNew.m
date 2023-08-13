@@ -16,13 +16,27 @@ global m; global G;
 % m = [1 1 1];
 
 % %Xiaoming Lia , Shijun Liao. December 2017 
-% %I.Z_{100}^{i.c.}
+% I.Z_{100}^{i.c.}
 % v_1 = 0.0670760777;
 % v_2 = 0.5889627892;
-% x_init = [-1 0 ; 1 0; 0 0];
-% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-% m = [1, 1, 1];
+%I.A_{77}^{i.c.}
+% v_1 = 0.4159559963;
+% v_2 = 0.2988672319;
+%I.B_{102}^{i.c.}
+% v_1 = 0.4784306757;
+% v_2 = 0.3771895698;
+%II.C_{156}^{i.c.}
+v_1 = 0.3231926176;
+v_2 = 0.3279135713;
 
+x_init = [-1 0 ; 1 0; 0 0];
+v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+m = [1, 1, 1];
+
+
+% x_init = [2 1 ; 2 2; 3 2];
+% v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+% m = [1, 1, 1];
 
 
 G = 1;
@@ -40,7 +54,6 @@ end
 syms('x_sym', [3 4]);
 assume(x_sym, 'real')
 
-% T = E - V
 T_sym = E;
 for i = 0:2
     j = mod(i,3)+1;
@@ -76,65 +89,43 @@ global EL;
 EL{3, 2} = [];
 el{3, 2} = [];
 for i = 1:3 %particles' index
-
+    next_1 = mod(i, 3)+1; 
+    next_2 = mod(i+1, 3)+1;
+    r1_sq = (x_sym(i, 1) - x_sym(next_1, 1)).^2+(x_sym(i, 2)-(x_sym(next_1, 2))).^2;
+    r2_sq = (x_sym(i, 1) - x_sym(next_2, 1)).^2+(x_sym(i, 2)-(x_sym(next_2, 2))).^2;
     for j = 1:2 % x, y 
-        next_1 = mod(i, 3)+1; next_2 = mod(i+1, 3)+1;
-        r = (x_sym(next_1, 1) - x_sym(i, 1)).^2+(x_sym(next_1, 2)-(x_sym(i, 2)).^2)...
-            + (x_sym(next_2, 1) - x_sym(i, 1)).^2+(x_sym(next_2, 2)-(x_sym(i, 2)).^2);
-        el{i, j} = G*m(next_1)*(x_sym(next_1, j) - x_sym(i, j))/(r.^(1.5))...
-                 + G*m(next_2)*(x_sym(next_2, j) - x_sym(i, j))/(r.^(1.5));
+        el{i, j} = - G*m(next_1)*(x_sym(i, j) - x_sym(next_1, j))/(r1_sq.^(1.5))...
+                   - G*m(next_2)*(x_sym(i, j) - x_sym(next_2, j))/(r2_sq.^(1.5));
         EL{i, j} = @(x) eval(subs(el{i,j}, x_sym, reshape(x, [4, 3])'));
     end
 end
 
 
 dt = 1/100;
-i = 1;
+ cycle = 50;
 clear("X")
 clear("P")
-cycle = 20;
-% X = zeros(cycle, 12);
-% P = zeros(cycle, 12);
 
 X(1, :) = init;
 % P(1, :) = init;
 
-% X(cycle, :) = init;
-% P(cycle, :) = init;
-
 
 while(1)
-    % X(1,:) = X(cycle,:);
-    % P(1,:) = P(cycle,:);
-    for foo = 1:cycle
-        k1 = g(X(i, :));
-        k2 = g(X(i, :) + k1*dt/2); 
-        k3 = g(X(i, :) + k2*dt/2); 
-        k4 = g(X(i, :) + k3*dt); 
-        X(i+1, :) = X(i, :) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
-        
-        % l1 = eulagrange(P(i, :));
-        % l2 = eulagrange(P(i, :) + k1*dt/2); 
-        % l3 = eulagrange(P(i, :) + k2*dt/2); 
-        % l4 = eulagrange(P(i, :) + k3*dt); 
-        % P(i+1, :) = P(i, :) + (l1 + 2*l2 + 2*l3 + l4)*dt/6;
-        i = i + 1;
+    for i = 2:cycle
+        X(i+1, :) = RK4(X(i, :), @g, dt);
+        % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
     hold off;
     hold on;
     plot(X(:, 1),X(:, 2), 'b-');
     plot(X(:, 5),X(:, 6), 'r-');
     plot(X(:, 9),X(:, 10), 'black-');
+
     % plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
     % plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
     % plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
-    
-
-    i = 1;
     X(1, :) = X(cycle+1, :);
     % P(1, :) = P(cycle+1, :);
-
-
     pause(0.1);
 
 end
@@ -145,8 +136,6 @@ function dxdt = g(x)
     for i = 1:3
         for j = 1:2
              dxdt((i-1)*4+j) = x((i-1)*4+j+2);
-
-
              dxdt((i-1)*4+j+2) = F{i,j}(x);
         end
     end
@@ -163,6 +152,13 @@ function slope = eulagrange(x)
     end
 end
 
+function next_pos = RK4(curr_pos, func, dt)
+    k1 = func(curr_pos(:));
+    k2 = func(curr_pos(:) + k1*dt/2); 
+    k3 = func(curr_pos(:) + k2*dt/2); 
+    k4 = func(curr_pos(:) + k3*dt); 
+    next_pos = curr_pos(:) + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+end
 
 
 
