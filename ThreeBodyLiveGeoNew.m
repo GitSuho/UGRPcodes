@@ -26,17 +26,17 @@ global m; global G;
 % v_1 = 0.4784306757;
 % v_2 = 0.3771895698;
 %II.C_{156}^{i.c.}
-v_1 = 0.3231926176;
-v_2 = 0.3279135713;
-
-x_init = [-1 0 ; 1 0; 0 0];
-v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-m = [1, 1, 1];
-
-
-% x_init = [2 1 ; 2 2; 3 2];
-% v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+% v_1 = 0.3231926176;
+% v_2 = 0.3279135713;
+% 
+% x_init = [-1 0 ; 1 0; 0 0];
+% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
 % m = [1, 1, 1];
+
+
+x_init = [2 1 ; 2 2; 3 2];
+v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+m = [1, 1, 1];
 
 
 G = 1;
@@ -107,13 +107,13 @@ clear("X")
 clear("P")
 
 X(1, :) = init;
-% P(1, :) = init;
+P(1, :) = init;
 
 
 while(1)
-    for i = 2:cycle
+    for i = 1:cycle
         X(i+1, :) = RK4(X(i, :), @g, dt);
-        % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
+        P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
     hold off;
     hold on;
@@ -121,11 +121,11 @@ while(1)
     plot(X(:, 5),X(:, 6), 'r-');
     plot(X(:, 9),X(:, 10), 'black-');
 
-    % plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
-    % plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
-    % plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
+    plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
+    plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
+    plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
     X(1, :) = X(cycle+1, :);
-    % P(1, :) = P(cycle+1, :);
+    P(1, :) = P(cycle+1, :);
     pause(0.1);
 
 end
