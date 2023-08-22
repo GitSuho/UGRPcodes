@@ -29,9 +29,9 @@ global GE_t;
 GE_t{2} = [];
 ge_t{2} = [];
 for i = 1:2
-    ge_t{i} = (2*G*M*m*dot(x_sym(1,:), x_sym(2,:))/((x_sym(1,1)^2+x_sym(1,2)^2)^2))/T*x_sym(2, i) ...
-    -(1/T)*diff(T, x_sym(1, mod(i, 2)+1))*x_sym(2, mod(i, 2)+1)*x_sym(2, i) ... 
-    + 1/(2*T)*diff(T, x_sym(1, i))*(x_sym(2, mod(i, 2)+1)^2);
+    ge_t{i} = (-G*M*m*dot(x_sym(1,:),x_sym(2,:))/(norm(x_sym(1,1:2))^3))/T*x_sym(2, i) ...
+    -(1/T)*(diff(T, x_sym(1, 1))*x_sym(2, 1) + diff(T, x_sym(1, 2))*x_sym(2, 2))*x_sym(2, i) ... 
+    + 1/(2*T)*diff(T, x_sym(1, i))*(x_sym(2, 1)^2 + x_sym(2, 2)^2);
     GE_t{i} = @(x) eval(subs(ge_t{i}, x_sym, reshape(x,[2,2])'));
 end
 
@@ -94,13 +94,13 @@ P(1, :) = init;
 % end
 
 %calculate error values
-X_count = 170;
-X_t_count = 1;
-P_count = 1000;
+X_count = 100;
+X_t_count = 100;
+P_count = 100;
 
-X_dt = 1/10; 
-X_t_dt = 1/100; 
-P_dt = 1/10;
+X_dt = 1/50; 
+X_t_dt = 1/50; 
+P_dt = 1/50;
 
 clear("X_error")
 clear("X_t_error")
@@ -112,7 +112,7 @@ P_error(1, :) = [0, 0];
 for i = 1:X_count-1
     X(i+1, :) = RK4(X(i, :), @geo, X_dt);
     % foo = norm(X(i+1, 3:4));
-    % X(i+1, 3:4) = X(i+1, 3:4)/foo;
+    % X(i+1, 3:4) = 20*X(i+1, 3:4)/foo;
 end
 for i = 1:X_t_count-1
     X_t(i+1, :) = RK4(X_t(i, :), @geo_t, X_t_dt);
@@ -126,22 +126,24 @@ end
 plot(X(:, 1), X(:, 2), 'bo');
 plot(X_t(:, 1), X_t(:, 2), 'gp');
 plot(P(:, 1), P(:, 2), 'r^');
-% 
-% for i = 1:X_count
-%     foo_theta = Find_degree(X(i,1), X(i,2));
-%     var_error = abs(OrbEqu_r(foo_theta) - norm(X(i, 1:2)));
-%     X_error(i, :) = [foo_theta var_error];
-% end
-% for i = 1:X_t_count
-%     foo_theta = Find_degree(X_t(i,1), X_t(i,2));
-%     var_error = abs(OrbEqu_r(foo_theta) - norm(X_t(i, 1:2)));
-%     X_t_error(i, :) = [foo_theta var_error];
-% end
-% for i = 1:P_count
-%     foo_theta = Find_degree(P(i, 1), P(i, 2));
-%     var_error = abs(OrbEqu_r(foo_theta) - norm(P(i, 1:2)));
-%     P_error(i, :) = [foo_theta var_error];
-% end
+
+for i = 1:X_count
+    foo_theta = Find_degree(X(i,1), X(i,2));
+    var_error = abs(OrbEqu_r(foo_theta) - norm(X(i, 1:2)));
+    X_error(i, :) = [foo_theta var_error];
+end
+for i = 1:X_t_count
+    foo_theta = Find_degree(X_t(i,1), X_t(i,2));
+    var_error = abs(OrbEqu_r(foo_theta) - norm(X_t(i, 1:2)));
+    X_t_error(i, :) = [foo_theta var_error];
+end
+for i = 1:P_count
+    foo_theta = Find_degree(P(i, 1), P(i, 2));
+    var_error = abs(OrbEqu_r(foo_theta) - norm(P(i, 1:2)));
+    P_error(i, :) = [foo_theta var_error];
+end
+
+fprintf("X_");
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

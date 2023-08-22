@@ -20,11 +20,18 @@ E = (1/2)*m*Norm(v_initial[0], v_initial[1])**2 \
     -  G*M*m/Norm(x_initial[0], x_initial[1])
 T = E + G*M*m/Norm(x1, x2)
 
-#geodesic equation
-F1 = -(diff(T, x1)*v1 + diff(T, x2)*v2)*v1 \
-    + 1/(2*T)*diff(T, x1)*Norm(v1, v2)**2
-F2 = -(diff(T, x1)*v1 + diff(T, x2)*v2)*v2 \
-    + 1/(2*T)*diff(T, x2)*Norm(v1, v2)**2
+# geodesic equation
+F1 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))/T*v1 \
+    + 1/T*diff(T, x2)*v2*v1 + 1/(2*T)*diff(T, x1)*(v2)**2
+F2 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))/T*v2 \
+    + 1/T*diff(T, x1)*v2*v1 + 1/(2*T)*diff(T, x2)*(v1)**2    
+
+
+
+# F1 = -(diff(T, x1)*v1 + diff(T, x2)*v2)*v1 \
+#     + 1/(2*T)*diff(T, x1)*Norm(v1, v2)**2
+# F2 = -(diff(T, x1)*v1 + diff(T, x2)*v2)*v2 \
+#     + 1/(2*T)*diff(T, x2)*Norm(v1, v2)**2
 def geod(X, t):
     return np.array([X[2], X[3], F1.subs({x1:X[0], x2:X[1], v1:X[2], v2:X[3]}),\
         F2.subs({x1:X[0], x2:X[1], v1:X[2], v2:X[3]})])
