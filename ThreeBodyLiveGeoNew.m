@@ -16,7 +16,7 @@ global m; global G;
 % m = [1 1 1];
 
 % %Xiaoming Lia , Shijun Liao. December 2017 
-% I.Z_{100}^{i.c.}
+% I.A_{100}^{i.c.}
 % v_1 = 0.0670760777;
 % v_2 = 0.5889627892;
 %I.A_{77}^{i.c.}
@@ -26,17 +26,17 @@ global m; global G;
 % v_1 = 0.4784306757;
 % v_2 = 0.3771895698;
 %II.C_{156}^{i.c.}
-% v_1 = 0.3231926176;
-% v_2 = 0.3279135713;
-% 
-% x_init = [-1 0 ; 1 0; 0 0];
-% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-% m = [1, 1, 1];
+v_1 = 0.3231926176;
+v_2 = 0.3279135713;
 
-
-x_init = [2 1 ; 2 2; 3 2];
-v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+x_init = [-1 0 ; 1 0; 0 0];
+v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
 m = [1, 1, 1];
+
+
+% x_init = [2 1 ; 2 2; 3 2];
+% v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+% m = [1, 1, 1];
 
 
 G = 1;
@@ -69,19 +69,37 @@ for i = 0:2
                                 / norm(x_sym(j,1:2)-x_sym(k,1:2))^2 ;
 end
 
-global F;
-F{3,2} = [];
-f{3,2} = [];
+global GE;
+GE{3, 2} = [];
+ge{3, 2} = [];
 for i = 1:3
     for j = 1:2
-         f{i,j} = T_sym_diff / T_sym * x_sym(i,j+2);
+        ge{i, j} = 0;
+        for k = 1:3
+            for l = 1:2
+                ge{i, j} = ge{i, j}  - diff(T_sym, x_sym(k,l))*x_sym(k,l+2)*x_sym(i,j+2) ...
+                    + 1/(2*T_sym)*diff(T_sym, x_sym(i,j))*x_sym(k,l+2)^2;
+            end
+        end
+        GE{i,j} = @(x) eval(subs(ge{i,j}, x_sym, reshape(x,[4,3])'));
+    end
+end
+
+
+
+global GEt;
+GEt{3,2} = [];
+get{3,2} = [];
+for i = 1:3
+    for j = 1:2
+         get{i,j} = T_sym_diff / T_sym * x_sym(i,j+2);
          for k = 1:3
              for l = 1:2
-                f{i,j} = f{i,j} - 1/T_sym * diff(T_sym,x_sym(k,l)) * x_sym(k,l+2) * x_sym(i,j+2) ...
+                get{i,j} = get{i,j} - 1/T_sym * diff(T_sym,x_sym(k,l)) * x_sym(k,l+2) * x_sym(i,j+2) ...
                     + 1/(2*T_sym) * diff(T_sym,x_sym(i,j)) * x_sym(k,l+2)^2;
              end
          end
-         F{i,j} = @(x) eval(subs(f{i,j}, x_sym, reshape(x,[4,3])'));
+         GEt{i,j} = @(x) eval(subs(get{i,j}, x_sym, reshape(x,[4,3])'));
     end
 end
 
@@ -102,41 +120,61 @@ end
 
 
 dt = 1/100;
- cycle = 50;
+cycle = 10;
 clear("X")
-clear("P")
+clear("Xt")
+% clear("P")
 
 X(1, :) = init;
-P(1, :) = init;
+Xt(1, :) = init;
+% P(1, :) = init;
 
 
 while(1)
     for i = 1:cycle
         X(i+1, :) = RK4(X(i, :), @g, dt);
-        P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
+        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
     hold off;
     hold on;
-    plot(X(:, 1),X(:, 2), 'b-');
-    plot(X(:, 5),X(:, 6), 'r-');
-    plot(X(:, 9),X(:, 10), 'black-');
+    plot(X(:, 1),X(:, 2), 'r:');
+    plot(X(:, 5),X(:, 6), 'g:');
+    plot(X(:, 9),X(:, 10), 'b:');
 
-    plot(P(:, 1),P(:, 2), 'c:', 'linewidth', 2);
-    plot(P(:, 5),P(:, 6), 'm:', 'linewidth', 2);
-    plot(P(:, 9),P(:, 10), 'y:', 'linewidth', 2);
+    plot(Xt(:, 1),Xt(:, 2), 'y:');
+    plot(Xt(:, 5),Xt(:, 6), 'm:');
+    plot(Xt(:, 9),Xt(:, 10), 'c:');
+
+    % plot(P(:, 1),P(:, 2), 'k:');
+    % plot(P(:, 5),P(:, 6), 'k:');
+    % plot(P(:, 9),P(:, 10), 'k:');
+
     X(1, :) = X(cycle+1, :);
-    P(1, :) = P(cycle+1, :);
+    Xt(1, :) = Xt(cycle+1, :);
+    % P(1, :) = P(cycle+1, :);
     pause(0.1);
 
 end
 
 function dxdt = g(x) 
-    global F; 
+    global GE; 
     dxdt = zeros(size(x));
     for i = 1:3
         for j = 1:2
              dxdt((i-1)*4+j) = x((i-1)*4+j+2);
-             dxdt((i-1)*4+j+2) = F{i,j}(x);
+             dxdt((i-1)*4+j+2) = GE{i,j}(x);
+        end
+    end
+end
+
+function dxdt_t = g_t(x) 
+    global GEt; 
+    dxdt_t = zeros(size(x));
+    for i = 1:3
+        for j = 1:2
+             dxdt_t((i-1)*4+j) = x((i-1)*4+j+2);
+             dxdt_t((i-1)*4+j+2) = GEt{i,j}(x);
         end
     end
 end

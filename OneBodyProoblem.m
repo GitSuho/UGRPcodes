@@ -1,10 +1,9 @@
 %%% 1-body condition %%%
 
-
 %Initial consitions
-x_init = [3, 0];
-v_init = [0, 2];
-M = 7;m = 1 ;G = 1;
+x_init = [1, 0];
+v_init = [0, 3];
+M = 9;m = 1 ;G = 1;
 
 syms('x_sym', [2, 2]);
 assume(x_sym, 'real');
@@ -94,10 +93,9 @@ P(1, :) = init;
 % end
 
 %calculate error values
-X_count = 100;
-X_t_count = 100;
-P_count = 100;
-
+X_count = 104*100;
+X_t_count = 104*100;
+P_count = 104*100;
 X_dt = 1/50; 
 X_t_dt = 1/50; 
 P_dt = 1/50;
@@ -123,9 +121,9 @@ for i = 1:P_count-1
     % P(i+1, 3:4) = P(i+1, 3:4)/foo;
 end
 
-plot(X(:, 1), X(:, 2), 'bo');
+plot(X(:, 1), X(:, 2), 'ro');
 plot(X_t(:, 1), X_t(:, 2), 'gp');
-plot(P(:, 1), P(:, 2), 'r^');
+plot(P(:, 1), P(:, 2), 'b^');
 
 for i = 1:X_count
     foo_theta = Find_degree(X(i,1), X(i,2));
@@ -143,7 +141,12 @@ for i = 1:P_count
     P_error(i, :) = [foo_theta var_error];
 end
 
-fprintf("X_");
+fprintf("arc domain geo_error - mean : %d , max : %d , min : %d\n" , mean(X_error(2:X_count, 2)), max(X_error(2:X_count, 2)), min(X_error(2:X_count,2 ))); 
+fprintf("time domain geo_error - mean : %d , max : %d , min : %d\n" , mean(X_t_error(2:X_t_count, 2)), max(X_t_error(2:X_t_count, 2)), min(X_t_error(2:X_t_count,2 ))); 
+fprintf("newtonian_error - mean : %d , max : %d , min : %d\n" , mean(P_error(2:P_count, 2)), max(P_error(2:P_count, 2)), min(P_error(2:P_count,2 ))); 
+xlswrite('arc domain geo_error', X_error);
+xlswrite('time domain geo_error', X_t_error);
+xlswrite('newtonian_error', P_error);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
