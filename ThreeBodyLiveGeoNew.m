@@ -122,36 +122,36 @@ end
 dt = 1/100;
 cycle = 10;
 clear("X")
-clear("Xt")
+% clear("Xt")
 % clear("P")
 
 X(1, :) = init;
-Xt(1, :) = init;
+% Xt(1, :) = init;
 % P(1, :) = init;
 
 
 while(1)
     for i = 1:cycle
         X(i+1, :) = RK4(X(i, :), @g, dt);
-        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        % Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
         % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
     hold off;
     hold on;
-    plot(X(:, 1),X(:, 2), 'r:');
-    plot(X(:, 5),X(:, 6), 'g:');
-    plot(X(:, 9),X(:, 10), 'b:');
+    plot(X(:, 1),X(:, 2), 'r-');
+    plot(X(:, 5),X(:, 6), 'g-');
+    plot(X(:, 9),X(:, 10), 'b-');
 
-    plot(Xt(:, 1),Xt(:, 2), 'y:');
-    plot(Xt(:, 5),Xt(:, 6), 'm:');
-    plot(Xt(:, 9),Xt(:, 10), 'c:');
+    % plot(Xt(:, 1),Xt(:, 2), 'y-');
+    % plot(Xt(:, 5),Xt(:, 6), 'm-');
+    % plot(Xt(:, 9),Xt(:, 10), 'c-');
 
     % plot(P(:, 1),P(:, 2), 'k:');
     % plot(P(:, 5),P(:, 6), 'k:');
     % plot(P(:, 9),P(:, 10), 'k:');
 
     X(1, :) = X(cycle+1, :);
-    Xt(1, :) = Xt(cycle+1, :);
+    % Xt(1, :) = Xt(cycle+1, :);
     % P(1, :) = P(cycle+1, :);
     pause(0.1);
 
