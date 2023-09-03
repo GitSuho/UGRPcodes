@@ -117,7 +117,7 @@ X_error(1, :) = [0, 0];
 X_t_error(1, :) = [0, 0];
 P_error(1, :) = [0, 0];
 
-for i = 1:90
+for i = 1:85
     %fit each dt values
     X_dt = Fit_dt(X_dt, step_size ,X(i,:), @geo);
     X_t_dt = Fit_dt(X_t_dt, step_size ,X_t(i,:), @geo_t);
@@ -145,25 +145,19 @@ file_name = 'test.txt' ;
 wfile = fopen(file_name, 'w');
 
 format1 = 'Error of %s | mean = %f, max = %f, min = %f\n';
-format2 = '%f | %f\n';
-format3 = '%s\ndegree     | error\n';
+format2 = '%f | %f || %f | %f || %f | %f \n';
+format3 = 'arc domain geodesic || time domain geodesic|| newtonian\ndegree   | error    || degree   | error    || degree   | error\n';
 
-fprintf(wfile, format1, 'arcl_geod', mean(X_error(2:X_count, 2)), max(X_error(2:X_count, 2)), min(X_error(2:X_count,2 )) );
-fprintf(wfile, format1, 'time_geod', mean(X_t_error(2:X_t_count, 2)), max(X_t_error(2:X_t_count, 2)), min(X_t_error(2:X_t_count,2 )) );
-fprintf(wfile, format1, 'newtonian', mean(P_error(2:P_count, 2)), max(P_error(2:P_count, 2)), min(P_error(2:P_count,2 )) );
+fprintf(wfile, format1, 'arcl_geod', mean(X_error(2:length(X_error), 2)), max(X_error(2:length(X_error), 2)), min(X_error(2:length(X_error),2 )) );
+fprintf(wfile, format1, 'time_geod', mean(X_t_error(2:length(X_t_error), 2)), max(X_t_error(2:length(X_t_error), 2)), min(X_t_error(2:length(X_t_error),2 )) );
+fprintf(wfile, format1, 'newtonian', mean(P_error(2:length(P_error), 2)), max(P_error(2:length(P_error), 2)), min(P_error(2:length(P_error),2 )) );
+fprintf(wfile, '\n');
 
-fprintf(wfile, format3, 'arc domain geo error');
+fprintf(wfile, format3);
 for i = 1:length(X_error)
-    fprintf(wfile, format2, X_error(i,:));
+    fprintf(wfile, format2, X_error(i,:) , X_t_error(i,:), P_error(i,:));
 end
-fprintf(wfile, format3, 'time domain geo_error');
-for i = 1:length(X_t_error)
-    fprintf(wfile, format2, X_t_error(i,:));
-end
-fprintf(wfile, format3, 'newtonian_error');
-for i = 1:length(P_error)
-    fprintf(wfile, format2, P_error(i,:));
-end
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
