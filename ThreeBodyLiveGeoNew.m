@@ -26,17 +26,17 @@ global m; global G;
 % v_1 = 0.4784306757;
 % v_2 = 0.3771895698;
 %II.C_{156}^{i.c.}
-v_1 = 0.3231926176;
-v_2 = 0.3279135713;
-
-x_init = [-1 0 ; 1 0; 0 0];
-v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-m = [1, 1, 1];
-
-
-% x_init = [2 1 ; 2 2; 3 2];
-% v_init = [-1 0 ; -sqrt(2) sqrt(2);1 0 ];
+% v_1 = 0.3231926176;
+% v_2 = 0.3279135713;
+% 
+% x_init = [-1 0 ; 1 0; 0 0];
+% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
 % m = [1, 1, 1];
+
+
+x_init = [-2/5 0; -3/5 0; 1 0];
+v_init = [0 -2/5 ; 0 -3/5 ;0 1 ];
+m = [1, 1, 1];
 
 
 G = 1;
@@ -121,37 +121,37 @@ end
 
 dt = 1/100;
 cycle = 10;
-clear("X")
-% clear("Xt")
+% clear("X")
+clear("Xt")
 % clear("P")
 
-X(1, :) = init;
-% Xt(1, :) = init;
+% X(1, :) = init;
+Xt(1, :) = init;
 % P(1, :) = init;
 
 
 while(1)
     for i = 1:cycle
-        X(i+1, :) = RK4(X(i, :), @g, dt);
-        % Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        % X(i+1, :) = RK4(X(i, :), @g, dt);
+        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
         % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
     hold off;
     hold on;
-    plot(X(:, 1),X(:, 2), 'r-');
-    plot(X(:, 5),X(:, 6), 'g-');
-    plot(X(:, 9),X(:, 10), 'b-');
+    % plot(X(:, 1),X(:, 2), 'r-');
+    % plot(X(:, 5),X(:, 6), 'g-');
+    % plot(X(:, 9),X(:, 10), 'b-');
 
-    % plot(Xt(:, 1),Xt(:, 2), 'y-');
-    % plot(Xt(:, 5),Xt(:, 6), 'm-');
-    % plot(Xt(:, 9),Xt(:, 10), 'c-');
+    plot(Xt(:, 1),Xt(:, 2), 'y-');
+    plot(Xt(:, 5),Xt(:, 6), 'm-');
+    plot(Xt(:, 9),Xt(:, 10), 'c-');
 
     % plot(P(:, 1),P(:, 2), 'k:');
     % plot(P(:, 5),P(:, 6), 'k:');
     % plot(P(:, 9),P(:, 10), 'k:');
 
-    X(1, :) = X(cycle+1, :);
-    % Xt(1, :) = Xt(cycle+1, :);
+    % X(1, :) = X(cycle+1, :);
+    Xt(1, :) = Xt(cycle+1, :);
     % P(1, :) = P(cycle+1, :);
     pause(0.1);
 

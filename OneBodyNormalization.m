@@ -158,6 +158,8 @@ for i = 1:length(X_error)
     fprintf(wfile, format2, X_error(i,:) , X_t_error(i,:), P_error(i,:));
 end
 
+fclose(wfile);
+fprintf('program end\n');
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,7 +221,7 @@ function degree = Find_degree(x, y)
 end
 
 function result_dt = Fit_dt(dt, fit_val, curr_pos, func)
-    accuracy = 0.0001;
+    accuracy = 0.00000001;
     next_pos = RK4(curr_pos,func, dt);
     disp  = sqrt((next_pos(1) - curr_pos(1)).^2 + (next_pos(2) - curr_pos(2)).^2);
     while( abs(disp - fit_val) > accuracy)
