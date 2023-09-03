@@ -1,4 +1,7 @@
 %%% 1-body condition %%%
+clear all
+close all
+clc
 
 %Initial consitions
 % %circle
@@ -61,7 +64,7 @@ fprintf("Eccentricity : %d\n", l_const.^2*A_coeff/k_const);
 
 hold on;
 
-%Analytic Solution
+%plot analytic Solution's trajectory
 count = 10000;
 orbit_coordinate(1, :) = [0 0];
 theta_arr = linspace(0, 2*pi, count);
@@ -73,11 +76,6 @@ plot(0, 0, 'blacko');
 
 
 dt = 1/100;
-cycle = 10;
-clear("X")
-clear("X_t")
-clear("P")
-
 step_size = 0.1;
 
 X_dt = dt;
@@ -88,34 +86,83 @@ X(1, :) = init;
 X_t(1, :) = init;
 P(1, :) = init;
 
+
 % % %plot numerical solutions
-while(1)
-    for i = 1:cycle
-        
-        X_dt = Fit_dt(X_dt, step_size ,X(i,:), @geo);
-        % X_t_dt = Fit_dt(X_t_dt, step_size ,X_t(i,:), @geo_t);
-        P_dt = Fit_dt(P_dt, step_size ,P(i,:), @lag);
+% cycle = 10;
+% for foo = 1:10
+%     for i = 1:cycle
+% 
+%         X_dt = Fit_dt(X_dt, step_size ,X(i,:), @geo);
+%         X_t_dt = Fit_dt(X_t_dt, step_size ,X_t(i,:), @geo_t);
+%         P_dt = Fit_dt(P_dt, step_size ,P(i,:), @lag);
+% 
+%         X(i+1, :) = RK4(X(i, :), @geo, X_dt);
+%         X_t(i+1, :) = RK4(X_t(i, :), @geo_t, X_t_dt);
+%         P(i+1, :) = RK4(P(i, :), @lag, P_dt);
+% 
+%     end
+% 
+%     plot(X(:, 1), X(:, 2), 'bo');
+%     plot(X_t(:, 1), X_t(:, 2), 'gp');
+%     plot(P(:, 1), P(:, 2), 'r^');
+% 
+%     X(1, :) = X(cycle+1, :);
+%     X_t(1, :) = X_t(cycle+1, :);
+%     P(1, :) = P(cycle+1, :);
+%     pause(0.1);
+% end
 
-        X(i+1, :) = RK4(X(i, :), @geo, X_dt);
-        % X_t(i+1, :) = RK4(X_t(i, :), @geo_t, X_t_dt);
-        P(i+1, :) = RK4(P(i, :), @lag, P_dt);
 
-        % X_dt = dt*X_dt/sqrt((X(i+1,1)-X(i,1)).^2 + (X(i+1,2)-X(i,2)).^2);
-        % X_t_dt = dt*X_t_dt/sqrt((X_t(i+1,1)-X_t(i,1)).^2 + (X_t(i+1,2)-X_t(i,2)).^2);
-        % P_dt = dt*P_dt/sqrt((P(i+1,1)-P(i,1)).^2 + (P(i+1,2)-P(i,2)).^2);
-    end
-    fprintf("X interval : %d , P interval : %d \n", sqrt((X(i+1,1)-X(i,1)).^2 + (X(i+1,2)-X(i,2)).^2), sqrt((P(i+1,1)-P(i,1)).^2 + (P(i+1,2)-P(i,2)).^2));
+X_error(1, :) = [0, 0];
+X_t_error(1, :) = [0, 0];
+P_error(1, :) = [0, 0];
 
-    plot(X(:, 1), X(:, 2), 'bo');
-    % plot(X_t(:, 1), X_t(:, 2), 'gp');
-    plot(P(:, 1), P(:, 2), 'r^');
-  
+for i = 1:90
+    %fit each dt values
+    X_dt = Fit_dt(X_dt, step_size ,X(i,:), @geo);
+    X_t_dt = Fit_dt(X_t_dt, step_size ,X_t(i,:), @geo_t);
+    P_dt = Fit_dt(P_dt, step_size ,P(i,:), @lag);
+    
+    %use Runge-Kutta method and predict next position
+    X(i+1, :) = RK4(X(i, :), @geo, X_dt);
+    X_t(i+1, :) = RK4(X_t(i, :), @geo_t, X_t_dt);
+    P(i+1, :) = RK4(P(i, :), @lag, P_dt);
+    
+    %Error estimation according to analytic solution
+    X_error(i+1, :) = Err_est(X(i+1,1), X(i+1,2));
+    X_t_error(i+1, :) = Err_est(X_t(i+1,1), X_t(i+1,2));
+    P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2));
+end
 
+%plot numerical solutions' trajectory
+plot(X(:, 1), X(:, 2), 'bo');
+plot(X_t(:, 1), X_t(:, 2), 'gp');
+plot(P(:, 1), P(:, 2), 'r^');
+pause(1);
 
-    X(1, :) = X(cycle+1, :);
-    % X_t(1, :) = X_t(cycle+1, :);
-    P(1, :) = P(cycle+1, :);
-    pause(0.1);
+%write file
+file_name = 'test.txt' ;
+wfile = fopen(file_name, 'w');
+
+format1 = 'Error of %s | mean = %f, max = %f, min = %f\n';
+format2 = '%f | %f\n';
+format3 = '%s\ndegree     | error\n';
+
+fprintf(wfile, format1, 'arcl_geod', mean(X_error(2:X_count, 2)), max(X_error(2:X_count, 2)), min(X_error(2:X_count,2 )) );
+fprintf(wfile, format1, 'time_geod', mean(X_t_error(2:X_t_count, 2)), max(X_t_error(2:X_t_count, 2)), min(X_t_error(2:X_t_count,2 )) );
+fprintf(wfile, format1, 'newtonian', mean(P_error(2:P_count, 2)), max(P_error(2:P_count, 2)), min(P_error(2:P_count,2 )) );
+
+fprintf(wfile, format3, 'arc domain geo error');
+for i = 1:length(X_error)
+    fprintf(wfile, format2, X_error(i,:));
+end
+fprintf(wfile, format3, 'time domain geo_error');
+for i = 1:length(X_t_error)
+    fprintf(wfile, format2, X_t_error(i,:));
+end
+fprintf(wfile, format3, 'newtonian_error');
+for i = 1:length(P_error)
+    fprintf(wfile, format2, P_error(i,:));
 end
 
 
@@ -189,5 +236,9 @@ function result_dt = Fit_dt(dt, fit_val, curr_pos, func)
     result_dt = dt;
 end
 
-
+function result_err = Err_est(x, y)
+    theta = Find_degree(x, y);
+    simple_err = abs(OrbEqu_r(theta) - norm(x, y));
+    result_err = [theta simple_err];
+end
 
