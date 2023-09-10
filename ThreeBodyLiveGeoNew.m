@@ -33,13 +33,17 @@ global m; global G;
 % v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
 % m = [1, 1, 1];
 
+%lagrange equliteral triangular solution
+x_init = 1/1.2* [0 2; sqrt(3) -1 ; -sqrt(3) -1];
+% v_init = [0 -sqrt(3); -3/2 sqrt(3)/2; 3/2 sqrt(3)/2];
+v_init = [-3/2 sqrt(3)/2 ; 3/2 sqrt(3)/2 ; 0 -sqrt(3)];
 
-x_init = [-2/5 0; -3/5 0; 1 0];
-v_init = [0 -2/5 ; 0 -3/5 ;0 1 ];
+plot(x_init, 'b^')
+
 m = [1, 1, 1];
 
 
-G = 1;
+G = 3;
 init = [x_init v_init]';
 init = init(:)';
 
@@ -119,7 +123,7 @@ for i = 1:3 %particles' index
 end
 
 
-dt = 1/100;
+dt = 1/20;
 cycle = 10;
 % clear("X")
 clear("Xt")
