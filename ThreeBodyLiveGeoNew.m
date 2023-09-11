@@ -1,4 +1,7 @@
 global m; global G;
+clear all
+close all
+clc
 
 %Lagrange's Equilatetal Triangular Solutions
 % x_init = [-0.0833 0.7217 ; -0.5833 -0.1443 ; 0.4167 -0.1443];
@@ -33,19 +36,36 @@ global m; global G;
 % v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
 % m = [1, 1, 1];
 
-%lagrange equliteral triangular solution
-x_init = 1/1.2* [0 2; sqrt(3) -1 ; -sqrt(3) -1];
-% v_init = [0 -sqrt(3); -3/2 sqrt(3)/2; 3/2 sqrt(3)/2];
-v_init = [-3/2 sqrt(3)/2 ; 3/2 sqrt(3)/2 ; 0 -sqrt(3)];
+% %lagrange equliteral triangular solution
+% m = [1, 2, 3];
+% s3_size = 1; s3_rad = 0;
+% x_init = 2*[0 2 ; -sqrt(3) -1 ; sqrt(3) -1];
+% v_init = 1/sum(m) * [(-m(2)-m(3)/2) (-sqrt(3)/2*m(3));(m(1)+m(3)/2) (-sqrt(3)/2*m(3)); (m(1)/2-m(2)/2) (sqrt(3)/2*m(1)+sqrt(3)/2*m(2))];
+% v_init = s3_size*v_init*[cos(s3_rad) sin(s3_rad) ; -sin(s3_rad) cos(s3_rad)];
 
-plot(x_init, 'b^')
+%Euler collinear solution
+m = [1 2 3];
+syms lamb_sym 
+ecs_equ = (m(2)+m(3)+lamb_sym*m(3))/(m(1)-m(3)*lamb_sym) - (m(2)+m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2);
+lamb_ecs = solve(ecs_equ, lamb_sym);
 
-m = [1, 1, 1];
+fprintf("%d\n", lamb_ecs);
+
+s_3 = [1 0];
+sv_3 = [-1/2 1];
+form_ecs = 1/sum(m)*[-m(2)-m(3)-lamb_ecs*m(3) ; m(1)-lamb_ecs*m(3) ; m(1)+lamb_ecs*m(1)+lamb_ecs*m(2)];
+x_init = form_ecs*s_3;
+v_init = form_ecs*sv_3;
 
 
-G = 3;
+G = 1;
 init = [x_init v_init]';
 init = init(:)';
+hold on;
+for i = 1:3
+    plot(x_init(i,1), x_init(i,2), 'ko');
+end
+hold off;
 
 E = 0;
 for i = 0:2
@@ -134,14 +154,14 @@ Xt(1, :) = init;
 % P(1, :) = init;
 
 
+hold on;
 while(1)
     for i = 1:cycle
         % X(i+1, :) = RK4(X(i, :), @g, dt);
         Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
         % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
-    hold off;
-    hold on;
+
     % plot(X(:, 1),X(:, 2), 'r-');
     % plot(X(:, 5),X(:, 6), 'g-');
     % plot(X(:, 9),X(:, 10), 'b-');
@@ -153,12 +173,20 @@ while(1)
     % plot(P(:, 1),P(:, 2), 'k:');
     % plot(P(:, 5),P(:, 6), 'k:');
     % plot(P(:, 9),P(:, 10), 'k:');
+    
+    % plot_curr_triangle(X(cycle+1,:));
+    plot_curr_triangle(Xt(cycle+1,:));
+    % plot_curr_triangle(P(cycle+1,:));
 
     % X(1, :) = X(cycle+1, :);
     Xt(1, :) = Xt(cycle+1, :);
     % P(1, :) = P(cycle+1, :);
     pause(0.1);
 
+end
+
+function null = plot_curr_triangle(pos)
+    plot([pos(1), pos(5), pos(9), pos(1)] , [pos(2),pos(6),pos(10),pos(2)] , 'b-');
 end
 
 function dxdt = g(x) 
