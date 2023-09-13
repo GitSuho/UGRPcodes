@@ -3,10 +3,6 @@ clear all
 close all
 clc
 
-%Lagrange's Equilatetal Triangular Solutions
-% x_init = [-0.0833 0.7217 ; -0.5833 -0.1443 ; 0.4167 -0.1443];
-% v_init = [-2.7678 0.7959 ; -0.6464 -0.4289 ; -0.6464 2.0206];
-
 % %Ana Hudomal 16p
 % %butterfly 1
 % % dx0 = 0.30689; dy0 = 1.2551;
@@ -45,12 +41,14 @@ clc
 
 %Euler collinear solution
 m = [1 2 3];
-syms lamb_sym 
-ecs_equ = (m(2)+m(3)+lamb_sym*m(3))/(m(1)-m(3)*lamb_sym) - (m(2)+m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2);
+assume(lamb_sym, 'real')
+ecs_equ = lamb_sym -2/3 == 0;
 lamb_ecs = solve(ecs_equ, lamb_sym);
-
 fprintf("%d\n", lamb_ecs);
-
+%(m(2)+m(3)*(1+lamb_sym))/(m(1)-m(3)*lamb_sym) - (m(2)-m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2) == 0;
+%(-m(1)*m(3)-m(2)*m(3))*lamb_sym^5+(-m(1)*m(3)-2*m(1)*m(3)-2*m(2)*m(3))*lamb_sym^4+(-3*m(1)*m(3)+2*m(3).^2-m(2)*m(3))*lamb_sym^3+(-2*m(1)*m(3)+m(2)*m(3)+3*m(3).^2)*lamb_sym^2+(2*m(2)*m(3)+3*m(3).^2)*lamb_sym+(m(2)*m(3)+m(3).^2) == 0;
+%(m(1)+m(2))*lamb_sym^5 + (3*m(1)+2*m(2))*lamb_sym^4+(3*m(1)+m(2))*lamb_sym^3-(m(2)+3*m(3))*lamb_sym^2-(2*m(2)+3*m(3))*lamb_sym-(m(2)+m(3)) == 0;
+%(m(2)+m(3)*(1+lamb_sym))/(m(1)-m(3)*lamb_sym) - (m(2)+m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2) == 0;
 s_3 = [1 0];
 sv_3 = [-1/2 1];
 form_ecs = 1/sum(m)*[-m(2)-m(3)-lamb_ecs*m(3) ; m(1)-lamb_ecs*m(3) ; m(1)+lamb_ecs*m(1)+lamb_ecs*m(2)];
