@@ -1,0 +1,1201 @@
+
+
+--------------------
+This is step 1
+
+Position of object 1: -0.979571, 0.004879, 0.000000
+Velocity of object 1: 0.424202, 0.097580, 0.000000
+
+Position of object 2: 1.018866, 0.004879, 0.000000
+Velocity of object 2: 0.361698, 0.097580, 0.000000
+
+Position of object 3: 0.039295, 0.009758, 0.000000
+Velocity of object 3: 0.785900, 0.195160, 0.000000
+
+--------------------
+This is step 2
+
+Position of object 1: -0.957602, 0.009761, 0.000000
+Velocity of object 1: 0.454546, 0.097695, 0.000000
+
+Position of object 2: 1.036143, 0.009761, 0.000000
+Velocity of object 2: 0.329383, 0.097710, 0.000000
+
+Position of object 3: 0.078639, 0.019510, 0.000000
+Velocity of object 3: 0.787871, 0.194915, 0.000000
+
+--------------------
+This is step 3
+
+Position of object 1: -0.934136, 0.014651, 0.000000
+Velocity of object 1: 0.484116, 0.097914, 0.000000
+
+Position of object 2: 1.051773, 0.014654, 0.000000
+Velocity of object 2: 0.295827, 0.097987, 0.000000
+
+Position of object 3: 0.118132, 0.029243, 0.000000
+Velocity of object 3: 0.791856, 0.194418, 0.000000
+
+--------------------
+This is step 4
+
+Position of object 1: -0.909207, 0.019555, 0.000000
+Velocity of object 1: 0.513029, 0.098227, 0.000000
+
+Position of object 2: 1.065690, 0.019564, 0.000000
+Velocity of object 2: 0.260817, 0.098435, 0.000000
+
+Position of object 3: 0.157878, 0.038945, 0.000000
+Velocity of object 3: 0.797955, 0.193657, 0.000000
+
+--------------------
+This is step 5
+
+Position of object 1: -0.882847, 0.024476, 0.000000
+Velocity of object 1: 0.541385, 0.098626, 0.000000
+
+Position of object 2: 1.077812, 0.024502, 0.000000
+Velocity of object 2: 0.224090, 0.099083, 0.000000
+
+Position of object 3: 0.197985, 0.048602, 0.000000
+Velocity of object 3: 0.806325, 0.192611, 0.000000
+
+--------------------
+This is step 6
+
+Position of object 1: -0.855080, 0.029419, 0.000000
+Velocity of object 1: 0.569275, 0.099104, 0.000000
+
+Position of object 2: 1.088048, 0.029478, 0.000000
+Velocity of object 2: 0.185324, 0.099966, 0.000000
+
+Position of object 3: 0.238573, 0.058198, 0.000000
+Velocity of object 3: 0.817201, 0.191250, 0.000000
+
+--------------------
+This is step 7
+
+Position of object 1: -0.825929, 0.034388, 0.000000
+Velocity of object 1: 0.596778, 0.099653, 0.000000
+
+Position of object 2: 1.096284, 0.034506, 0.000000
+Velocity of object 2: 0.144114, 0.101135, 0.000000
+
+Position of object 3: 0.279776, 0.067718, 0.000000
+Velocity of object 3: 0.830908, 0.189531, 0.000000
+
+--------------------
+This is step 8
+
+Position of object 1: -0.795411, 0.039386, 0.000000
+Velocity of object 1: 0.623966, 0.100269, 0.000000
+
+Position of object 2: 1.102385, 0.039601, 0.000000
+Velocity of object 2: 0.099939, 0.102657, 0.000000
+
+Position of object 3: 0.321746, 0.077141, 0.000000
+Velocity of object 3: 0.847894, 0.187394, 0.000000
+
+--------------------
+This is step 9
+
+Position of object 1: -0.763539, 0.044417, 0.000000
+Velocity of object 1: 0.650907, 0.100946, 0.000000
+
+Position of object 2: 1.106186, 0.044783, 0.000000
+Velocity of object 2: 0.052112, 0.104622, 0.000000
+
+Position of object 3: 0.364663, 0.086445, 0.000000
+Velocity of object 3: 0.868781, 0.184752, 0.000000
+
+--------------------
+This is step 10
+
+Position of object 1: -0.730325, 0.049482, 0.000000
+Velocity of object 1: 0.677660, 0.101678, 0.000000
+
+Position of object 2: 1.107482, 0.050077, 0.000000
+Velocity of object 2: -0.000294, 0.107163, 0.000000
+
+Position of object 3: 0.408743, 0.095600, 0.000000
+Velocity of object 3: 0.894434, 0.181479, 0.000000
+
+--------------------
+This is step 11
+
+Position of object 1: -0.695776, 0.054586, 0.000000
+Velocity of object 1: 0.704285, 0.102458, 0.000000
+
+Position of object 2: 1.106010, 0.055518, 0.000000
+Velocity of object 2: -0.058581, 0.110476, 0.000000
+
+Position of object 3: 0.454256, 0.104572, 0.000000
+Velocity of object 3: 0.926096, 0.177386, 0.000000
+
+--------------------
+This is step 12
+
+Position of object 1: -0.659898, 0.059729, 0.000000
+Velocity of object 1: 0.730837, 0.103282, 0.000000
+
+Position of object 2: 1.101429, 0.061152, 0.000000
+Velocity of object 2: -0.124643, 0.114864, 0.000000
+
+Position of object 3: 0.501549, 0.113311, 0.000000
+Velocity of object 3: 0.965607, 0.172174, 0.000000
+
+--------------------
+This is step 13
+
+Position of object 1: -0.622693, 0.064915, 0.000000
+Velocity of object 1: 0.757371, 0.104140, 0.000000
+
+Position of object 2: 1.093278, 0.067044, 0.000000
+Velocity of object 2: -0.201399, 0.120831, 0.000000
+
+Position of object 3: 0.551085, 0.121749, 0.000000
+Velocity of object 3: 1.015828, 0.165349, 0.000000
+
+--------------------
+This is step 14
+
+Position of object 1: -0.584160, 0.070144, 0.000000
+Velocity of object 1: 0.783945, 0.105027, 0.000000
+
+Position of object 2: 1.080902, 0.073297, 0.000000
+Velocity of object 2: -0.293655, 0.129272, 0.000000
+
+Position of object 3: 0.603518, 0.129783, 0.000000
+Velocity of object 3: 1.081510, 0.156021, 0.000000
+
+--------------------
+This is step 15
+
+Position of object 1: -0.544296, 0.075418, 0.000000
+Velocity of object 1: 0.810620, 0.105930, 0.000000
+
+Position of object 2: 1.063308, 0.080078, 0.000000
+Velocity of object 2: -0.410115, 0.141968, 0.000000
+
+Position of object 3: 0.659838, 0.137244, 0.000000
+Velocity of object 3: 1.171295, 0.142422, 0.000000
+
+--------------------
+This is step 16
+
+Position of object 1: -0.503093, 0.080737, 0.000000
+Velocity of object 1: 0.837470, 0.106840, 0.000000
+
+Position of object 2: 1.038833, 0.087704, 0.000000
+Velocity of object 2: -0.568863, 0.163062, 0.000000
+
+Position of object 3: 0.721700, 0.143815, 0.000000
+Velocity of object 3: 1.303193, 0.120418, 0.000000
+
+--------------------
+This is step 17
+
+Position of object 1: -0.460542, 0.086102, 0.000000
+Velocity of object 1: 0.864585, 0.107743, 0.000000
+
+Position of object 2: 1.004193, 0.096905, 0.000000
+Velocity of object 2: -0.816738, 0.205012, 0.000000
+
+Position of object 3: 0.792379, 0.148765, 0.000000
+Velocity of object 3: 1.523952, 0.077566, 0.000000
+
+--------------------
+This is step 18
+
+Position of object 1: -0.416625, 0.091511, 0.000000
+Velocity of object 1: 0.892105, 0.108622, 0.000000
+
+Position of object 2: 0.950298, 0.110280, 0.000000
+Velocity of object 2: -1.339055, 0.329955, 0.000000
+
+Position of object 3: 0.880947, 0.149498, 0.000000
+Velocity of object 3: 2.018750, -0.048257, 0.000000
+
+--------------------
+This is step 19
+
+Position of object 1: -0.371315, 0.096963, 0.000000
+Velocity of object 1: 0.920287, 0.109467, 0.000000
+
+Position of object 2: 0.797299, 0.175242, 0.000000
+Velocity of object 2: -4.780897, 2.268560, 0.000000
+
+Position of object 3: 1.067226, 0.098599, 0.000000
+Velocity of object 3: 5.432410, -1.987707, 0.000000
+
+--------------------
+This is step 20
+
+Position of object 1: -0.324544, 0.102467, 0.000000
+Velocity of object 1: 0.950553, 0.110699, 0.000000
+
+Position of object 2: 0.565437, 0.286472, 0.000000
+Velocity of object 2: -4.493612, 2.180606, 0.000000
+
+Position of object 3: 1.330907, 0.001381, 0.000000
+Velocity of object 3: 5.114858, -1.900985, 0.000000
+
+--------------------
+This is step 21
+
+Position of object 1: -0.276048, 0.108141, 0.000000
+Velocity of object 1: 0.989270, 0.116274, 0.000000
+
+Position of object 2: 0.340893, 0.395022, 0.000000
+Velocity of object 2: -4.488141, 2.161398, 0.000000
+
+Position of object 3: 1.585546, -0.093327, 0.000000
+Velocity of object 3: 5.070671, -1.887353, 0.000000
+
+--------------------
+This is step 22
+
+Position of object 1: -0.225183, 0.114505, 0.000000
+Velocity of object 1: 1.045333, 0.138280, 0.000000
+
+Position of object 2: 0.115587, 0.502395, 0.000000
+Velocity of object 2: -4.524095, 2.133517, 0.000000
+
+Position of object 3: 1.838576, -0.187548, 0.000000
+Velocity of object 3: 5.050562, -1.881477, 0.000000
+
+--------------------
+This is step 23
+
+Position of object 1: -0.171227, 0.123160, 0.000000
+Velocity of object 1: 1.112918, 0.207906, 0.000000
+
+Position of object 2: -0.111997, 0.607242, 0.000000
+Velocity of object 2: -4.579256, 2.060361, 0.000000
+
+Position of object 3: 2.090794, -0.281533, 0.000000
+Velocity of object 3: 5.038138, -1.877947, 0.000000
+
+--------------------
+This is step 24
+
+Position of object 1: -0.115146, 0.136143, 0.000000
+Velocity of object 1: 1.130346, 0.311412, 0.000000
+
+Position of object 2: -0.341176, 0.707610, 0.000000
+Velocity of object 2: -4.587913, 1.954363, 0.000000
+
+Position of object 3: 2.342481, -0.375369, 0.000000
+Velocity of object 3: 5.029368, -1.875455, 0.000000
+
+--------------------
+This is step 25
+
+Position of object 1: -0.059140, 0.153232, 0.000000
+Velocity of object 1: 1.109881, 0.372164, 0.000000
+
+Position of object 2: -0.569894, 0.803761, 0.000000
+Velocity of object 2: -4.560796, 1.891685, 0.000000
+
+Position of object 3: 2.593784, -0.469093, 0.000000
+Velocity of object 3: 5.022715, -1.873529, 0.000000
+
+--------------------
+This is step 26
+
+Position of object 1: -0.004128, 0.172540, 0.000000
+Velocity of object 1: 1.090589, 0.400143, 0.000000
+
+Position of object 2: -0.797319, 0.897606, 0.000000
+Velocity of object 2: -4.536231, 1.862135, 0.000000
+
+Position of object 3: 2.844787, -0.562730, 0.000000
+Velocity of object 3: 5.017442, -1.871958, 0.000000
+
+--------------------
+This is step 27
+
+Position of object 1: 0.050072, 0.192894, 0.000000
+Velocity of object 1: 1.077406, 0.414027, 0.000000
+
+Position of object 2: -1.023694, 0.990333, 0.000000
+Velocity of object 2: -4.518745, 1.846925, 0.000000
+
+Position of object 3: 3.095552, -0.656295, 0.000000
+Velocity of object 3: 5.013139, -1.870632, 0.000000
+
+--------------------
+This is step 28
+
+Position of object 1: 0.103722, 0.213787, 0.000000
+Velocity of object 1: 1.068595, 0.421688, 0.000000
+
+Position of object 2: -1.249321, 1.082459, 0.000000
+Velocity of object 2: -4.506345, 1.838120, 0.000000
+
+Position of object 3: 3.346119, -0.749798, 0.000000
+Velocity of object 3: 5.009550, -1.869489, 0.000000
+
+--------------------
+This is step 29
+
+Position of object 1: 0.157000, 0.234987, 0.000000
+Velocity of object 1: 1.062552, 0.426291, 0.000000
+
+Position of object 2: -1.474411, 1.174225, 0.000000
+Velocity of object 2: -4.497258, 1.832517, 0.000000
+
+Position of object 3: 3.596521, -0.843247, 0.000000
+Velocity of object 3: 5.006506, -1.868488, 0.000000
+
+--------------------
+This is step 30
+
+Position of object 1: 0.210021, 0.256375, 0.000000
+Velocity of object 1: 1.058273, 0.429235, 0.000000
+
+Position of object 2: -1.699102, 1.265755, 0.000000
+Velocity of object 2: -4.490364, 1.828687, 0.000000
+
+Position of object 3: 3.846781, -0.936650, 0.000000
+Velocity of object 3: 5.003890, -1.867602, 0.000000
+
+--------------------
+This is step 31
+
+Position of object 1: 0.262857, 0.277886, 0.000000
+Velocity of object 1: 1.055156, 0.431209, 0.000000
+
+Position of object 2: -1.923485, 1.357120, 0.000000
+Velocity of object 2: -4.484972, 1.825922, 0.000000
+
+Position of object 3: 4.096918, -1.030010, 0.000000
+Velocity of object 3: 5.001616, -1.866811, 0.000000
+
+--------------------
+This is step 32
+
+Position of object 1: 0.315556, 0.299481, 0.000000
+Velocity of object 1: 1.052826, 0.432579, 0.000000
+
+Position of object 2: -2.147625, 1.448364, 0.000000
+Velocity of object 2: -4.480647, 1.823841, 0.000000
+
+Position of object 3: 4.346949, -1.123333, 0.000000
+Velocity of object 3: 4.999620, -1.866099, 0.000000
+
+--------------------
+This is step 33
+
+Position of object 1: 0.368153, 0.321134, 0.000000
+Velocity of object 1: 1.051049, 0.433554, 0.000000
+
+Position of object 2: -2.371569, 1.539516, 0.000000
+Velocity of object 2: -4.477103, 1.822221, 0.000000
+
+Position of object 3: 4.596886, -1.216622, 0.000000
+Velocity of object 3: 4.997854, -1.865455, 0.000000
+
+--------------------
+This is step 34
+
+Position of object 1: 0.420671, 0.342829, 0.000000
+Velocity of object 1: 1.049669, 0.434262, 0.000000
+
+Position of object 2: -2.595350, 1.630595, 0.000000
+Velocity of object 2: -4.474148, 1.820927, 0.000000
+
+Position of object 3: 4.846739, -1.309880, 0.000000
+Velocity of object 3: 4.996279, -1.864869, 0.000000
+
+--------------------
+This is step 35
+
+Position of object 1: 0.473127, 0.364555, 0.000000
+Velocity of object 1: 1.048580, 0.434783, 0.000000
+
+Position of object 2: -2.818995, 1.721614, 0.000000
+Velocity of object 2: -4.471647, 1.819871, 0.000000
+
+Position of object 3: 5.096518, -1.403110, 0.000000
+Velocity of object 3: 4.994867, -1.864334, 0.000000
+
+--------------------
+This is step 36
+
+Position of object 1: 0.525535, 0.386304, 0.000000
+Velocity of object 1: 1.047710, 0.435170, 0.000000
+
+Position of object 2: -3.042524, 1.812586, 0.000000
+Velocity of object 2: -4.469503, 1.818993, 0.000000
+
+Position of object 3: 5.346229, -1.496314, 0.000000
+Velocity of object 3: 4.993592, -1.863843, 0.000000
+
+--------------------
+This is step 37
+
+Position of object 1: 0.577903, 0.408070, 0.000000
+Velocity of object 1: 1.047007, 0.435459, 0.000000
+
+Position of object 2: -3.265953, 1.903517, 0.000000
+Velocity of object 2: -4.467644, 1.818252, 0.000000
+
+Position of object 3: 5.595880, -1.589495, 0.000000
+Velocity of object 3: 4.992437, -1.863391, 0.000000
+
+--------------------
+This is step 38
+
+Position of object 1: 0.630239, 0.429848, 0.000000
+Velocity of object 1: 1.046434, 0.435675, 0.000000
+
+Position of object 2: -3.489294, 1.994414, 0.000000
+Velocity of object 2: -4.466018, 1.817618, 0.000000
+
+Position of object 3: 5.845476, -1.682654, 0.000000
+Velocity of object 3: 4.991384, -1.862973, 0.000000
+
+--------------------
+This is step 39
+
+Position of object 1: 0.682549, 0.451636, 0.000000
+Velocity of object 1: 1.045962, 0.435836, 0.000000
+
+Position of object 2: -3.712559, 2.085281, 0.000000
+Velocity of object 2: -4.464584, 1.817070, 0.000000
+
+Position of object 3: 6.095021, -1.775793, 0.000000
+Velocity of object 3: 4.990421, -1.862585, 0.000000
+
+--------------------
+This is step 40
+
+Position of object 1: 0.734837, 0.473431, 0.000000
+Velocity of object 1: 1.045571, 0.435954, 0.000000
+
+Position of object 2: -3.935757, 2.176123, 0.000000
+Velocity of object 2: -4.463308, 1.816591, 0.000000
+
+Position of object 3: 6.344520, -1.868913, 0.000000
+Velocity of object 3: 4.989537, -1.862225, 0.000000
+
+--------------------
+This is step 41
+
+Position of object 1: 0.787107, 0.495231, 0.000000
+Velocity of object 1: 1.045245, 0.436040, 0.000000
+
+Position of object 2: -4.158894, 2.266942, 0.000000
+Velocity of object 2: -4.462167, 1.816169, 0.000000
+
+Position of object 3: 6.593976, -1.962016, 0.000000
+Velocity of object 3: 4.988722, -1.861889, 0.000000
+
+--------------------
+This is step 42
+
+Position of object 1: 0.839363, 0.517034, 0.000000
+Velocity of object 1: 1.044972, 0.436100, 0.000000
+
+Position of object 2: -4.381976, 2.357741, 0.000000
+Velocity of object 2: -4.461140, 1.815795, 0.000000
+
+Position of object 3: 6.843393, -2.055103, 0.000000
+Velocity of object 3: 4.987969, -1.861576, 0.000000
+
+--------------------
+This is step 43
+
+Position of object 1: 0.891606, 0.538840, 0.000000
+Velocity of object 1: 1.044741, 0.436141, 0.000000
+
+Position of object 2: -4.605010, 2.448522, 0.000000
+Velocity of object 2: -4.460211, 1.815461, 0.000000
+
+Position of object 3: 7.092774, -2.148174, 0.000000
+Velocity of object 3: 4.987270, -1.861282, 0.000000
+
+--------------------
+This is step 44
+
+Position of object 1: 0.943838, 0.560648, 0.000000
+Velocity of object 1: 1.044546, 0.436165, 0.000000
+
+Position of object 2: -4.827999, 2.539288, 0.000000
+Velocity of object 2: -4.459366, 1.815161, 0.000000
+
+Position of object 3: 7.342122, -2.241232, 0.000000
+Velocity of object 3: 4.986620, -1.861006, 0.000000
+
+--------------------
+This is step 45
+
+Position of object 1: 0.996061, 0.582456, 0.000000
+Velocity of object 1: 1.044380, 0.436178, 0.000000
+
+Position of object 2: -5.050948, 2.630039, 0.000000
+Velocity of object 2: -4.458595, 1.814890, 0.000000
+
+Position of object 3: 7.591438, -2.334275, 0.000000
+Velocity of object 3: 4.986015, -1.860747, 0.000000
+
+--------------------
+This is step 46
+
+Position of object 1: 1.048276, 0.604265, 0.000000
+Velocity of object 1: 1.044239, 0.436180, 0.000000
+
+Position of object 2: -5.273861, 2.720777, 0.000000
+Velocity of object 2: -4.457888, 1.814644, 0.000000
+
+Position of object 3: 7.840724, -2.427307, 0.000000
+Velocity of object 3: 4.985449, -1.860503, 0.000000
+
+--------------------
+This is step 47
+
+Position of object 1: 1.100485, 0.626074, 0.000000
+Velocity of object 1: 1.044118, 0.436174, 0.000000
+
+Position of object 2: -5.496739, 2.811504, 0.000000
+Velocity of object 2: -4.457237, 1.814419, 0.000000
+
+Position of object 3: 8.089983, -2.520326, 0.000000
+Velocity of object 3: 4.984919, -1.860273, 0.000000
+
+--------------------
+This is step 48
+
+Position of object 1: 1.152689, 0.647883, 0.000000
+Velocity of object 1: 1.044014, 0.436162, 0.000000
+
+Position of object 2: -5.719585, 2.902220, 0.000000
+Velocity of object 2: -4.456636, 1.814213, 0.000000
+
+Position of object 3: 8.339217, -2.613334, 0.000000
+Velocity of object 3: 4.984422, -1.860056, 0.000000
+
+--------------------
+This is step 49
+
+Position of object 1: 1.204887, 0.669690, 0.000000
+Velocity of object 1: 1.043926, 0.436145, 0.000000
+
+Position of object 2: -5.942403, 2.992926, 0.000000
+Velocity of object 2: -4.456080, 1.814024, 0.000000
+
+Position of object 3: 8.588426, -2.706332, 0.000000
+Velocity of object 3: 4.983954, -1.859850, 0.000000
+
+--------------------
+This is step 50
+
+Position of object 1: 1.257081, 0.691497, 0.000000
+Velocity of object 1: 1.043850, 0.436125, 0.000000
+
+Position of object 2: -6.165194, 3.083622, 0.000000
+Velocity of object 2: -4.455564, 1.813850, 0.000000
+
+Position of object 3: 8.837613, -2.799320, 0.000000
+Velocity of object 3: 4.983514, -1.859655, 0.000000
+
+--------------------
+This is step 51
+
+Position of object 1: 1.309272, 0.713303, 0.000000
+Velocity of object 1: 1.043785, 0.436101, 0.000000
+
+Position of object 2: -6.387961, 3.174311, 0.000000
+Velocity of object 2: -4.455083, 1.813689, 0.000000
+
+Position of object 3: 9.086778, -2.892298, 0.000000
+Velocity of object 3: 4.983098, -1.859469, 0.000000
+
+--------------------
+This is step 52
+
+Position of object 1: 1.361460, 0.735107, 0.000000
+Velocity of object 1: 1.043729, 0.436074, 0.000000
+
+Position of object 2: -6.610704, 3.264992, 0.000000
+Velocity of object 2: -4.454634, 1.813539, 0.000000
+
+Position of object 3: 9.335923, -2.985267, 0.000000
+Velocity of object 3: 4.982705, -1.859293, 0.000000
+
+--------------------
+This is step 53
+
+Position of object 1: 1.413645, 0.756910, 0.000000
+Velocity of object 1: 1.043681, 0.436046, 0.000000
+
+Position of object 2: -6.833425, 3.355665, 0.000000
+Velocity of object 2: -4.454214, 1.813400, 0.000000
+
+Position of object 3: 9.585049, -3.078227, 0.000000
+Velocity of object 3: 4.982333, -1.859126, 0.000000
+
+--------------------
+This is step 54
+
+Position of object 1: 1.465828, 0.778712, 0.000000
+Velocity of object 1: 1.043639, 0.436016, 0.000000
+
+Position of object 2: -7.056126, 3.446332, 0.000000
+Velocity of object 2: -4.453820, 1.813270, 0.000000
+
+Position of object 3: 9.834157, -3.171179, 0.000000
+Velocity of object 3: 4.981981, -1.858966, 0.000000
+
+--------------------
+This is step 55
+
+Position of object 1: 1.518009, 0.800512, 0.000000
+Velocity of object 1: 1.043604, 0.435985, 0.000000
+
+Position of object 2: -7.278807, 3.536992, 0.000000
+Velocity of object 2: -4.453450, 1.813149, 0.000000
+
+Position of object 3: 10.083248, -3.264124, 0.000000
+Velocity of object 3: 4.981646, -1.858813, 0.000000
+
+--------------------
+This is step 56
+
+Position of object 1: 1.570189, 0.822310, 0.000000
+Velocity of object 1: 1.043574, 0.435953, 0.000000
+
+Position of object 2: -7.501471, 3.627647, 0.000000
+Velocity of object 2: -4.453102, 1.813035, 0.000000
+
+Position of object 3: 10.332322, -3.357061, 0.000000
+Velocity of object 3: 4.981328, -1.858668, 0.000000
+
+--------------------
+This is step 57
+
+Position of object 1: 1.622367, 0.844107, 0.000000
+Velocity of object 1: 1.043549, 0.435921, 0.000000
+
+Position of object 2: -7.724118, 3.718296, 0.000000
+Velocity of object 2: -4.452773, 1.812928, 0.000000
+
+Position of object 3: 10.581381, -3.449991, 0.000000
+Velocity of object 3: 4.981025, -1.858529, 0.000000
+
+--------------------
+This is step 58
+
+Position of object 1: 1.674544, 0.865902, 0.000000
+Velocity of object 1: 1.043527, 0.435888, 0.000000
+
+Position of object 2: -7.946749, 3.808940, 0.000000
+Velocity of object 2: -4.452463, 1.812828, 0.000000
+
+Position of object 3: 10.830425, -3.542914, 0.000000
+Velocity of object 3: 4.980736, -1.858396, 0.000000
+
+--------------------
+This is step 59
+
+Position of object 1: 1.726720, 0.887696, 0.000000
+Velocity of object 1: 1.043509, 0.435855, 0.000000
+
+Position of object 2: -8.169365, 3.899579, 0.000000
+Velocity of object 2: -4.452170, 1.812733, 0.000000
+
+Position of object 3: 11.079455, -3.635831, 0.000000
+Velocity of object 3: 4.980461, -1.858268, 0.000000
+
+--------------------
+This is step 60
+
+Position of object 1: 1.778895, 0.909488, 0.000000
+Velocity of object 1: 1.043494, 0.435823, 0.000000
+
+Position of object 2: -8.391966, 3.990213, 0.000000
+Velocity of object 2: -4.451892, 1.812644, 0.000000
+
+Position of object 3: 11.328471, -3.728741, 0.000000
+Velocity of object 3: 4.980198, -1.858146, 0.000000
+
+--------------------
+This is step 61
+
+Position of object 1: 1.831069, 0.931278, 0.000000
+Velocity of object 1: 1.043482, 0.435790, 0.000000
+
+Position of object 2: -8.614554, 4.080843, 0.000000
+Velocity of object 2: -4.451628, 1.812559, 0.000000
+
+Position of object 3: 11.577475, -3.821645, 0.000000
+Velocity of object 3: 4.979946, -1.858029, 0.000000
+
+--------------------
+This is step 62
+
+Position of object 1: 1.883243, 0.953067, 0.000000
+Velocity of object 1: 1.043472, 0.435757, 0.000000
+
+Position of object 2: -8.837129, 4.171469, 0.000000
+Velocity of object 2: -4.451377, 1.812479, 0.000000
+
+Position of object 3: 11.826466, -3.914544, 0.000000
+Velocity of object 3: 4.979705, -1.857916, 0.000000
+
+--------------------
+This is step 63
+
+Position of object 1: 1.935417, 0.974854, 0.000000
+Velocity of object 1: 1.043464, 0.435725, 0.000000
+
+Position of object 2: -9.059692, 4.262091, 0.000000
+Velocity of object 2: -4.451139, 1.812403, 0.000000
+
+Position of object 3: 12.075446, -4.007437, 0.000000
+Velocity of object 3: 4.979475, -1.857808, 0.000000
+
+--------------------
+This is step 64
+
+Position of object 1: 1.987590, 0.996639, 0.000000
+Velocity of object 1: 1.043458, 0.435693, 0.000000
+
+Position of object 2: -9.282244, 4.352710, 0.000000
+Velocity of object 2: -4.450912, 1.812331, 0.000000
+
+Position of object 3: 12.324414, -4.100325, 0.000000
+Velocity of object 3: 4.979254, -1.857704, 0.000000
+
+--------------------
+This is step 65
+
+Position of object 1: 2.039762, 1.018423, 0.000000
+Velocity of object 1: 1.043453, 0.435661, 0.000000
+
+Position of object 2: -9.504784, 4.443325, 0.000000
+Velocity of object 2: -4.450695, 1.812263, 0.000000
+
+Position of object 3: 12.573371, -4.193208, 0.000000
+Velocity of object 3: 4.979042, -1.857604, 0.000000
+
+--------------------
+This is step 66
+
+Position of object 1: 2.091935, 1.040205, 0.000000
+Velocity of object 1: 1.043450, 0.435630, 0.000000
+
+Position of object 2: -9.727313, 4.533936, 0.000000
+Velocity of object 2: -4.450489, 1.812197, 0.000000
+
+Position of object 3: 12.822318, -4.286085, 0.000000
+Velocity of object 3: 4.978838, -1.857508, 0.000000
+
+--------------------
+This is step 67
+
+Position of object 1: 2.144107, 1.061986, 0.000000
+Velocity of object 1: 1.043449, 0.435599, 0.000000
+
+Position of object 2: -9.949833, 4.624545, 0.000000
+Velocity of object 2: -4.450291, 1.812135, 0.000000
+
+Position of object 3: 13.071255, -4.378958, 0.000000
+Velocity of object 3: 4.978642, -1.857415, 0.000000
+
+--------------------
+This is step 68
+
+Position of object 1: 2.196280, 1.083765, 0.000000
+Velocity of object 1: 1.043448, 0.435569, 0.000000
+
+Position of object 2: -10.172343, 4.715150, 0.000000
+Velocity of object 2: -4.450102, 1.812076, 0.000000
+
+Position of object 3: 13.320183, -4.471827, 0.000000
+Velocity of object 3: 4.978454, -1.857325, 0.000000
+
+--------------------
+This is step 69
+
+Position of object 1: 2.248452, 1.105543, 0.000000
+Velocity of object 1: 1.043448, 0.435539, 0.000000
+
+Position of object 2: -10.394843, 4.805752, 0.000000
+Velocity of object 2: -4.449921, 1.812019, 0.000000
+
+Position of object 3: 13.569101, -4.564691, 0.000000
+Velocity of object 3: 4.978273, -1.857238, 0.000000
+
+--------------------
+This is step 70
+
+Position of object 1: 2.300625, 1.127319, 0.000000
+Velocity of object 1: 1.043449, 0.435510, 0.000000
+
+Position of object 2: -10.617335, 4.896352, 0.000000
+Velocity of object 2: -4.449748, 1.811965, 0.000000
+
+Position of object 3: 13.818010, -4.657551, 0.000000
+Velocity of object 3: 4.978098, -1.857155, 0.000000
+
+--------------------
+This is step 71
+
+Position of object 1: 2.352797, 1.149094, 0.000000
+Velocity of object 1: 1.043451, 0.435481, 0.000000
+
+Position of object 2: -10.839818, 4.986949, 0.000000
+Velocity of object 2: -4.449581, 1.811913, 0.000000
+
+Position of object 3: 14.066911, -4.750407, 0.000000
+Velocity of object 3: 4.977930, -1.857074, 0.000000
+
+--------------------
+This is step 72
+
+Position of object 1: 2.404970, 1.170867, 0.000000
+Velocity of object 1: 1.043454, 0.435452, 0.000000
+
+Position of object 2: -11.062293, 5.077543, 0.000000
+Velocity of object 2: -4.449422, 1.811863, 0.000000
+
+Position of object 3: 14.315803, -4.843258, 0.000000
+Velocity of object 3: 4.977768, -1.856996, 0.000000
+
+--------------------
+This is step 73
+
+Position of object 1: 2.457143, 1.192639, 0.000000
+Velocity of object 1: 1.043457, 0.435424, 0.000000
+
+Position of object 2: -11.284760, 5.168135, 0.000000
+Velocity of object 2: -4.449268, 1.811816, 0.000000
+
+Position of object 3: 14.564688, -4.936106, 0.000000
+Velocity of object 3: 4.977611, -1.856920, 0.000000
+
+--------------------
+This is step 74
+
+Position of object 1: 2.509316, 1.214410, 0.000000
+Velocity of object 1: 1.043461, 0.435397, 0.000000
+
+Position of object 2: -11.507220, 5.258725, 0.000000
+Velocity of object 2: -4.449120, 1.811770, 0.000000
+
+Position of object 3: 14.813565, -5.028950, 0.000000
+Velocity of object 3: 4.977460, -1.856847, 0.000000
+
+--------------------
+This is step 75
+
+Position of object 1: 2.561489, 1.236179, 0.000000
+Velocity of object 1: 1.043465, 0.435370, 0.000000
+
+Position of object 2: -11.729673, 5.349312, 0.000000
+Velocity of object 2: -4.448978, 1.811726, 0.000000
+
+Position of object 3: 15.062434, -5.121791, 0.000000
+Velocity of object 3: 4.977313, -1.856776, 0.000000
+
+--------------------
+This is step 76
+
+Position of object 1: 2.613662, 1.257947, 0.000000
+Velocity of object 1: 1.043470, 0.435344, 0.000000
+
+Position of object 2: -11.952118, 5.439897, 0.000000
+Velocity of object 2: -4.448842, 1.811684, 0.000000
+
+Position of object 3: 15.311296, -5.214628, 0.000000
+Velocity of object 3: 4.977172, -1.856708, 0.000000
+
+--------------------
+This is step 77
+
+Position of object 1: 2.665836, 1.279713, 0.000000
+Velocity of object 1: 1.043475, 0.435318, 0.000000
+
+Position of object 2: -12.174557, 5.530481, 0.000000
+Velocity of object 2: -4.448710, 1.811643, 0.000000
+
+Position of object 3: 15.560151, -5.307462, 0.000000
+Velocity of object 3: 4.977035, -1.856641, 0.000000
+
+--------------------
+This is step 78
+
+Position of object 1: 2.718010, 1.301478, 0.000000
+Velocity of object 1: 1.043480, 0.435293, 0.000000
+
+Position of object 2: -12.396989, 5.621062, 0.000000
+Velocity of object 2: -4.448583, 1.811604, 0.000000
+
+Position of object 3: 15.809000, -5.400292, 0.000000
+Velocity of object 3: 4.976903, -1.856577, 0.000000
+
+--------------------
+This is step 79
+
+Position of object 1: 2.770184, 1.323242, 0.000000
+Velocity of object 1: 1.043486, 0.435268, 0.000000
+
+Position of object 2: -12.619415, 5.711641, 0.000000
+Velocity of object 2: -4.448460, 1.811566, 0.000000
+
+Position of object 3: 16.057842, -5.493119, 0.000000
+Velocity of object 3: 4.976774, -1.856514, 0.000000
+
+--------------------
+This is step 80
+
+Position of object 1: 2.822358, 1.345005, 0.000000
+Velocity of object 1: 1.043492, 0.435243, 0.000000
+
+Position of object 2: -12.841835, 5.802218, 0.000000
+Velocity of object 2: -4.448342, 1.811530, 0.000000
+
+Position of object 3: 16.306677, -5.585944, 0.000000
+Velocity of object 3: 4.976650, -1.856453, 0.000000
+
+--------------------
+This is step 81
+
+Position of object 1: 2.874533, 1.366767, 0.000000
+Velocity of object 1: 1.043498, 0.435220, 0.000000
+
+Position of object 2: -13.064250, 5.892794, 0.000000
+Velocity of object 2: -4.448227, 1.811495, 0.000000
+
+Position of object 3: 16.555507, -5.678765, 0.000000
+Velocity of object 3: 4.976529, -1.856394, 0.000000
+
+--------------------
+This is step 82
+
+Position of object 1: 2.926708, 1.388527, 0.000000
+Velocity of object 1: 1.043504, 0.435196, 0.000000
+
+Position of object 2: -13.286658, 5.983368, 0.000000
+Velocity of object 2: -4.448117, 1.811461, 0.000000
+
+Position of object 3: 16.804330, -5.771583, 0.000000
+Velocity of object 3: 4.976412, -1.856337, 0.000000
+
+--------------------
+This is step 83
+
+Position of object 1: 2.978883, 1.410286, 0.000000
+Velocity of object 1: 1.043510, 0.435173, 0.000000
+
+Position of object 2: -13.509061, 6.073940, 0.000000
+Velocity of object 2: -4.448010, 1.811428, 0.000000
+
+Position of object 3: 17.053148, -5.864399, 0.000000
+Velocity of object 3: 4.976299, -1.856281, 0.000000
+
+--------------------
+This is step 84
+
+Position of object 1: 3.031059, 1.432045, 0.000000
+Velocity of object 1: 1.043517, 0.435150, 0.000000
+
+Position of object 2: -13.731459, 6.164511, 0.000000
+Velocity of object 2: -4.447906, 1.811397, 0.000000
+
+Position of object 3: 17.301960, -5.957211, 0.000000
+Velocity of object 3: 4.976189, -1.856227, 0.000000
+
+--------------------
+This is step 85
+
+Position of object 1: 3.083235, 1.453802, 0.000000
+Velocity of object 1: 1.043524, 0.435128, 0.000000
+
+Position of object 2: -13.953852, 6.255080, 0.000000
+Velocity of object 2: -4.447806, 1.811366, 0.000000
+
+Position of object 3: 17.550767, -6.050021, 0.000000
+Velocity of object 3: 4.976082, -1.856174, 0.000000
+
+--------------------
+This is step 86
+
+Position of object 1: 3.135411, 1.475557, 0.000000
+Velocity of object 1: 1.043530, 0.435107, 0.000000
+
+Position of object 2: -14.176240, 6.345647, 0.000000
+Velocity of object 2: -4.447708, 1.811336, 0.000000
+
+Position of object 3: 17.799568, -6.142829, 0.000000
+Velocity of object 3: 4.975978, -1.856123, 0.000000
+
+--------------------
+This is step 87
+
+Position of object 1: 3.187588, 1.497312, 0.000000
+Velocity of object 1: 1.043537, 0.435085, 0.000000
+
+Position of object 2: -14.398623, 6.436213, 0.000000
+Velocity of object 2: -4.447614, 1.811308, 0.000000
+
+Position of object 3: 18.048365, -6.235634, 0.000000
+Velocity of object 3: 4.975877, -1.856073, 0.000000
+
+--------------------
+This is step 88
+
+Position of object 1: 3.239765, 1.519066, 0.000000
+Velocity of object 1: 1.043544, 0.435065, 0.000000
+
+Position of object 2: -14.621001, 6.526778, 0.000000
+Velocity of object 2: -4.447523, 1.811280, 0.000000
+
+Position of object 3: 18.297156, -6.328436, 0.000000
+Velocity of object 3: 4.975779, -1.856024, 0.000000
+
+--------------------
+This is step 89
+
+Position of object 1: 3.291942, 1.540819, 0.000000
+Velocity of object 1: 1.043551, 0.435044, 0.000000
+
+Position of object 2: -14.843375, 6.617341, 0.000000
+Velocity of object 2: -4.447434, 1.811253, 0.000000
+
+Position of object 3: 18.545943, -6.421236, 0.000000
+Velocity of object 3: 4.975683, -1.855977, 0.000000
+
+--------------------
+This is step 90
+
+Position of object 1: 3.344120, 1.562570, 0.000000
+Velocity of object 1: 1.043558, 0.435024, 0.000000
+
+Position of object 2: -15.065745, 6.707903, 0.000000
+Velocity of object 2: -4.447348, 1.811227, 0.000000
+
+Position of object 3: 18.794725, -6.514034, 0.000000
+Velocity of object 3: 4.975590, -1.855931, 0.000000
+
+--------------------
+This is step 91
+
+Position of object 1: 3.396298, 1.584321, 0.000000
+Velocity of object 1: 1.043565, 0.435004, 0.000000
+
+Position of object 2: -15.288110, 6.798464, 0.000000
+Velocity of object 2: -4.447265, 1.811202, 0.000000
+
+Position of object 3: 19.043502, -6.606829, 0.000000
+Velocity of object 3: 4.975500, -1.855886, 0.000000
+
+--------------------
+This is step 92
+
+Position of object 1: 3.448477, 1.606071, 0.000000
+Velocity of object 1: 1.043572, 0.434985, 0.000000
+
+Position of object 2: -15.510471, 6.889024, 0.000000
+Velocity of object 2: -4.447184, 1.811177, 0.000000
+
+Position of object 3: 19.292275, -6.699622, 0.000000
+Velocity of object 3: 4.975412, -1.855842, 0.000000
+
+--------------------
+This is step 93
+
+Position of object 1: 3.500655, 1.627820, 0.000000
+Velocity of object 1: 1.043579, 0.434966, 0.000000
+
+Position of object 2: -15.732829, 6.979582, 0.000000
+Velocity of object 2: -4.447105, 1.811153, 0.000000
+
+Position of object 3: 19.541043, -6.792414, 0.000000
+Velocity of object 3: 4.975326, -1.855799, 0.000000
+
+--------------------
+This is step 94
+
+Position of object 1: 3.552835, 1.649567, 0.000000
+Velocity of object 1: 1.043586, 0.434947, 0.000000
+
+Position of object 2: -15.955182, 7.070139, 0.000000
+Velocity of object 2: -4.447028, 1.811130, 0.000000
+
+Position of object 3: 19.789807, -6.885202, 0.000000
+Velocity of object 3: 4.975242, -1.855758, 0.000000
+
+--------------------
+This is step 95
+
+Position of object 1: 3.605014, 1.671314, 0.000000
+Velocity of object 1: 1.043593, 0.434929, 0.000000
+
+Position of object 2: -16.177531, 7.160695, 0.000000
+Velocity of object 2: -4.446954, 1.811108, 0.000000
+
+Position of object 3: 20.038567, -6.977989, 0.000000
+Velocity of object 3: 4.975160, -1.855717, 0.000000
+
+--------------------
+This is step 96
+
+Position of object 1: 3.657194, 1.693060, 0.000000
+Velocity of object 1: 1.043600, 0.434911, 0.000000
+
+Position of object 2: -16.399877, 7.251250, 0.000000
+Velocity of object 2: -4.446881, 1.811086, 0.000000
+
+Position of object 3: 20.287323, -7.070774, 0.000000
+Velocity of object 3: 4.975081, -1.855677, 0.000000
+
+--------------------
+This is step 97
+
+Position of object 1: 3.709374, 1.714805, 0.000000
+Velocity of object 1: 1.043607, 0.434894, 0.000000
+
+Position of object 2: -16.622220, 7.341804, 0.000000
+Velocity of object 2: -4.446810, 1.811064, 0.000000
+
+Position of object 3: 20.536076, -7.163557, 0.000000
+Velocity of object 3: 4.975003, -1.855638, 0.000000
+
+--------------------
+This is step 98
+
+Position of object 1: 3.761555, 1.736550, 0.000000
+Velocity of object 1: 1.043614, 0.434876, 0.000000
+
+Position of object 2: -16.844558, 7.432356, 0.000000
+Velocity of object 2: -4.446742, 1.811044, 0.000000
+
+Position of object 3: 20.784824, -7.256338, 0.000000
+Velocity of object 3: 4.974928, -1.855600, 0.000000
+
+--------------------
+This is step 99
+
+Position of object 1: 3.813735, 1.758293, 0.000000
+Velocity of object 1: 1.043621, 0.434860, 0.000000
+
+Position of object 2: -17.066894, 7.522908, 0.000000
+Velocity of object 2: -4.446675, 1.811024, 0.000000
+
+Position of object 3: 21.033568, -7.349117, 0.000000
+Velocity of object 3: 4.974854, -1.855563, 0.000000
+
+--------------------
+This is step 100
+
+Position of object 1: 3.865917, 1.780036, 0.000000
+Velocity of object 1: 1.043628, 0.434843, 0.000000
+
+Position of object 2: -17.289226, 7.613459, 0.000000
+Velocity of object 2: -4.446609, 1.811004, 0.000000
+
+Position of object 3: 21.282309, -7.441894, 0.000000
+Velocity of object 3: 4.974782, -1.855527, 0.000000
