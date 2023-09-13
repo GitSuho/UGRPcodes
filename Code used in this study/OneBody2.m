@@ -62,10 +62,6 @@ plot(0, 0, 'blacko');
 
 
 dt = 1/100;
-given_plotinterval = 0.1;
-
-X_dt(1) = dt;
-P_dt(1) = dt;
 
 X(1, :) = init;
 P(1, :) = init;
@@ -73,22 +69,22 @@ P(1, :) = init;
 X_error(1, :) = [0, 0];
 P_error(1, :) = [0, 0];
 
-% i = 1;
+%use Runge-Kutta method and predict next position 
+%Error estimation according to analytic solution
 for i = 1:2 % 적절한지 판단 필요
-    %fit each dt values
-    X_dt(i+1) = Fit_dt(X_dt(i), given_plotinterval ,X(i,:), @geo);
-    P_dt(i+1) = Fit_dt(P_dt(i), given_plotinterval ,P(i,:), @lag);
-    
-    %use Runge-Kutta method and predict next position
-    X(i+1, :) = RK4(X(i, :), @geo, X_dt(i+1));
-    P(i+1, :) = RK4(P(i, :), @lag, P_dt(i+1));
-    
-    %Error estimation according to analytic solution
+    X(i+1, :) = RK4(X(i, :), @geo, dt);
     X_error(i+1, :) = Err_est(X(i+1,1), X(i+1,2));
-    P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2));
-
-    % i = i+1;
 end
+for i = 1:3 % 적절한지 판단 필요
+    P(i+1, :) = RK4(P(i, :), @lag, dt);
+    P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2));
+end
+
+%let the size of two error lists same
+max_length = max(length(X_error), length(P_error));
+X_error(end+1:max_length, :) = NaN;
+P_error(end+1:max_length, :) = NaN;
+
 
 %plot numerical solutions' trajectory
 plot(X(:, 1), X(:, 2), 'bo');
@@ -96,12 +92,12 @@ plot(P(:, 1), P(:, 2), 'r^');
 pause(1);
 
 %write file
-file_name = sprintf('norm_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', init(1), init(2), init(3), init(4), dt, M, m);
+file_name = sprintf('unnorm_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', init(1), init(2), init(3), init(4), dt, M, m);
 wfile = fopen(file_name, 'w');
 
 format1 = 'Error of %s | mean = %f, max = %f, min = %f\n';
-format2 = '%3d||%f | %f | %f || %f | %f | %f \n';
-format3 = '   ||      arc domain geodesic      ||           newtonian           \nnum||degree   | error    | dt       || degree   | error    | dt       \n'; 
+format2 = '%3d||%f | %f || %f | %f \n';     %NaN일 때 배열 안 맞는 것 해결
+format3 = '   ||arc domain geodesic ||     newtonian\nnum||degree   | error    || degree   | error    \n'; 
 fprintf(wfile, "%s\nEccentricity : %f \n\n", file_name , l_const.^2*A_coeff/k_const);
 fprintf(wfile, format1, 'arcl_geod', mean(X_error(2:length(X_error), 2)), max(X_error(2:length(X_error), 2)), min(X_error(2:length(X_error),2 )) );
 fprintf(wfile, format1, 'newtonian', mean(P_error(2:length(P_error), 2)), max(P_error(2:length(P_error), 2)), min(P_error(2:length(P_error),2 )) );
@@ -109,7 +105,7 @@ fprintf(wfile, '\n');
 
 fprintf(wfile, format3);
 for i = 1:length(X_error)
-    fprintf(wfile, format2, i ,X_error(i,:) ,X_dt(i) ,  P_error(i,:), P_dt(i));
+    fprintf(wfile, format2, i ,X_error(i,:) ,  P_error(i,:));
 end
 
 
@@ -178,18 +174,6 @@ function degree = Find_degree(x, y)
     else
         degree = 2*pi - acos( x/sqrt(x.^2 + y.^2));
     end
-end
-%find a dt value that make given plot interval
-function result_dt = Fit_dt(dt, fit_val, curr_pos, func)
-    accuracy = 0.00000001;
-    next_pos = RK4(curr_pos,func, dt);
-    disp  = sqrt((next_pos(1) - curr_pos(1)).^2 + (next_pos(2) - curr_pos(2)).^2);
-    while( abs(disp - fit_val) > accuracy)
-        dt = fit_val*dt/disp;
-        next_pos = RK4(curr_pos,func, dt);
-        disp  = sqrt((next_pos(1) - curr_pos(1)).^2 + (next_pos(2) - curr_pos(2)).^2);
-    end
-    result_dt = dt;
 end
 %calculate error when x-y coordinate is given
 function result_err = Err_est(x, y)
