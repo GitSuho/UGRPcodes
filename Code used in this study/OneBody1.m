@@ -74,7 +74,7 @@ X_error(1, :) = [0, 0];
 P_error(1, :) = [0, 0];
 
 % i = 1;
-for i = 1:2 % 적절한지 판단 필요
+for i = 1:5 % 적절한지 판단 필요
     %fit each dt values
     X_dt(i+1) = Fit_dt(X_dt(i), given_plotinterval ,X(i,:), @geo);
     P_dt(i+1) = Fit_dt(P_dt(i), given_plotinterval ,P(i,:), @lag);
@@ -96,20 +96,21 @@ plot(P(:, 1), P(:, 2), 'r^');
 pause(1);
 
 %write file
-file_name = sprintf('norm_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', init(1), init(2), init(3), init(4), dt, M, m);
+file_name = 'test.txt';%sprintf('[[%d,%d],[%d,%d]]_dt:%d_m:[%d,%d].txt', init(1), init(2), init(3), init(4), dt, M, m);
 wfile = fopen(file_name, 'w');
 
 format1 = 'Error of %s | mean = %f, max = %f, min = %f\n';
-format2 = '%3d||%f | %f | %f || %f | %f | %f \n';
-format3 = '   ||      arc domain geodesic      ||           newtonian           \nnum||degree   | error    | dt       || degree   | error    | dt       \n'; 
-fprintf(wfile, "%s\nEccentricity : %f \n\n", file_name , l_const.^2*A_coeff/k_const);
+format2 = '%f | %f | %f || %f | %f | %f \n';
+format3 = 'arc domain geodesic ||newtonian\ndegree   | error    | dt       || degree   | error    | dt       \n'; 
+
+fprintf(wfile, "Eccentricity : %d\n", l_const.^2*A_coeff/k_const);
 fprintf(wfile, format1, 'arcl_geod', mean(X_error(2:length(X_error), 2)), max(X_error(2:length(X_error), 2)), min(X_error(2:length(X_error),2 )) );
 fprintf(wfile, format1, 'newtonian', mean(P_error(2:length(P_error), 2)), max(P_error(2:length(P_error), 2)), min(P_error(2:length(P_error),2 )) );
 fprintf(wfile, '\n');
 
 fprintf(wfile, format3);
 for i = 1:length(X_error)
-    fprintf(wfile, format2, i ,X_error(i,:) ,X_dt(i) ,  P_error(i,:), P_dt(i));
+    fprintf(wfile, format2, X_error(i,:) ,X_dt(i) ,  P_error(i,:), P_dt(i));
 end
 
 
@@ -124,6 +125,8 @@ function dxdt = geo(x)
     for i = 1:2
         dxdt(i) = x(i+2);
         dxdt(i+2) = GE{i}(x);
+        % dxdt(i) = 0.1*x(i+2)/norm(x(3:4));
+        % dxdt(i+2) = 0.1*GE{i}(x);
     end
 end
 %newtonian equation
