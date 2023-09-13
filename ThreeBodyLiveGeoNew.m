@@ -41,10 +41,14 @@ clc
 
 %Euler collinear solution
 m = [1 2 3];
+syms lamb_sym
 assume(lamb_sym, 'real')
-ecs_equ = lamb_sym -2/3 == 0;
+
+ecs_equ = (m(1)+m(2))*lamb_sym^5 + (3*m(1)+2*m(2))*lamb_sym^4+(3*m(1)+m(2))*lamb_sym^3-(m(2)+3*m(3))*lamb_sym^2-(2*m(2)+3*m(3))*lamb_sym-(m(2)+m(3)) == 0;
 lamb_ecs = solve(ecs_equ, lamb_sym);
-fprintf("%d\n", lamb_ecs);
+
+fprintf("%f\n", lamb_ecs);
+
 %(m(2)+m(3)*(1+lamb_sym))/(m(1)-m(3)*lamb_sym) - (m(2)-m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2) == 0;
 %(-m(1)*m(3)-m(2)*m(3))*lamb_sym^5+(-m(1)*m(3)-2*m(1)*m(3)-2*m(2)*m(3))*lamb_sym^4+(-3*m(1)*m(3)+2*m(3).^2-m(2)*m(3))*lamb_sym^3+(-2*m(1)*m(3)+m(2)*m(3)+3*m(3).^2)*lamb_sym^2+(2*m(2)*m(3)+3*m(3).^2)*lamb_sym+(m(2)*m(3)+m(3).^2) == 0;
 %(m(1)+m(2))*lamb_sym^5 + (3*m(1)+2*m(2))*lamb_sym^4+(3*m(1)+m(2))*lamb_sym^3-(m(2)+3*m(3))*lamb_sym^2-(2*m(2)+3*m(3))*lamb_sym-(m(2)+m(3)) == 0;
