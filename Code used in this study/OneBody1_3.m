@@ -46,7 +46,7 @@ k_const = G*M;
 l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
     /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
 A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-fprintf("Eccentricity : %d\n", l_const.^2*A_coeff/k_const);
+fprintf("Eccentricity : %f\n", l_const.^2*A_coeff/k_const);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
