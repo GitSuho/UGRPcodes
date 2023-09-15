@@ -5,15 +5,20 @@ clc
 hold on;
 
 %Initial consitions
-% %circle
+%circle
 % x_init = [1, 0];
 % v_init = [0, 3];
 % M = 9;m = 1 ;G = 1;
 
-%ellipse
-x_init = [1.5, 0];
+x_init = [10, 0];
 v_init = [0, 3];
-M = 9;m = 1 ;G = 1;
+M = 90;m = 1 ;G = 1;
+
+
+%ellipse
+% x_init = [1.5, 0];
+% v_init = [0, 3];
+% M = 9;m = 1 ;G = 1;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

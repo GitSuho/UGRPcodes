@@ -66,6 +66,33 @@ for i = 1:3 %particles' index
         EL{i, j} = @(x) eval(subs(el{i,j}, x_sym, reshape(x, [4, 3])'));
     end
 end
+
+
+%%%%
+T_sym_diff = 0;
+for i = 0:2
+    j = mod(i,3)+1;
+    k = mod(i+1,3)+1;
+    T_sym_diff = T_sym_diff + G * m(j) * m(k) * dot(x_sym(j,1:2)-x_sym(k,1:2),x_sym(j,3:4)-x_sym(k,3:4)) ...
+                                / norm(x_sym(j,1:2)-x_sym(k,1:2))^2 ;
+end
+global GEt;
+GEt{3,2} = [];
+get{3,2} = [];
+for i = 1:3
+    for j = 1:2
+         get{i,j} = T_sym_diff / T_sym * x_sym(i,j+2);
+         for k = 1:3
+             for l = 1:2
+                get{i,j} = get{i,j} - 1/T_sym * diff(T_sym,x_sym(k,l)) * x_sym(k,l+2) * x_sym(i,j+2) ...
+                    + 1/(2*T_sym) * diff(T_sym,x_sym(i,j)) * x_sym(k,l+2)^2;
+             end
+         end
+         GEt{i,j} = @(x) eval(subs(get{i,j}, x_sym, reshape(x,[4,3])'));
+    end
+end
+%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 file_name = "test_threebody.txt";
@@ -77,16 +104,22 @@ for i = 0:2
 end
 
 dt = 1/10;
-cycle = 5;
+cycle = 75;
 
 clear("X")
 clear("P")
 X(1, :) = init;
 P(1, :) = init;
 
+%%%%
+clear("Xt")
+Xt(1, :) = init;
+%%%
+
 hold on;
 count = 0;
-for var = 1:10
+for var = 1:20
+    fprintf("count %d\n", var);
     %expect next position used by numerical method and calculate error value
     for i = 1:cycle
         count = count + 1;
@@ -95,6 +128,12 @@ for var = 1:10
         fprintf(wfile, "Geod_err : %f | ", Err_est_tri(X(i,:)));
         P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
         fprintf(wfile, "Newt_err : %f \n", Err_est_tri(P(i,:)));
+
+        %%%%
+        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        fprintf(wfile, "t_Ge_err : %f \n", Err_est_tri(Xt(i,:)));
+        %%%%
+
     end
     
     %plot points and draw triangles according to last points
@@ -106,6 +145,16 @@ for var = 1:10
     plot(P(:, 9),P(:, 10), 'k--^');
     plot_curr_triangle(X(cycle+1,:));
     plot_curr_triangle(P(cycle+1,:));
+
+    %%%%
+    plot(Xt(:, 1),Xt(:, 2), 'r*');
+    plot(Xt(:, 5),Xt(:, 6), 'r*');
+    plot(Xt(:, 9),Xt(:, 10), 'r*');
+    plot_curr_triangle(Xt(cycle+1,:));
+    Xt(1, :) = Xt(cycle+1, :);
+    %%%%
+
+
 
     X(1, :) = X(cycle+1, :);
     P(1, :) = P(cycle+1, :);
@@ -139,6 +188,21 @@ function dxdt = g(x)
         end
     end
 end
+
+%%%%
+function dxdt_t = g_t(x) 
+    global GEt; 
+    dxdt_t = zeros(size(x));
+    for i = 1:3
+        for j = 1:2
+             dxdt_t((i-1)*4+j) = x((i-1)*4+j+2);
+             dxdt_t((i-1)*4+j+2) = GEt{i,j}(x);
+        end
+    end
+end
+%%%%
+
+
 %newtonian equation
 function slope = eulagrange(x)
     global EL;
