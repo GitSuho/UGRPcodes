@@ -1,0 +1,55 @@
+test_threebody.txt
+initial value :
+[0.000000 , 4.000000 , -0.583333 , -0.433013]
+[-3.464102 , -2.000000 , 0.416667 , -0.433013]
+[3.464102 , -2.000000 , -0.083333 , 0.433013]
+   1 | Geod_err : 0.000000 | Newt_err : 0.000000 
+   2 | Geod_err : 0.000245 | Newt_err : 0.000000 
+   3 | Geod_err : 0.000976 | Newt_err : 0.000000 
+   4 | Geod_err : 0.002187 | Newt_err : 0.000000 
+   5 | Geod_err : 0.003869 | Newt_err : 0.000000 
+   6 | Geod_err : 0.006017 | Newt_err : 0.000000 
+   7 | Geod_err : 0.008622 | Newt_err : 0.000000 
+   8 | Geod_err : 0.011677 | Newt_err : 0.000000 
+   9 | Geod_err : 0.015174 | Newt_err : 0.000000 
+  10 | Geod_err : 0.019103 | Newt_err : 0.000000 
+  11 | Geod_err : 0.023457 | Newt_err : 0.000000 
+  12 | Geod_err : 0.028227 | Newt_err : 0.000000 
+  13 | Geod_err : 0.033403 | Newt_err : 0.000000 
+  14 | Geod_err : 0.038977 | Newt_err : 0.000000 
+  15 | Geod_err : 0.044938 | Newt_err : 0.000000 
+  16 | Geod_err : 0.051277 | Newt_err : 0.000000 
+  17 | Geod_err : 0.057983 | Newt_err : 0.000000 
+  18 | Geod_err : 0.065048 | Newt_err : 0.000000 
+  19 | Geod_err : 0.072460 | Newt_err : 0.000000 
+  20 | Geod_err : 0.080208 | Newt_err : 0.000000 
+  21 | Geod_err : 0.088283 | Newt_err : 0.000000 
+  22 | Geod_err : 0.096673 | Newt_err : 0.000000 
+  23 | Geod_err : 0.105367 | Newt_err : 0.000000 
+  24 | Geod_err : 0.114355 | Newt_err : 0.000000 
+  25 | Geod_err : 0.123624 | Newt_err : 0.000000 
+  26 | Geod_err : 0.133165 | Newt_err : 0.000000 
+  27 | Geod_err : 0.142964 | Newt_err : 0.000000 
+  28 | Geod_err : 0.153012 | Newt_err : 0.000000 
+  29 | Geod_err : 0.163296 | Newt_err : 0.000000 
+  30 | Geod_err : 0.173806 | Newt_err : 0.000000 
+  31 | Geod_err : 0.184529 | Newt_err : 0.000000 
+  32 | Geod_err : 0.195454 | Newt_err : 0.000000 
+  33 | Geod_err : 0.206569 | Newt_err : 0.000000 
+  34 | Geod_err : 0.217864 | Newt_err : 0.000000 
+  35 | Geod_err : 0.229326 | Newt_err : 0.000000 
+  36 | Geod_err : 0.240944 | Newt_err : 0.000000 
+  37 | Geod_err : 0.252708 | Newt_err : 0.000000 
+  38 | Geod_err : 0.264605 | Newt_err : 0.000000 
+  39 | Geod_err : 0.276624 | Newt_err : 0.000000 
+  40 | Geod_err : 0.288756 | Newt_err : 0.000000 
+  41 | Geod_err : 0.300988 | Newt_err : 0.000000 
+  42 | Geod_err : 0.313310 | Newt_err : 0.000000 
+  43 | Geod_err : 0.325711 | Newt_err : 0.000000 
+  44 | Geod_err : 0.338181 | Newt_err : 0.000000 
+  45 | Geod_err : 0.350710 | Newt_err : 0.000000 
+  46 | Geod_err : 0.363287 | Newt_err : 0.000000 
+  47 | Geod_err : 0.375902 | Newt_err : 0.000000 
+  48 | Geod_err : 0.388546 | Newt_err : 0.000000 
+  49 | Geod_err : 0.401210 | Newt_err : 0.000000 
+  50 | Geod_err : 0.413883 | Newt_err : 0.000000 

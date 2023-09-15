@@ -23,7 +23,7 @@ E = 1/2*m*norm(v_init)^2 - G*M*m/norm(x_init);
 T = E + G*M*m/norm(x_sym(1,:));
 init = [x_init v_init];
 init = init(:);
-%Geodesic Solution which domain is arclength
+%Geodesic solution which domain is arclength
 global GE;
 GE{2} = [];
 ge{2} = [];
