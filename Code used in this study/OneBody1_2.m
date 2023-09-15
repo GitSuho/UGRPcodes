@@ -83,7 +83,7 @@ while (1)
     X(i+1, :) = RK4(X(i, :), @geo, X_dt(i+1));
     P(i+1, :) = RK4(P(i, :), @lag, P_dt(i+1));
     
-    if (Find_degree(X(end,1), X(end,2)) < pi)
+    if (Find_degree(X(end,1), X(end,2)) > pi)
         break;
     end
 

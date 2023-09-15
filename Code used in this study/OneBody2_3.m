@@ -71,13 +71,23 @@ P_error(1, :) = [0, 0];
 
 %use Runge-Kutta method and predict next position 
 %Error estimation according to analytic solution
-for i = 1:2 % 적절한지 판단 필요
+i = 1;
+while(1)
     X(i+1, :) = RK4(X(i, :), @geo, dt);
+    if(Find_degree(X(end,1), X(end,2)) > pi)
+        break;
+    end
     X_error(i+1, :) = Err_est(X(i+1,1), X(i+1,2));
+    i = i + 1;
 end
-for i = 1:3 % 적절한지 판단 필요
+i = 1;
+while(1)
     P(i+1, :) = RK4(P(i, :), @lag, dt);
+    if(Find_degree(P(end,1), P(end,2)) > pi)
+        break;
+    end
     P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2));
+    i = i +1;
 end
 
 %let the size of two error lists same
