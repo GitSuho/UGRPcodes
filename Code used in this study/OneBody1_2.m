@@ -73,8 +73,8 @@ P(1, :) = init;
 X_error(1, :) = [0, 0];
 P_error(1, :) = [0, 0];
 
-% i = 1;
-for i = 1:2 % 적절한지 판단 필요
+i = 1;
+while (1)
     %fit each dt values
     X_dt(i+1) = Fit_dt(X_dt(i), given_plotinterval ,X(i,:), @geo);
     P_dt(i+1) = Fit_dt(P_dt(i), given_plotinterval ,P(i,:), @lag);
@@ -83,11 +83,15 @@ for i = 1:2 % 적절한지 판단 필요
     X(i+1, :) = RK4(X(i, :), @geo, X_dt(i+1));
     P(i+1, :) = RK4(P(i, :), @lag, P_dt(i+1));
     
+    if (Find_degree(X(end,1), X(end,2)) < pi)
+        break;
+    end
+
     %Error estimation according to analytic solution
     X_error(i+1, :) = Err_est(X(i+1,1), X(i+1,2));
     P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2));
 
-    % i = i+1;
+    i = i+1;
 end
 
 %plot numerical solutions' trajectory
@@ -97,7 +101,7 @@ pause(1);
 
 %write file
 file_name = sprintf('norm_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', init(1), init(2), init(3), init(4), dt, M, m);
-wfile = fopen(file_name, 'w');
+wfile = fopen(file_name, 'w'); %file name은 initial value정하고 그 값에 맞춰 하기. 파일의 첫째줄은 그대로
 
 format1 = 'Error of %s | mean = %f, max = %f, min = %f\n';
 format2 = '%3d||%f | %f | %f || %f | %f | %f \n';
