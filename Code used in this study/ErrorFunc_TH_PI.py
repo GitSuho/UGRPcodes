@@ -39,17 +39,21 @@ def Error(theta1, plot_interval):
     x1, y1 = R_anly(theta1)*np.cos(theta1), R_anly(theta1)*(np.sin(theta1))
     
     delta_x = plot_interval/((1 + (x1**2*b**4)/(y1**2*a**4))**0.5)
+    delta_y = delta_x*Norm([x1*b**2/(y1*a**2)])
+    
+    # print(Norm([delta_x, delta_y]))
+    
     
     if y1 > 0:
         x2 = x1 - delta_x
     else:
         x2 = x1 + delta_x 
         
-    # if x1 > 0:
-    #     y2 = y1 + Norm([x1*b**2/(y1*a**2)*delta_x])        
-    # else:
-    #     y2 = y1 - Norm([x1*b**2/(y1*a**2)*delta_x])
-    y2 = b**2/y1 - x1*b**2/(y1*a**2)*x2
+    if x1 > 0:
+        y2 = y1 + delta_x*Norm([x1*b**2/(y1*a**2)])        
+    else:
+        y2 = y1 - delta_x*Norm([x1*b**2/(y1*a**2)])
+    # y2 = b**2/y1 - x1*b**2/(y1*a**2)*x2
 
     if y2 > 0:
         theta2 = np.arccos(x2/Norm([x2, y2]))
@@ -57,6 +61,7 @@ def Error(theta1, plot_interval):
         theta2 = 2*np.pi - np.arccos(x2/Norm([x2, y2]))
         
     plt.plot([x1, x2], [y1, y2], 'r-')
+    print(Norm([x1-x2, y1-y2]))
 
     return Norm([x2, y2]) - R_anly(theta2)    
 
