@@ -23,47 +23,58 @@ a =  (ra + rp)/2
 b = (1-ecc**2)**0.5*a
 
 
+# plt.plot ([-a+x_init[0], x_init[0]], [0, 0], "b-")
+# plt.plot ([-a+x_init[0], -a+x_init[0]], [0, b], "b-")
 
 #analytic solution
+# def R_anly(theta):
+#     l = x_init[0]*v_init[1]-x_init[1]*v_init[0]
+#     k = G*M
+#     A = 1/Norm(x_init) - k/(m*l**2)
+#     return (m*l**2/k) / (1 + (m*l**2*A/k)*np.cos(theta))
+
 def R_anly(theta):
-    l = x_init[0]*v_init[1]-x_init[1]*v_init[0]
-    k = G*M
-    A = 1/Norm(x_init) - k/(m*l**2)
-    return (m*l**2/k) / (1 + (m*l**2*A/k)*np.cos(theta))
-
-
-
+    x_sq = 1/(1/a**2 + np.tan(theta)**2/(b**2))
+    y_sq = b**2*(1-x_sq/(a**2))
+    return (x_sq + y_sq)**0.5
+    
 
 #Error function
 def Error(theta1, plot_interval):
     x1, y1 = R_anly(theta1)*np.cos(theta1), R_anly(theta1)*(np.sin(theta1))
     
     delta_x = plot_interval/((1 + (x1**2*b**4)/(y1**2*a**4))**0.5)
-    delta_y = delta_x*Norm([x1*b**2/(y1*a**2)])
+    
     
     # print(Norm([delta_x, delta_y]))
     
     
     if y1 > 0:
-        x2 = x1 - delta_x
-    else:
-        x2 = x1 + delta_x 
-        
-    if x1 > 0:
-        y2 = y1 + delta_x*Norm([x1*b**2/(y1*a**2)])        
-    else:
-        y2 = y1 - delta_x*Norm([x1*b**2/(y1*a**2)])
-    # y2 = b**2/y1 - x1*b**2/(y1*a**2)*x2
+        delta_x *= -1
+    x2 = x1 + delta_x 
+    delta_y = -delta_x*x1*b**2/(y1*a**2)
+    # if x1 > 0:
+    #     y2 = y1 + delta_x*Norm([x1*b**2/(y1*a**2)])        
+    # else:
+    #     y2 = y1 - delta_x*Norm([x1*b**2/(y1*a**2)])
+    y2 = y1 + delta_y #b**2/y1 - x1*b**2/(y1*a**2)*x2
 
+    
+    # foo = Norm([x2-x1, y2-y1])
+    # x2 = x1 + plot_interval*(x2-x1)/foo
+    # y2 = y1 + plot_interval*(y2-y1)/foo
+    
+    
+    
     if y2 > 0:
         theta2 = np.arccos(x2/Norm([x2, y2]))
     else:
         theta2 = 2*np.pi - np.arccos(x2/Norm([x2, y2]))
         
-    plt.plot([x1, x2], [y1, y2], 'r-')
-    print(Norm([x1-x2, y1-y2]))
+    plt.plot([x1, x2], [y1, y2], '-r')
+    # print(Norm([x1-x2, y1-y2]))
 
-    return Norm([x2, y2]) - R_anly(theta2)    
+    return Norm([x2, y2]) - R_anly(theta2)
 
 
 #plot an analytic Solution's trajectory
@@ -81,8 +92,8 @@ plt.plot(0, 0, 'g')
 
 
 
-plot_interval = 0.01
-theta_lis = [ i*(2*np.pi-0.01)/1000 for i in range(1000)]
+plot_interval = 0.1
+theta_lis = [ i*(2*np.pi)/1000 for i in range(1000)]
 Err_lis = []
 for theta in theta_lis:
     Err_lis.append(Error(theta, plot_interval))
