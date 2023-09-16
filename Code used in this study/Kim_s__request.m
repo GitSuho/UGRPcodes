@@ -6,15 +6,15 @@ clc
 %Initial consitions
 
 
-E_const = 1/2;
+E_const = -0.5;
 ecc_lis = [0 0.25 0.5 0.75];
 
 for ind = 1:4
     ecc = ecc_lis(ind);
-    % close all
-    % hold on;
+    close all
+    hold on;
 
-M = 9;m = 1 ;G = 1;
+M = 1;m = 1 ;G = 1;
 v_init = [0, sqrt(E_const/(-m/2+m/(ecc+1)))];
 x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
 
@@ -25,7 +25,7 @@ syms('x_sym', [2, 2]);
 assume(x_sym, 'real');
 E = 1/2*m*norm(v_init)^2 - G*M*m/norm(x_init);
 
-% fprintf("E : %f\n", E);
+fprintf("E : %f\n", E);
 
 T = E + G*M*m/norm(x_sym(1,:));
 init = [x_init v_init];
@@ -59,19 +59,19 @@ A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
 % fprintf("Eccentricity : %f\n", (((x_init(1)*v_init(2)-x_init(2)*v_init(1)).^2/(G*M*norm(x_init)))-1));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% %plot an analytic Solution's trajectory
-% count = 10000;
-% orbit_coordinate(1, :) = [0 0];
-% theta_arr = linspace(0, 2*pi, count);
-% for i = 1:count
-%     orbit_coordinate(i, :) = OrbEqu(theta_arr(i));
-% end
-% plot(orbit_coordinate(:, 1), orbit_coordinate(:, 2), 'black-');
-% plot(0, 0, 'blacko');
-% pause(0.1);
+%plot an analytic Solution's trajectory
+count = 10000;
+orbit_coordinate(1, :) = [0 0];
+theta_arr = linspace(0, 2*pi, count);
+for i = 1:count
+    orbit_coordinate(i, :) = OrbEqu(theta_arr(i));
+end
+plot(orbit_coordinate(:, 1), orbit_coordinate(:, 2), 'black-');
+plot(0, 0, 'blacko');
+pause(0.1);
 
 
-dt = 1/20;
+dt = 1/2;
 
 X(1, :) = init;
 P(1, :) = init;
@@ -79,15 +79,15 @@ P(1, :) = init;
 X_error(1, :) = [0, 0];
 P_error(1, :) = [0, 0];
 
-file_name = sprintf('Kims_request_e%2.2f_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', l_const.^2*A_coeff/k_const, init(1), init(2), init(3), init(4), dt, M, m);
+file_name = sprintf('Kims_request_e%2.2f_E%2.2f_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', l_const.^2*A_coeff/k_const, E, init(1), init(2), init(3), init(4), dt, M, m);
 wfile = fopen(file_name, 'w');
 
-for period = 0:50
+for period = 0:0
     fprintf(wfile, "cycle %d\n", period+1);
     i = 1;
     while(1)
-        % plot(X(i,1), X(i,2), 'ro');
-        % pause(0.1);
+        plot(X(i,1), X(i,2), 'ro');
+        pause(0.1);
 
 
         X(i+1, :) = RK4(X(i, :), @geo, dt);
@@ -99,8 +99,8 @@ for period = 0:50
     end
     i = 1;
     while(1)
-        % plot(P(i,1), P(i,2), 'b+');
-        % pause(0.1);
+        plot(P(i,1), P(i,2), 'b+');
+        pause(0.1);
 
         P(i+1, :) = RK4(P(i, :), @lag, dt);
         if(Find_degree(P(i+1,1), P(i+1,2)) - Find_degree(P(i,1), P(i,2)) < 0)
@@ -142,7 +142,9 @@ for period = 0:50
     P(1,:) = var2;
 end
 
+
 fclose(wfile);
+% pause(3);
 % hold off;
 fprintf('program end %d\n', ind);
 
