@@ -3,7 +3,6 @@ close all
 clc
 
 %Initial consitions
-E_const = 0.5;
 global ecc;
 ecc = 0.5;
 
