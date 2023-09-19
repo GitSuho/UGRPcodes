@@ -1,13 +1,14 @@
 %%% 1-body condition %%%
 clear all;
-hold on;
 
-E_list = [-0.01, -0.02, -0.03, -0.04, -0.05];
+E_list = [-0.5, -1.0, -1.5, -2.0, -2.5];
 ecc_list = [0, 0.4, 0.8];
+
 
 for ii = 1:5
     for jj = 1:3
 close all;
+hold on;
 
 E = E_list(ii);
 ecc = ecc_list(jj);
@@ -17,7 +18,7 @@ filename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.txt", E, ecc, nume_name);
 figurename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
-M = 1;m = 1 ;G = 1;
+M = 9;m = 1 ;G = 1;
 v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
 x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
 
@@ -78,7 +79,7 @@ P_error(1, :) = [0, 0, 0];
 i = 2; %lists are starting at 2
 while(1)
     %use Runge-Kutta method and predict next position
-    X(i, :) = RK4(OrbEqu(X_error(i-1,1)), @geo, dt);    
+    X(i, :) = RK4([OrbEqu(X_error(i-1,1)), X(i,3:4)], @geo, dt);    
     %Error estimation according to analytic solution
     X_error(i, :) = Err_est(X(i,1), X(i,2));    
     %break the loop when degree is bigger than 2pi
@@ -90,7 +91,7 @@ end
 i = 2; %lists are starting at 2
 while(1)
     %use Runge-Kutta method and predict next position
-    P(i, :) = RK4(OrbEqu(P_error(i-1,1)), @lag, dt);    
+    P(i, :) = RK4([OrbEqu(P_error(i-1,1)), P(i,3:4)], @lag, dt);    
     %Error estimation according to analytic solution
     P_error(i, :) = Err_est(P(i,1), P(i,2));    
     %break the loop when degree is bigger than 2pi
