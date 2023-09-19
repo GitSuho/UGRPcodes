@@ -1,36 +1,34 @@
 %%% 1-body condition %%%
-clear all
-close all
-clc
+clear all;
+hold on;
 
-%Initial consitions
+E_list = [-0.01, -0.02, -0.03, -0.04, -0.05];
+ecc_list = [0, 0.4, 0.8];
 
+for ii = 1:5
+    for jj = 1:3
+close all;
 
-E_const = -0.5;
-ecc_lis = [0 0.25 0.5 0.75];
+E = E_list(ii);
+ecc = ecc_list(jj);
+nume_name = "RK4";
 
-for ind = 1:4
-    ecc = ecc_lis(ind);
-    close all
-    hold on;
+filename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.txt", E, ecc, nume_name);
+figurename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
+fig1 = figure(1);
 
 M = 1;m = 1 ;G = 1;
-v_init = [0, sqrt(E_const/(-m/2+m/(ecc+1)))];
+v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
 x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
-
-% fprintf("initial v : %f, x : %f\n", v_init(2), x_init(1));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 syms('x_sym', [2, 2]);
 assume(x_sym, 'real');
 E = 1/2*m*norm(v_init)^2 - G*M*m/norm(x_init);
-
-fprintf("E : %f\n", E);
-
 T = E + G*M*m/norm(x_sym(1,:));
 init = [x_init v_init];
 init = init(:);
-%Geodesic Solution which domain is arclength
+%Geodesic solution which domain is arclength
 global GE;
 GE{2} = [];
 ge{2} = [];
@@ -47,17 +45,15 @@ for i = 1:2
     el{i} = -G*M*x_sym(1, i)/(norm(x_sym(1,:))^3);
     EL{i} = @(x) eval(subs(el{i}, x_sym, reshape(x,[2,2])'));
 end
-
 %Orbital equation's constants
 global l_const; global A_coeff; global k_const;
 k_const = G*M;
 l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
     /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
 A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-
-% fprintf("Eccentricity : %f\n", l_const.^2*A_coeff/k_const);
-% fprintf("Eccentricity : %f\n", (((x_init(1)*v_init(2)-x_init(2)*v_init(1)).^2/(G*M*norm(x_init)))-1));
+fprintf("Eccentricity : %f\n", l_const.^2*A_coeff/k_const);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %plot an analytic Solution's trajectory
 count = 10000;
@@ -68,88 +64,74 @@ for i = 1:count
 end
 plot(orbit_coordinate(:, 1), orbit_coordinate(:, 2), 'black-');
 plot(0, 0, 'blacko');
-pause(0.1);
+xlabel("x"); ylabel("y");
 
 
-dt = 1/2;
+dt = 1/100;
 
 X(1, :) = init;
 P(1, :) = init;
 
-X_error(1, :) = [0, 0];
-P_error(1, :) = [0, 0];
+X_error(1, :) = [0, 0, 0];
+P_error(1, :) = [0, 0, 0];
 
-file_name = sprintf('Kims_request_e%2.2f_E%2.2f_init[%2.2f,%2.2f,%2.2f,%2.2f]_dt%.5f_m[%2d,%2d].txt', l_const.^2*A_coeff/k_const, E, init(1), init(2), init(3), init(4), dt, M, m);
+i = 2; %lists are starting at 2
+while(1)
+    %use Runge-Kutta method and predict next position
+    X(i, :) = RK4(OrbEqu(X_error(i-1,1)), @geo, dt);    
+    %Error estimation according to analytic solution
+    X_error(i, :) = Err_est(X(i,1), X(i,2));    
+    %break the loop when degree is bigger than 2pi
+    if (X_error(i, 1) < X_error(i-1, 1))
+        break;
+    end
+    i = i+1;
+end
+i = 2; %lists are starting at 2
+while(1)
+    %use Runge-Kutta method and predict next position
+    P(i, :) = RK4(OrbEqu(P_error(i-1,1)), @lag, dt);    
+    %Error estimation according to analytic solution
+    P_error(i, :) = Err_est(P(i,1), P(i,2));    
+    %break the loop when degree is bigger than 2pi
+    if (P_error(i, 1) < P_error(i-1, 1))
+        break;
+    end
+    i = i+1;
+end
+
+%plot numerical solutions' trajectory
+plot(X(:,1), X(:,2), 'r-o');
+plot(P(:,1), P(:,2), 'b-+');
+
+%write file
 wfile = fopen(file_name, 'w');
 
-for period = 0:0
-    fprintf(wfile, "cycle %d\n", period+1);
-    i = 1;
-    while(1)
-        plot(X(i,1), X(i,2), 'ro');
-        pause(0.1);
+fprintf(wfile, filename);
+fprintf(wfile, ['\ninitial value : [x, y, v_x, v_y] = [%2.2f,%2.2f,%2.2f,%2.2f] , ' ...
+    'numerical interval dt = %.5f , [M, m] = [%2d,%2d]\n\n'], init(1), init(2), init(3), init(4), dt, M, m);
 
+fprintf(wfile, "num|geodesic|\nnum|newtonian\nnum|degree, x, y, simple error, relative error\n");
 
-        X(i+1, :) = RK4(X(i, :), @geo, dt);
-        if(Find_degree(X(i+1,1), X(i+1,2)) - Find_degree(X(i,1), X(i,2)) < 0)
-            break;
-        end
-        X_error(i+1, :) = Err_est(X(i+1,1), X(i+1,2), period);
-        i = i+1;
-    end
-    i = 1;
-    while(1)
-        plot(P(i,1), P(i,2), 'b+');
-        pause(0.1);
-
-        P(i+1, :) = RK4(P(i, :), @lag, dt);
-        if(Find_degree(P(i+1,1), P(i+1,2)) - Find_degree(P(i,1), P(i,2)) < 0)
-            break;
-        end
-        P_error(i+1, :) = Err_est(P(i+1,1), P(i+1,2), period);
-        i = i +1;
-    end
-    var1 = X(end,:);
-    var2 = P(end,:);
-    
-    X(end,:) = [];
-    P(end,:) = [];
-    
-
-    if (length(X) > length(P))
-        len = length(P);
-        for j = (1:length(X)-length(P))
-            P_error(len+j, :) = [0 0];
-            P(len+j, :) = [0 0 0 0];
-        end
-    elseif (length(X) < length(P))
-        len = length(X);
-        for j = 1:(length(P)-length(X))
-            X_error(len+j, :) = [0 0];
-            X(len+j, :) = [0 0 0 0];
-        end
-    end
-
-    for i = 1:length(X)
-        fprintf(wfile, "%f,%f,%f,%f|%f,%f,%f,%f\n", X(i,1), X(i,2), X_error(i,1), X_error(i,2), P(i,1), P(i,2), P_error(i,1), P_error(i,2));
-        %%% x1, x2, x_theta, x_error | p1, p2, p_theta, p_error
-    end
-
-    clear X_error P_error X P
-    X_error(1,:) = Err_est(var1(1), var1(2), period+1);
-    P_error(1,:) = Err_est(var2(1), var2(2), period+1);
-    X(1,:) = var1;
-    P(1,:) = var2;
+format = "%3d|%f,%f,%f,%f,%f\n";
+for i = 1:length(X)
+    fprintf(wfile, format, i, X_error(i,1), X(i,1), X(i,2), X_error(i,2), X_error(i,3));
+end
+for i = 1:length(P)
+    fprintf(wfile, format, i, P_error(i,1), P(i,1), P(i,2), P_error(i,2), P_error(i,3));
 end
 
 
 fclose(wfile);
-% pause(3);
-% hold off;
-fprintf('program end %d\n', ind);
+hold off;
+exportgraphics(fg1, figurename);
 
+
+fprintf('program end\n');
+
+
+    end
 end
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %geodesic equation
 function dxdt = geo(x)
@@ -168,6 +150,23 @@ function slope = lag(x)
         slope(i) = x(i+2);
         slope(i+2) = EL{i}(x);
     end
+end
+%Euler 1st Order
+function next_pos = EU1(curr_pos, func, dt)
+    next_pos = curr_pos + func(curr_pos)*dt;
+end
+%Heun 2nd Order
+function next_pos = HE2(curr_pos, func, dt)
+    k1 = func(curr_pos);
+    k2 = func(curr_pos + k1*dt);
+    next_pos = curr_pos + (k1+k2)*dt/2;
+end
+%Kutta 3rd Order
+function next_pos = KU3(curr_pos, func, dt)
+    k1 = func(curr_pos);
+    k2 = func(curr_pos + k1*dt/2);
+    k3 = func(curr_pos - k1*dt + 2*k2*dt);
+    next_pos = curr_pos + (k1 + 4*k2 + k3)*dt/6;
 end
 %Runge-Kutta 4th Order
 function next_pos = RK4(curr_pos, func, dt)
@@ -197,9 +196,10 @@ function degree = Find_degree(x, y)
     end
 end
 %calculate error when x-y coordinate is given
-function result_err = Err_est(x, y, period)
+function result_err = Err_est(x, y)
     theta = Find_degree(x, y);
     simple_err = abs(OrbEqu_r(theta) - norm(x, y));
-    result_err = [theta+2*pi*period simple_err];
+    relative_err = simple_err / OrbEqu_r(theta) * 100;
+    result_err = [theta, simple_err, relative_err];
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
