@@ -1,35 +1,41 @@
 %%% 1-body condition %%%
 clear all;
 
-E_list = [-0.5, -1.0, -1.5, -2.0, -2.5];
-ecc_list = [0, 0.4, 0.8];
+E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
+ecc_list = [0.8, 0.4, 0.0];
+numerical_method = ["EU1","HE2","KU3","RK4"];
 
-
-for ii = 1:5
-    for jj = 1:3
+for ord = 4:4
+    for ii = 1:5
+        for jj = 1:3
 close all;
 hold on;
 
 E = E_list(ii);
 ecc = ecc_list(jj);
-nume_name = "RK4";
+nume_name = numerical_method(ord);
 
-filename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.txt", E, ecc, nume_name);
-figurename = sprintf("OneBody2_E%1.1f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
+filename = sprintf("OneBody2_E%1.2f_ecc%1.1f_%s.txt", E, ecc, nume_name);
+figurename = sprintf("OneBody2_E%1.2f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
-M = 9;m = 1 ;G = 1;
+fprintf(filename);
+
+M = 1;m = 1 ;G = 1;
 v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
 x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 syms('x_sym', [2, 2]);
 assume(x_sym, 'real');
 E = 1/2*m*norm(v_init)^2 - G*M*m/norm(x_init);
 T = E + G*M*m/norm(x_sym(1,:));
+
+
 init = [x_init v_init];
 init = init(:);
-%Geodesic solution which domain is arclength
+%Geodesic solution which domain is arclengthP
 global GE;
 GE{2} = [];
 ge{2} = [];
@@ -52,8 +58,10 @@ k_const = G*M;
 l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
     /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
 A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-fprintf("Eccentricity : %f\n", l_const.^2*A_coeff/k_const);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 
 %plot an analytic Solution's trajectory
@@ -67,8 +75,7 @@ plot(orbit_coordinate(:, 1), orbit_coordinate(:, 2), 'black-');
 plot(0, 0, 'blacko');
 xlabel("x"); ylabel("y");
 
-
-dt = 1/100;
+dt = 1/50;
 
 X(1, :) = init;
 P(1, :) = init;
@@ -76,61 +83,83 @@ P(1, :) = init;
 X_error(1, :) = [0, 0, 0];
 P_error(1, :) = [0, 0, 0];
 
-i = 2; %lists are starting at 2
-while(1)
-    %use Runge-Kutta method and predict next position
-    X(i, :) = RK4([OrbEqu(X_error(i-1,1)), X(i,3:4)], @geo, dt);    
-    %Error estimation according to analytic solution
-    X_error(i, :) = Err_est(X(i,1), X(i,2));    
-    %break the loop when degree is bigger than 2pi
-    if (X_error(i, 1) < X_error(i-1, 1))
-        break;
-    end
-    i = i+1;
-end
-i = 2; %lists are starting at 2
-while(1)
-    %use Runge-Kutta method and predict next position
-    P(i, :) = RK4([OrbEqu(P_error(i-1,1)), P(i,3:4)], @lag, dt);    
-    %Error estimation according to analytic solution
-    P_error(i, :) = Err_est(P(i,1), P(i,2));    
-    %break the loop when degree is bigger than 2pi
-    if (P_error(i, 1) < P_error(i-1, 1))
-        break;
-    end
-    i = i+1;
-end
-
-%plot numerical solutions' trajectory
-plot(X(:,1), X(:,2), 'r-o');
-plot(P(:,1), P(:,2), 'b-+');
 
 %write file
-wfile = fopen(file_name, 'w');
+wfile = fopen(filename, 'w');
 
 fprintf(wfile, filename);
 fprintf(wfile, ['\ninitial value : [x, y, v_x, v_y] = [%2.2f,%2.2f,%2.2f,%2.2f] , ' ...
     'numerical interval dt = %.5f , [M, m] = [%2d,%2d]\n\n'], init(1), init(2), init(3), init(4), dt, M, m);
-
 fprintf(wfile, "num|geodesic|\nnum|newtonian\nnum|degree, x, y, simple error, relative error\n");
 
 format = "%3d|%f,%f,%f,%f,%f\n";
-for i = 1:length(X)
-    fprintf(wfile, format, i, X_error(i,1), X(i,1), X(i,2), X_error(i,2), X_error(i,3));
+
+F_count = 0;
+fprintf(wfile, format, 1, X_error(1,1), X(1,1), X(1,2), X_error(1,2), X_error(1,3));
+while(1)
+    for i = 2:101
+        %use Runge-Kutta method and predict next position
+        X(i, :) = RKn([OrbEqu(X_error(i-1,1)), X(i-1,3:4)], @geo, dt, ord);    
+        %Error estimation according to analytic solution
+        X_error(i, :) = Err_est(X(i,1), X(i,2));    
+
+        if (X_error(i, 1) < X_error(i-1, 1))
+            break;
+        end
+    end
+    
+    plot(X(1:i,1), X(1:i,2), 'r-o');
+    for j = 2:i
+    fprintf(wfile, format, j + F_count*100, X_error(j,1), X(j,1), X(j,2), X_error(j,2), X_error(j,3));
+    end
+    
+    if(X_error(101, 1) < X_error(100, 1) || i < 101)
+        break;
+    end
+
+    X(1, :) = X(101, :);
+    X_error(1, :) = X_error(101, :);  
+    F_count = F_count+1;
 end
-for i = 1:length(P)
-    fprintf(wfile, format, i, P_error(i,1), P(i,1), P(i,2), P_error(i,2), P_error(i,3));
+
+
+F_count = 0;
+fprintf(wfile, format, 1, P_error(1,1), P(1,1), P(1,2), P_error(1,2), P_error(1,3));
+while(1)
+    for i = 2:101
+        %use Runge-Kutta method and predict next position
+        P(i, :) = RKn([OrbEqu(P_error(i-1,1)), P(i-1,3:4)], @lag, dt, ord);    
+        %Error estimation according to analytic solution
+        P_error(i, :) = Err_est(P(i,1), P(i,2));    
+
+        if (P_error(i, 1) < P_error(i-1, 1))
+            break;
+        end
+    end
+    
+    plot(P(1:i,1), P(1:i,2), 'b-+');
+    for j = 2:i
+    fprintf(wfile, format, j + F_count*100, P_error(j,1), P(j,1), P(j,2), P_error(j,2), P_error(j,3));
+    end
+    
+    if(P_error(101, 1) < P_error(100, 1) || i < 101)
+        break;
+    end
+
+    P(1, :) = P(101, :);
+    P_error(1, :) = P_error(101, :);  
+    F_count = F_count+1;
 end
 
 
 fclose(wfile);
 hold off;
-exportgraphics(fg1, figurename);
+exportgraphics(fig1, figurename);
 
 
 fprintf('program end\n');
 
-
+        end
     end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,30 +181,27 @@ function slope = lag(x)
         slope(i+2) = EL{i}(x);
     end
 end
-%Euler 1st Order
-function next_pos = EU1(curr_pos, func, dt)
-    next_pos = curr_pos + func(curr_pos)*dt;
-end
-%Heun 2nd Order
-function next_pos = HE2(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt);
-    next_pos = curr_pos + (k1+k2)*dt/2;
-end
-%Kutta 3rd Order
-function next_pos = KU3(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt/2);
-    k3 = func(curr_pos - k1*dt + 2*k2*dt);
-    next_pos = curr_pos + (k1 + 4*k2 + k3)*dt/6;
-end
-%Runge-Kutta 4th Order
-function next_pos = RK4(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt/2); 
-    k3 = func(curr_pos + k2*dt/2); 
-    k4 = func(curr_pos + k3*dt); 
-    next_pos = curr_pos + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+%Runge-Kutta nth Order
+function next_pos = RKn(curr_pos, func, dt, order)
+    switch order
+        case 4
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt/2); 
+            k3 = func(curr_pos + k2*dt/2); 
+            k4 = func(curr_pos + k3*dt); 
+            next_pos = curr_pos + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+        case 3
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt/2);
+            k3 = func(curr_pos - k1*dt + 2*k2*dt);
+            next_pos = curr_pos + (k1 + 4*k2 + k3)*dt/6;
+        case 2
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt);
+            next_pos = curr_pos + (k1+k2)*dt/2;
+        case 1
+            next_pos = curr_pos + func(curr_pos)*dt;
+    end
 end
 %calculate point of a moving particle when theta is given
 function xy_coor = OrbEqu(theta)

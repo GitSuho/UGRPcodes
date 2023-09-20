@@ -1,21 +1,22 @@
 %%% 1-body condition %%%
 clear all;
 
-E_list = [-0.5, -1.0, -1.5, -2.0, -2.5];
+E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
 ecc_list = [0, 0.4, 0.8];
+numerical_method = ["EU1","HE2","KU3","RK4"];
 
-
-for ii = 1:5
-    for jj = 1:3
+for ord = 4:4
+    for ii = 1:5
+        for jj = 1:3
 close all;
 hold on;
 
 E = E_list(ii);
 ecc = ecc_list(jj);
-nume_name = "RK4";
+nume_name = numerical_method(ord);
 
-filename = sprintf("OneBody1_E%1.1f_ecc%1.1f_%s.txt", E, ecc, nume_name);
-figurename = sprintf("OneBody1_E%1.1f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
+filename = sprintf("OneBody1_E%1.2f_ecc%1.1f_%s.txt", E, ecc, nume_name);
+figurename = sprintf("OneBody1_E%1.2f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
 M = 9;m = 1 ;G = 1;
@@ -67,7 +68,7 @@ plot(orbit_coordinate(:, 1), orbit_coordinate(:, 2), 'black-');
 plot(0, 0, 'blacko');
 xlabel("x"); ylabel("y");
 
-dt = 1/100;
+dt = 1/50;
 plot_interval = 0.1;
 
 X_dt(1) = dt;
@@ -88,12 +89,12 @@ for delta = 0:313
     given_degpos(i, :) = [theta1, given_position(1), given_position(2)];
 
     %fit each dt values
-    X_dt(i) = Fit_dt(X_dt(i-1), plot_interval ,[given_position, X(i-1,3:4)], @geo);
-    P_dt(i) = Fit_dt(P_dt(i-1), plot_interval ,[given_position, P(i-1,3:4)], @lag);
+    X_dt(i) = Fit_dt(X_dt(i-1), plot_interval ,[given_position, X(i-1,3:4)], @geo, ord);
+    P_dt(i) = Fit_dt(P_dt(i-1), plot_interval ,[given_position, P(i-1,3:4)], @lag, ord);
     
     %use Runge-Kutta method and predict next position
-    X(i, :) = RK4([given_position, X(i-1,3:4)], @geo, X_dt(i));
-    P(i, :) = RK4([given_position, P(i-1,3:4)], @lag, P_dt(i));
+    X(i, :) = RKn([given_position, X(i-1,3:4)], @geo, X_dt(i), ord);
+    P(i, :) = RKn([given_position, P(i-1,3:4)], @lag, P_dt(i), ord);
     
     %Error estimation according to analytic solution
     X_error(i, :) = Err_est(X(i,1), X(i,2));
@@ -109,7 +110,7 @@ for i = 2:length(X)
 end
 
 %write file
-wfile = fopen(file_name, 'w');
+wfile = fopen(filename, 'w');
 
 fprintf(wfile, filename);
 fprintf(wfile, ['\ninitial value : [x, y, v_x, v_y] = [%2.2f,%2.2f,%2.2f,%2.2f] , ' ...
@@ -122,19 +123,19 @@ format = "%3d|%f,%f,%f|%f,%f,%f,%f,%f,%f|%f,%f,%f,%f,%f,%f\n";
 for i = 2:length(X)
     fprintf(wfile, format, i-1, given_degpos(i,1), given_degpos(i,2), given_degpos(i,3), ...
         X_error(i,1), X(i,1), X(i,2), X_error(i,2), X_error(i,3), X_dt(i), ...
-        P_error(i,1), P(i,1), P(i,2), P_error(i,2), P_erroer(i,3), P_dt(i));
+        P_error(i,1), P(i,1), P(i,2), P_error(i,2), P_error(i,3), P_dt(i));
 end
 
 
 
 fclose(wfile);
 hold off;
-exportgraphics(fg1, figurename);
+exportgraphics(fig1, figurename);
 
 
 fprintf('program end\n');
 
-
+        end
     end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -156,30 +157,28 @@ function slope = lag(x)
         slope(i+2) = EL{i}(x);
     end
 end
-%Euler 1st Order
-function next_pos = EU1(curr_pos, func, dt)
-    next_pos = curr_pos + func(curr_pos)*dt;
-end
-%Heun 2nd Order
-function next_pos = HE2(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt);
-    next_pos = curr_pos + (k1+k2)*dt/2;
-end
-%Kutta 3rd Order
-function next_pos = KU3(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt/2);
-    k3 = func(curr_pos - k1*dt + 2*k2*dt);
-    next_pos = curr_pos + (k1 + 4*k2 + k3)*dt/6;
-end
-%Runge-Kutta 4th Order
-function next_pos = RK4(curr_pos, func, dt)
-    k1 = func(curr_pos);
-    k2 = func(curr_pos + k1*dt/2); 
-    k3 = func(curr_pos + k2*dt/2); 
-    k4 = func(curr_pos + k3*dt); 
-    next_pos = curr_pos + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+
+%Runge-Kutta nth Order
+function next_pos = RKn(curr_pos, func, dt, order)
+    switch order
+        case 4
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt/2); 
+            k3 = func(curr_pos + k2*dt/2); 
+            k4 = func(curr_pos + k3*dt); 
+            next_pos = curr_pos + (k1 + 2*k2 + 2*k3 + k4)*dt/6;
+        case 3
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt/2);
+            k3 = func(curr_pos - k1*dt + 2*k2*dt);
+            next_pos = curr_pos + (k1 + 4*k2 + k3)*dt/6;
+        case 2
+            k1 = func(curr_pos);
+            k2 = func(curr_pos + k1*dt);
+            next_pos = curr_pos + (k1+k2)*dt/2;
+        case 1
+            next_pos = curr_pos + func(curr_pos)*dt;
+    end
 end
 %calculate point of a moving particle when theta is given
 function xy_coor = OrbEqu(theta)
@@ -201,13 +200,13 @@ function degree = Find_degree(x, y)
     end
 end
 %find a dt value that make given plot interval
-function result_dt = Fit_dt(dt, fit_val, curr_pos, func)
+function result_dt = Fit_dt(dt, fit_val, curr_pos, func, ord)
     accuracy = 0.00000001;
-    next_pos = RK4(curr_pos,func, dt);
+    next_pos = RKn(curr_pos,func, dt, ord);
     disp  = sqrt((next_pos(1) - curr_pos(1)).^2 + (next_pos(2) - curr_pos(2)).^2);
     while( abs(disp - fit_val) > accuracy)
         dt = fit_val*dt/disp;
-        next_pos = RK4(curr_pos,func, dt);
+        next_pos = RKn(curr_pos,func, dt, ord);
         disp  = sqrt((next_pos(1) - curr_pos(1)).^2 + (next_pos(2) - curr_pos(2)).^2);
     end
     result_dt = dt;

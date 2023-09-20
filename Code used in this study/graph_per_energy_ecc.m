@@ -6,7 +6,7 @@ clc
 global ecc;
 ecc = 0.5;
 
-[E_1, theta] = meshgrid(-0.2:0.005:0,0:pi/50:2*pi);
+[E_1, theta] = meshgrid(-2.5:0.005:-0.5,0:pi/50:2*pi);
 r = OrbEqu_r(theta, E_1);
 
 hold on;
