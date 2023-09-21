@@ -20,6 +20,9 @@ filename = sprintf("OneBody3_E%1.2f_ecc%1.1f_%s.txt", E, ecc, nume_name);
 figurename = sprintf("OneBody3_E%1.2f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
+fprintf(filename);
+
+
 M = 9;m = 1 ;G = 1;
 v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
 x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
@@ -54,7 +57,6 @@ k_const = G*M;
 l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
     /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
 A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-fprintf("Eccentricity : %f\n", l_const.^2*A_coeff/k_const);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
