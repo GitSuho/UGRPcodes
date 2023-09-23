@@ -28,7 +28,9 @@ for file_name in ["OneBody1_E-0.05_ecc0.0_RK4.txt", "OneBody1_E-0.10_ecc0.0_RK4.
     plt.plot(range(len(lis)), lis)
     # plt.plot(range(len(lis3)), lis3, "g.-")
     plt.plot(range(len(lis2)), lis2, "r:")
-
+    print(max(lis2), min(lis2),float(max(lis2)- min(lis2) ))
+    print(max(lis), min(lis),max(lis)- min(lis) )
+    print()
     plt.ylim(lis[0]-1, lis[0]+1)
 
 

@@ -7,7 +7,7 @@ numerical_method = ["EU1","HE2","KU3","RK4"];
 
 for ord = 4:4
     for ii = 1:5
-        for jj = 1:3
+        for jj = 1:1
 close all;
 hold on;
 
@@ -95,8 +95,8 @@ for delta = 0:313
     given_degpos(i, :) = [theta1, given_position(1), given_position(2)];
 
     %fit each dt values
-    X_dt(i) = Fit_dt(X_dt(i-1), plot_interval ,[given_position, X(i-1,3:4)], @geo, ord);
-    P_dt(i) = Fit_dt(P_dt(i-1), plot_interval ,[given_position, P(i-1,3:4)], @lag, ord);
+    X_dt(i) = dt;%Fit_dt(X_dt(i-1), plot_interval ,[given_position, X(i-1,3:4)], @geo, ord);
+    P_dt(i) = dt;%Fit_dt(P_dt(i-1), plot_interval ,[given_position, P(i-1,3:4)], @lag, ord);
     
     %use Runge-Kutta method and predict next position
     X(i, :) = RKn([given_position, X(i-1,3:4)], @geo, X_dt(i), ord);
