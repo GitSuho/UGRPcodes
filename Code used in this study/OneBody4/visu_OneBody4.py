@@ -7,7 +7,7 @@ pi_lis = ["0.100", "0.050", "0.010", "0.005", "0.001"]
 
 for j in range(5):
 
-    var = 1
+    var = 0
     
     if(not var):
         name_lis =  [   f"OneBody4_E{ E_lis[i]}_plotinterval{pi_lis[j]}_ecc0.0_RK4.txt" for i in range(5) ]
@@ -48,9 +48,13 @@ for j in range(5):
     
     if not var:
         plt.title(f"plot interval : {pi_lis[j]}")
+        plt.xlabel("Energy (J)")
+        plt.ylabel("relative Error (%)")
         print(f"plot interval : {pi_lis[j]}")
     else:
         plt.title(f"Energy : {E_lis[j]}")
+        plt.xlabel("plot interval (m)")
+        plt.ylabel("relative Error (%)")
         print(f"Energy : {E_lis[j]}")
 
     for i in range(len(each_lis_x)):
