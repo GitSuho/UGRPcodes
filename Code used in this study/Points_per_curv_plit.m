@@ -4,7 +4,7 @@ clear all;
 curv_lis = [0.001:0.05:2.001];
 plit_lis = [0.001:0.05:2.001];
 
-file_name = "PPCP_RK1_09251153.txt";
+file_name = "PPCP_RK1_09261106.txt";
 wfile = fopen(file_name, 'w');
 ord = 1;
 
@@ -14,7 +14,6 @@ ord = 1;
 
 for curv = curv_lis
     for plot_interval = plit_lis
-        fprintf("%f\n", plot_interval)
         M = 1;m = 1 ;G = 1;
         v_init = [0, 1];
         x_init = [1/curv, 0];
@@ -45,7 +44,7 @@ for curv = curv_lis
         dt = 1/50;       
         dt = Fit_dt(dt, plot_interval ,init, @geo, ord);
         X = RKn(init, @geo, dt, ord);
-        X_error = Err_est(X(1), X(2));
+        X_error = Err_est(X(1), X(2), 1/curv);
 
         fprintf(wfile ,'%f    ', X_error);
         
@@ -114,8 +113,8 @@ function result_dt = Fit_dt(dt, fit_val, curr_pos, func, ord)
     result_dt = dt;
 end
 %calculate error when x-y coordinate is given
-function result_err = Err_est(x, y)
-    rr = OrbEqu_r(Find_degree(x, y));
-    result_err = 100 * abs(rr - sqrt(x.^2 + y.^2)) / rr; %relative_err
+function result_err = Err_est(x, y, r_0)
+    % rr = OrbEqu_r(Find_degree(x, y));
+    result_err = 100 * abs(r_0 - sqrt(x.^2 + y.^2)) / r_0; %relative_err
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
