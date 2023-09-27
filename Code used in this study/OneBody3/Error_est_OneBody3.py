@@ -12,9 +12,10 @@ def get_rad(theta, y):
 
 
 
-for file_name in ["OneBody3_E-0.25_ecc0.8_RK4.txt" ]:
-    new_file_name = f"{file_name[-4]}_new.txt"
-    print(new_file_name)
+for file_name in ["OneBody3_E-0.05_ecc0.0_RK4.txt", "OneBody3_E-0.05_ecc0.4_RK4.txt", "OneBody3_E-0.05_ecc0.8_RK4.txt", "OneBody3_E-0.10_ecc0.0_RK4.txt", "OneBody3_E-0.10_ecc0.4_RK4.txt",
+                  "OneBody3_E-0.10_ecc0.8_RK4.txt", "OneBody3_E-0.15_ecc0.0_RK4.txt", "OneBody3_E-0.15_ecc0.4_RK4.txt", "OneBody3_E-0.15_ecc0.8_RK4.txt", "OneBody3_E-0.20_ecc0.0_RK4.txt",
+                  "OneBody3_E-0.20_ecc0.4_RK4.txt", "OneBody3_E-0.20_ecc0.8_RK4.txt", "OneBody3_E-0.25_ecc0.0_RK4.txt", "OneBody3_E-0.25_ecc0.4_RK4.txt" ]:
+    new_file_name = f"new_{file_name}"
     f = open(new_file_name, "w")
     
     init = list()
@@ -61,4 +62,4 @@ for file_name in ["OneBody3_E-0.25_ecc0.8_RK4.txt" ]:
             f.write(f'{int(line.split("|")[0])}|{float(var2[0])},{float(var2[1])},{float(var2[2])},{absolute_error},{relative_err}\n')         
             
     f.close()
-    print("end")
+    print(f"end_{file_name}")
