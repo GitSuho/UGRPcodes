@@ -1,17 +1,29 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 def Norm2(x, y):
     return (x**2 + y**2)**0.5
+def get_rad(theta, y):
+    if y>= 0:
+        return np.arccos(theta)
+    else:
+        return np.pi*2 - np.arccos(theta)
+
 
 
 for file_name in ["OneBody3_E-0.25_ecc0.8_RK4.txt" ]:
     new_file_name = f"{file_name[-4]}_new.txt"
+    print(new_file_name)
     f = open(new_file_name, "w")
     
     init = list()
     ecc =  float(file_name.split("ecc")[1].split("_")[0])
     a, b = int(), int()
 
+    
+    ang_err_lis = list()
+    
     with open( file_name ) as file_contents:      
         for line in file_contents:
             if ("initial value :" in line):
@@ -26,7 +38,7 @@ for file_name in ["OneBody3_E-0.25_ecc0.8_RK4.txt" ]:
                 rp = init[0]
                 ra = rp*(1+ecc)/(1-ecc)
                 a = (ra+rp)/2
-                b = a/(1-ecc**2)**0.5
+                b = a*(1-ecc**2)**0.5
                                        
 
             try :
@@ -36,19 +48,17 @@ for file_name in ["OneBody3_E-0.25_ecc0.8_RK4.txt" ]:
                 continue
             
             var2 = line.split("|")[1].split(",")
-            angle = float(var2[0])
-            r_0 = Norm2(a*np.cos(angle), b*np.sin(angle))
-            absolute_error = abs( r_0 - Norm2(float(var2[1]), float(var2[2]))  )
+            
+            x2 = float(var2[1])
+            y2 = float(var2[2])
+            
+            angle = get_rad( (a*ecc + Norm2(x2,y2)*np.cos(float(var2[0])))/a ,y2)          
+            
+            r_0 = Norm2(a*np.cos(angle) - (a-rp), b*np.sin(angle))
+            absolute_error = abs( r_0 - Norm2(x2, y2)  )
             relative_err = 100 * absolute_error / r_0
                        
+            f.write(f'{int(line.split("|")[0])}|{float(var2[0])},{float(var2[1])},{float(var2[2])},{absolute_error},{relative_err}\n')         
             
-            
-            
-            f.write(f'{line.split("|")}|{var2[0]},{var2[1]},{var2[2]},{absolute_error},{relative_err}')         
-            
-
-
-
-
     f.close()
     print("end")
