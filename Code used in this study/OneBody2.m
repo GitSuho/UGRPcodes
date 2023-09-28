@@ -5,7 +5,7 @@ E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
 ecc_list = [0.8, 0.4, 0.0];
 numerical_method = ["EU1","HE2","KU3","RK4"];
 
-for ord = 4:4
+for ord = 1:1
     for ii = 1:5
         for jj = 1:3
 close all;

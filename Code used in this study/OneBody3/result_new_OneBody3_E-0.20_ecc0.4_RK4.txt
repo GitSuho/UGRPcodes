@@ -1,0 +1,11 @@
+result_new_OneBody3_E-0.20_ecc0.4_RK4.txt
+
+-geodesic accmulated error-
+numerical   : 6.657167759271942e-07
+theoretical : 2.7227696604846248e-15
+difference : 99.9999995910018%
+
+-newtonian accmulated error-
+numerical   : 4.547234464524763e-07
+theoretical : 6.684894670510823e-15
+differnece : 99.99999852989883%
