@@ -7,22 +7,24 @@ def Norm2(x, y):
 
 #theoretical error without direction
 def theoretical_error(kappa , d):
+    # r = 1/kappa
+    
+    # m2 = -2*r/d
+    
+    # dx3 = -d/(2*(1+m2**2)**0.5)
+    # m3 = -(r+dx3)/(m2*dx3)
+    
+    # dx4 = -d/(1+m3**2)**0.5
+    # m4 = -(r+dx4)/(m3*dx4)
+    
+    # tx2 = -d/(1+m2**2)**0.5
+    # tx3 = -d/(1+m3**2)**0.5
+    # tx4 = -d/(1+m4**2)**0.5
+    
+    # r_nume = ((r + tx2/3 + tx3/3 + tx4/6)**2 + (d/6 + m2*tx2/3 + m3*tx3/3 + m4*tx4/6)**2)**0.5
+    
     r = 1/kappa
-    
-    m2 = -2*r/d
-    
-    dx3 = -d/(2*(1+m2**2)**0.5)
-    m3 = -(r+dx3)/(m2*dx3)
-    
-    dx4 = -d/(1+m3**2)**0.5
-    m4 = -(r+dx4)/(m3*dx4)
-    
-    tx2 = -d/(1+m2**2)**0.5
-    tx3 = -d/(1+m3**2)**0.5
-    tx4 = -d/(1+m4**2)**0.5
-    
-    r_nume = ((r + tx2/3 + tx3/3 + tx4/6)**2 + (d/6 + m2*tx2/3 + m3*tx3/3 + m4*tx4/6)**2)**0.5
-    return abs(r_nume - r)
+    return abs(Norm2(r, d) - r)
 
 
 
@@ -118,18 +120,25 @@ for file_name in FileList:
         else :
             break
 
+    g_err_lis = []
+    n_err_lis = []
     
     f.write("\ngeod|\nnewt|\nnum|numerrical|theoretical|relative difference(%)\n")
     for i in range(1, len(geod_err)):
         hoo = theoretical_error(Find_curvature(geod_err[i][0] + a -rp, geod_err[i][1]) , Norm2(geod_err[i][0] - geod_err[i-1][0] , geod_err[i][1] - geod_err[i-1][1] ))
         ioo = float(geod_err[i][2])
-        f.write(f"{i}|{ioo},{hoo},{100*(ioo-hoo)/ioo}\n")
+        f.write(f"{i}|{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
+        g_err_lis.append(abs(100*(ioo-hoo)/ioo))
         
 
     for i in range(1, len(newt_err)):
         hoo = theoretical_error(Find_curvature(newt_err[i][0] + a -rp, newt_err[i][1]) , Norm2(newt_err[i][0] - newt_err[i-1][0] , newt_err[i][1] - newt_err[i-1][1] ))
         ioo = float(newt_err[i][2])
-        f.write(f"{i}|{ioo},{hoo},{100*(ioo-hoo)/ioo}\n")
+        f.write(f"{i}|{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
+        n_err_lis.append(abs(100*(ioo-hoo)/ioo))
+        
+    f.write(f"\n\ngeod relative difference numerical and theoretical error mean : {np.nanmean(g_err_lis)}\n")
+    f.write(f"newt relative difference numerical and theoretical error mean : {np.nanmean(n_err_lis)}\n")
                 
             
     f.close()
