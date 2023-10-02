@@ -4,9 +4,9 @@ clear all;
 curv_lis = [0.001:0.05:2.001];
 plit_lis = [0.001:0.05:2.001];
 
-file_name = "PPCP_RK1_09261106.txt";
+file_name = "PPCP_RK4_10011044.txt";
 wfile = fopen(file_name, 'w');
-ord = 1;
+ord = 4;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

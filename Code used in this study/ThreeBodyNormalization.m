@@ -15,9 +15,9 @@ clc
 % m = [1 1 1];
 
 % %Xiaoming Lia , Shijun Liao. December 2017 
-% I.A_{100}^{i.c.}
-v_1 = 0.0670760777;
-v_2 = 0.5889627892;
+% % I.A_{100}^{i.c.}
+% v_1 = 0.0670760777;
+% v_2 = 0.5889627892;
 
 % %I.A_{77}^{i.c.}
 % v_1 = 0.4159559963;
@@ -30,17 +30,17 @@ v_2 = 0.5889627892;
 % % II.C_{156}^{i.c.}
 % v_1 = 0.3231926176;
 % v_2 = 0.3279135713;
-
-x_init = [-1 0 ; 1 0; 0 0];
-v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-m = [1, 1, 1];
+% 
+% x_init = [-1 0 ; 1 0; 0 0];
+% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+% m = [1, 1, 1];
 
 % %lagrange equliteral triangular solution
-% m = [1, 2, 3];
-% s3_size = 1; s3_rad = 0;
-% x_init = 2*[0 2 ; -sqrt(3) -1 ; sqrt(3) -1];
-% v_init = 1/sum(m) * [(-m(2)-m(3)/2) (-sqrt(3)/2*m(3));(m(1)+m(3)/2) (-sqrt(3)/2*m(3)); (m(1)/2-m(2)/2) (sqrt(3)/2*m(1)+sqrt(3)/2*m(2))];
-% v_init = s3_size*v_init*[cos(s3_rad) sin(s3_rad) ; -sin(s3_rad) cos(s3_rad)];
+m = [1, 2, 3];
+s3_size = 1; s3_rad = 0;
+x_init = 2*[0 2 ; -sqrt(3) -1 ; sqrt(3) -1];
+v_init = 1/sum(m) * [(-m(2)-m(3)/2) (-sqrt(3)/2*m(3));(m(1)+m(3)/2) (-sqrt(3)/2*m(3)); (m(1)/2-m(2)/2) (sqrt(3)/2*m(1)+sqrt(3)/2*m(2))];
+v_init = s3_size*v_init*[cos(s3_rad) sin(s3_rad) ; -sin(s3_rad) cos(s3_rad)];
 
 % %Euler collinear solution
 % m = [1 2 3];
@@ -167,7 +167,7 @@ while(1)
         fprintf("%d\n", i);
 
         % X_dt = Fit_dt(X_dt, plot_interval, X(i, :), @g);
-        P_dt = Fit_dt(P_dt, plot_interval, P(i, :), @eulagrange);
+        % P_dt = Fit_dt(P_dt, plot_interval, P(i, :), @eulagrange);
     
         % fprintf("a\n");
         X(i+1, :) = RK4(X(i, :), @g, X_dt);

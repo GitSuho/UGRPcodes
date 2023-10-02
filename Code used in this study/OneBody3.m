@@ -6,9 +6,9 @@ E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
 ecc_list = [0, 0.4, 0.8];
 numerical_method = ["EU1","HE2","KU3","RK4"];
 
-for ord = 4:4
-    for ii = 1:5
-        for jj = 1:3
+for ord = 1:1
+    for ii = 2:2
+        for jj = 2:2
 close all;
 hold on;
 
@@ -72,7 +72,7 @@ plot(0, 0, 'blacko');
 xlabel("x"); ylabel("y");
 
 
-dt = 1/50;
+dt = 1/5000;
 
 X(1, :) = init;
 P(1, :) = init;
@@ -221,8 +221,8 @@ end
 %calculate error when x-y coordinate is given
 function result_err = Err_est(x, y)
     theta = Find_degree(x, y);
-    simple_err = abs(OrbEqu_r(theta) - norm(x, y));
-    relative_err = simple_err / OrbEqu_r(theta) * 100;
+    simple_err = 0;%abs(OrbEqu_r(theta) - norm(x, y));
+    relative_err = 0;%simple_err / OrbEqu_r(theta) * 100;
     result_err = [theta, simple_err, relative_err];
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
