@@ -25,7 +25,7 @@ for file_name in FileList:
     
     init = list()
     ecc =  float(file_name.split("ecc")[1].split("_")[0])
-    a, b = int(), int()
+    a, b = float(), float()
 
     geod_err = list()
     newt_err = list()

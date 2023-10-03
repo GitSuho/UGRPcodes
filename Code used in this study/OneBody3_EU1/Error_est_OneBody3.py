@@ -18,7 +18,7 @@ for file_name in ["OneBody3_E-0.25_ecc0.0_EU1.txt", "OneBody3_E-0.25_ecc0.4_EU1.
     
     init = list()
     ecc =  float(file_name.split("ecc")[1].split("_")[0])
-    a, b = int(), int()
+    a, b = float(), float()
 
     
     ang_err_lis = list()
