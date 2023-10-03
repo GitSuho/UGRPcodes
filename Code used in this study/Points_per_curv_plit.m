@@ -14,7 +14,7 @@ ord = 4;
 
 for curv = curv_lis
     for plot_interval = plit_lis
-        M = 1;m = 1 ;G = 1;
+        M = 0.1;m = 1 ;G = 1;
         v_init = [0, 1];
         x_init = [1/curv, 0];
         

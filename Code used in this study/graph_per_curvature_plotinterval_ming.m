@@ -11,8 +11,8 @@ curv_lis = [0.001:0.05:2.001];
 plit_lis = [0.001:0.05:2.001];
 nume_data = load(load_file); % column - plot interval, row - curvature 
 
-for i = 1:5:length(curv_lis)
-    for j = 1:5:length(plit_lis)
+for i = 1:5:length(curv_lis)/2
+    for j = 1:5:length(plit_lis)/2
         scatter3(curv_lis(i), plit_lis(j), nume_data(i, j), 'filled', 'ro');
     end
 end
@@ -29,13 +29,20 @@ plti_info = [0, 1, 100];
 
 [curv , plti] = meshgrid(curv_info(1):(curv_info(2)-curv_info(1))/curv_info(3):curv_info(2) , ...
                          plti_info(1):(plti_info(2)-plti_info(1))/plti_info(3):plti_info(2));
-re_er = NumeErr(curv, plti);
-mesh(curv, plti, re_er);
+
+
+re_er = zeros(101);
+
+for i = 1: 101
+    for j = 1: 101
+        re_er(i,j) = real(NumeErr(curv(1,i),plti(j,1)));
+    end
+end
+
+% re_er = NumeErr(curv, plti);
+surf(curv, plti, re_er);
 
 hold off;
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
