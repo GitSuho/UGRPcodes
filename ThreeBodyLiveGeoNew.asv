@@ -25,12 +25,12 @@ clc
 % v_1 = 0.4784306757;
 % v_2 = 0.3771895698;
 %II.C_{156}^{i.c.}
-v_1 = 0.3231926176;
-v_2 = 0.3279135713;
+% v_1 = 0.3231926176;
+% v_2 = 0.3279135713;
 % 
-x_init = [-1 0 ; 1 0; 0 0];
-v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-m = [1, 1, 1];
+% x_init = [-1 0 ; 1 0; 0 0];
+% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+% m = [1, 1, 1];
 
 % %lagrange equliteral triangular solution
 % m = [1, 2, 3];
@@ -53,11 +53,11 @@ m = [1, 1, 1];
 %(-m(1)*m(3)-m(2)*m(3))*lamb_sym^5+(-m(1)*m(3)-2*m(1)*m(3)-2*m(2)*m(3))*lamb_sym^4+(-3*m(1)*m(3)+2*m(3).^2-m(2)*m(3))*lamb_sym^3+(-2*m(1)*m(3)+m(2)*m(3)+3*m(3).^2)*lamb_sym^2+(2*m(2)*m(3)+3*m(3).^2)*lamb_sym+(m(2)*m(3)+m(3).^2) == 0;
 %(m(1)+m(2))*lamb_sym^5 + (3*m(1)+2*m(2))*lamb_sym^4+(3*m(1)+m(2))*lamb_sym^3-(m(2)+3*m(3))*lamb_sym^2-(2*m(2)+3*m(3))*lamb_sym-(m(2)+m(3)) == 0;
 %(m(2)+m(3)*(1+lamb_sym))/(m(1)-m(3)*lamb_sym) - (m(2)+m(3)*(1/(1+lamb_sym))^2)/(m(1)-m(3)*(1/lamb_sym)^2) == 0;
-% s_3 = [1 0];
-% sv_3 = [-1/2 1];
-% form_ecs = 1/sum(m)*[-m(2)-m(3)-lamb_ecs*m(3) ; m(1)-lamb_ecs*m(3) ; m(1)+lamb_ecs*m(1)+lamb_ecs*m(2)];
-% x_init = form_ecs*s_3;
-% v_init = form_ecs*sv_3;
+s_3 = [1 0];
+sv_3 = [-1/2 1];
+form_ecs = 1/sum(m)*[-m(2)-m(3)-lamb_ecs*m(3) ; m(1)-lamb_ecs*m(3) ; m(1)+lamb_ecs*m(1)+lamb_ecs*m(2)];
+x_init = form_ecs*s_3;
+v_init = form_ecs*sv_3;
 
 
 G = 1;
@@ -146,43 +146,43 @@ end
 
 
 dt = 1/20;
-cycle = 2;
+cycle = 10;
 % clear("X")
-% clear("Xt")
-clear("P")
+clear("Xt")
+% clear("P")
 
 % X(1, :) = init;
-% Xt(1, :) = init;
-P(1, :) = init;
+Xt(1, :) = init;
+% P(1, :) = init;
 
 
 hold on;
 while(1)
     for i = 1:cycle
         % X(i+1, :) = RK4(X(i, :), @g, dt);
-        % Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
-        P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
+        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        % P(i+1, :) = RK4(P(i, :), @eulagrange, dt);
     end
 
     % plot(X(:, 1),X(:, 2), 'r-');
     % plot(X(:, 5),X(:, 6), 'g-');
     % plot(X(:, 9),X(:, 10), 'b-');
 
-    % plot(Xt(:, 1),Xt(:, 2), 'b-');
-    % plot(Xt(:, 5),Xt(:, 6), 'r-');
-    % plot(Xt(:, 9),Xt(:, 10), 'black-');
+    plot(Xt(:, 1),Xt(:, 2), 'y-');
+    plot(Xt(:, 5),Xt(:, 6), 'm-');
+    plot(Xt(:, 9),Xt(:, 10), 'c-');
 
-    plot(P(:, 1),P(:, 2), 'b-');
-    plot(P(:, 5),P(:, 6), 'r-');
-    plot(P(:, 9),P(:, 10), 'black-');
+    % plot(P(:, 1),P(:, 2), 'k:');
+    % plot(P(:, 5),P(:, 6), 'k:');
+    % plot(P(:, 9),P(:, 10), 'k:');
     
     % plot_curr_triangle(X(cycle+1,:));
-    % plot_curr_triangle(Xt(cycle+1,:));
+    plot_curr_triangle(Xt(cycle+1,:));
     % plot_curr_triangle(P(cycle+1,:));
 
     % X(1, :) = X(cycle+1, :);
-    % Xt(1, :) = Xt(cycle+1, :);
-    P(1, :) = P(cycle+1, :);
+    Xt(1, :) = Xt(cycle+1, :);
+    % P(1, :) = P(cycle+1, :);
     pause(0.1);
 
 end

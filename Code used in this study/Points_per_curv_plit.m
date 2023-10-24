@@ -89,13 +89,13 @@ ord = 1;
         b_const = a_const*sqrt(1-ecc.^2);
         
         dt = 1/5;  
-        for i_theta = 1:313
-            theta_0  = 2*pi*i_theta/314;
+        for i_theta = 1:3130
+            theta_0  = 2*pi*i_theta/3140;
             X_0 = OrbEqu_with_velocity(theta_0);
             X = RKn(X_0, @geo, dt, ord);
             X_error = Err_est(X(1), X(2));
 
-            fprintf(wfile, "%f\t%f\t%f\n", sqrt( (X(1) - X_0(1)).^2 + (X(2) - X_0(2)).^2), Find_Curv(Find_degree(X(1), X(2)), ecc), X_error);
+            fprintf(wfile, "%f\t%f\t%f\n", sqrt((X(1) - X_0(1)).^2 + (X(2) - X_0(2)).^2), Find_Curv(Find_degree(X_0(1), X_0(2)), ecc), X_error);
         end
 
 
@@ -123,7 +123,7 @@ function xyv1v2 = OrbEqu_with_velocity(theta)
     global l_const; global A_coeff; global k_const;
     r = 1/(A_coeff*cos(theta)+(k_const/(l_const.^2)));
     r_p = r.^2 * A_coeff*sin(theta);%derivative r by theta
-    
+    % assume that [ d{\theta}/dt = 1 ]
     xyv1v2 = [r*cos(theta), r*sin(theta) , r_p*cos(theta)-r*sin(theta) , r_p*sin(theta)+r*cos(theta)];
 end
 %Runge-Kutta nth Order
@@ -150,7 +150,8 @@ function next_pos = RKn(curr_pos, func, dt, order)
 end
 %calculate the r which is interval of two particles
 function r = OrbEqu_r(theta)
-    r = norm(OrbEqu(theta));
+    global l_const; global A_coeff; global k_const;
+    r = 1/(A_coeff*cos(theta)+(k_const/(l_const.^2)));
 end
 %calculate a degree when x-y coordinate given
 function degree = Find_degree(x, y)
@@ -159,7 +160,6 @@ end
 %find a curvature at given angle
 function curvature = Find_Curv(angle_0, ecc)
     global a_const; global b_const;
-
     angle = 2*atan(sqrt((1-ecc)/(1+ecc))*tan(angle_0/2));
     curvature = a_const*b_const/(((a_const*sin(angle)).^2 + (b_const*cos(angle)).^2).^(1.5));
 end
