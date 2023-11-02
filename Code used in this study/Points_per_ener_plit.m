@@ -1,22 +1,31 @@
 %%% 1-body condition %%%
 clear all;
 
-curv_lis = [0.001:0.05:2.001];
 plit_lis = [0.001:0.05:2.001];
+E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
 
-file_name = "PPCP_RK2_11020044.txt";
+
+file_name = "PPEP_RK2_11021318.txt";
 wfile = fopen(file_name, 'w');
 ord = 2;
-
+hold on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+for ii = 1:length(E_list)
+    for jj = 1:length(plit_lis)
+        
+        
+        E = E_list(ii);
+        plot_interval = plit_lis(jj);
+        
+       
+        ecc = 0;
 
-for curv = curv_lis
-    for plot_interval = plit_lis
-        M = 0.1;m = 1 ;G = 1;
-        v_init = [0, 1];
-        x_init = [1/curv, 0];
+        M = 9;m = 1 ;G = 1;
+        v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
+        x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
+        curv=1/x_init(1);
 
         syms('x_sym', [2, 2]);
         assume(x_sym, 'real');
@@ -39,69 +48,28 @@ for curv = curv_lis
         l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
             /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
         A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-
-
+       
         dt = 1/50;       
         dt = Fit_dt(dt, plot_interval ,init, @geo, ord);
         X = RKn(init, @geo, dt, ord);
+        plot([init(1), X(1)], [init(2), X(2)], 'r:^' );
+
+
+        % plot_interval = norm(init)*dt;
+        X_theo = TheoPredic_n(init, plot_interval, ord);
+        plot([init(1), X_theo(1)], [init(2), X_theo(2)], 'b:o' );
+
+        pause(1);
+
+                
         X_error = Err_est(X(1), X(2), 1/curv);
-
-        fprintf(wfile ,'%f    ', X_error);
-
+        fprintf(wfile ,'%f\t%f\t%f\n', curv, plot_interval, X_error);
     end
-    fprintf(wfile , '\n');
 end
 fclose(wfile);
 fprintf('program end\n');
 
 
-% 
-%         ecc  = 0.9;E = -2;
-%         M = 9;m = 1 ;G = 1;
-%         v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
-%         x_init = [(ecc+1)*G*M/(v_init(2).^2), 0];
-% 
-% 
-%         syms('x_sym', [2, 2]);
-%         assume(x_sym, 'real');
-%         E = 1/2*m*norm(v_init)^2 - G*M*m/norm(x_init);
-%         T = E + G*M*m/norm(x_sym(1,:));
-%         init = [x_init v_init];
-%         init = init(:);
-%         Geodesic solution which domain is arclength
-%         global GE;
-%         GE{2} = [];
-%         ge{2} = [];
-%         for i = 1:2
-%             ge{i} = -(diff(T, x_sym(1,1))*x_sym(2,1) + diff(T, x_sym(1,2))*x_sym(2,2))*x_sym(2,i) ...
-%                + 1/(2*T)*diff(T, x_sym(1,i))*norm(x_sym(2,:))^2;
-%             GE{i} = @(x) eval(subs(ge{i}, x_sym, reshape(x,[2,2])'));
-%         end
-%         Orbital equation's constants
-%         global l_const; global A_coeff; global k_const;
-%         k_const = G*M;
-%         l_const = norm(x_init)*norm(v_init)*sin(acos((norm(x_init).^2+norm(v_init).^2-norm(x_init-v_init).^2) ...
-%             /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
-%         A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
-% 
-%         global a_const; global b_const;
-%         a_const = x_init(1)*(1 + (1+ecc)/(1-ecc))/2;
-%         b_const = a_const*sqrt(1-ecc.^2);
-% 
-%         dt = 1/5;  
-%         for i_theta = 1:3130
-%             theta_0  = 2*pi*i_theta/3140;
-%             X_0 = OrbEqu_with_velocity(theta_0);
-%             X = RKn(X_0, @geo, dt, ord);
-%             X_error = Err_est(X(1), X(2));
-% 
-%             fprintf(wfile, "%f\t%f\t%f\n", sqrt((X(1) - X_0(1)).^2 + (X(2) - X_0(2)).^2), Find_Curv(Find_degree(X_0(1), X_0(2)), ecc), X_error);
-%         end
-% 
-% 
-% 
-% fclose(wfile);
-% fprintf('program end\n');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %geodesic equation
@@ -148,6 +116,20 @@ function next_pos = RKn(curr_pos, func, dt, order)
             next_pos = curr_pos + func(curr_pos)*dt;
     end
 end
+%Theoritical predict nth Order
+function next_pos = TheoPredic_n(curr_pos, d, order)
+    switch order
+        case 4
+
+        case 3
+
+        case 2      
+            r = curr_pos(1);
+            next_pos = [r - d.^2./sqrt(4.*r.^2 + d.^2) , 2.*r.*d./sqrt(4.*r.^2 + d.^2)];
+        case 1
+
+    end
+end
 %calculate the r which is interval of two particles
 function r = OrbEqu_r(theta)
     global l_const; global A_coeff; global k_const;
@@ -180,8 +162,4 @@ function result_err = Err_est(x, y, r_0)
     % rr = OrbEqu_r(Find_degree(x, y));
     result_err = 100 * abs(r_0 - sqrt(x.^2 + y.^2)) / r_0; %relative_err
 end
-% function result_err = Err_est(x, y)
-%     r_0 = OrbEqu_r(Find_degree(x, y));
-%     result_err = 100 * abs(r_0 - sqrt(x.^2 + y.^2)) / r_0; %relative_err
-% end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
