@@ -1,11 +1,14 @@
 %%% 1-body condition %%%
 clear all;
 
-plit_lis = [0.001:0.05:2.001];
-E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
+% plit_lis = [0.001:0.05:2.001];
+% E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
+
+plit_lis = [0.001:0.5:2.001];
+E_list = [-0.1,-5, -10,-15 ,-20];
 
 
-file_name = "PPEP_RK2_11021318.txt";
+file_name = "PPEP_RK2_11021354.txt";
 wfile = fopen(file_name, 'w');
 ord = 2;
 hold on;

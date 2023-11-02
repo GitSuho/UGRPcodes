@@ -11,7 +11,8 @@ hold on;
 % load_file = "PPCP_RK4_11020011.txt";
 % load_file = "PPCP_RK2_11020044.txt";
 
-load_file = "PPEP_RK2_11021318.txt";
+% load_file = "PPEP_RK2_11021318.txt";
+load_file = "PPEP_RK2_11021354.txt";
 
 curv_lis = [0.001:0.05:2.001];
 plit_lis = [0.001:0.05:2.001];
@@ -38,7 +39,7 @@ title("Relative Error of curvature and plot interval")
 
 
 %theoritical graph
-curv_info = [0, 2, 300];
+curv_info = [0, 5, 300];
 plti_info = [0, 2, 300];
 
 [curv , plti] = meshgrid(curv_info(1):(curv_info(2)-curv_info(1))/curv_info(3):curv_info(2) , ...
