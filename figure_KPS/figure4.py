@@ -22,7 +22,8 @@ def Cal_ContinuousCurvature_Rate(t, a, b):
     return - (3 * a * b * (a ** 2 - b ** 2) * math.cos(t) * math.sin(t)) / (b ** 2 * math.cos(t) ** 2 + a ** 2 * math.sin(t) ** 2) ** 2.5
 
 
-ab_list = [ [4 , 2], [3 , 8/3], [2.85 , 8/2.85 ]]
+ab_list = [ [4 , 2], [3.9 , 8/3.9], [3.8 , 8/3.8 ]]
+
 
 dis_curvature_points = [[],[],[]]
 con_curvature_points = [[],[],[]]
@@ -44,7 +45,7 @@ for ab in range(3):
 
     div_num = 100
     for i in range(div_num):
-        print(i)
+        print(f'{ab}, {i}')
         # given angle
         t = math.pi / 2 * i / div_num
         thetas.append(t)
@@ -147,9 +148,9 @@ plt.show()
 """
 
 ###########################################################################
-plt.scatter(con_curvature_points[0], a_errors[0], c=thetas, cmap='Reds_r' , label = "e = 0.87")
-plt.scatter(con_curvature_points[1], a_errors[1], c=thetas, cmap='Greens_r', label = "e = 0.46")
-plt.scatter(con_curvature_points[2], a_errors[2], c=thetas, cmap='Blues_r' , label = "e = 0.17")
+plt.scatter(con_curvature_points[0], a_errors[0], c=thetas, cmap='Reds_r' , label = "e = 0.866")
+plt.scatter(con_curvature_points[1], a_errors[1], c=thetas, cmap='Greens_r', label = "e = 0.850")
+plt.scatter(con_curvature_points[2], a_errors[2], c=thetas, cmap='Blues_r' , label = "e = 0.832")
 
 
 plt.xlabel("Curvature (rad/m)", fontsize=11)
