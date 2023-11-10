@@ -4,23 +4,26 @@ clear all;
 % plit_lis = [0.001:0.05:2.001];
 % E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
 
+dt_lis = [1/50 , 1/100 , 1/200];
 plit_lis = [0.001:0.5:2.001];
 E_list = [-0.1,-5, -10,-15 ,-20];
 
 
-file_name = "PPEP_RK2_11021354.txt";
+file_name = "PPEP_RK4_11091106.txt";
 wfile = fopen(file_name, 'w');
-ord = 2;
+ord = 4;
 hold on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 for ii = 1:length(E_list)
-    for jj = 1:length(plit_lis)
+    % for jj = 1:length(plit_lis)
+    for jj = 1:length(dt_lis)
+
         
         
         E = E_list(ii);
-        plot_interval = plit_lis(jj);
+        % plot_interval = plit_lis(jj);
         
        
         ecc = 0;
@@ -52,11 +55,13 @@ for ii = 1:length(E_list)
             /(2*norm(x_init)*norm(v_init))));%r*v*sin(theta_0)
         A_coeff =  (1/norm(x_init) - (k_const/(l_const.^2)))/(x_init(1)/norm(x_init));
        
-        dt = 1/50;       
-        dt = Fit_dt(dt, plot_interval ,init, @geo, ord);
+        % dt = 1/50;       
+        dt = dt_lis(jj);
+        % dt = Fit_dt(dt, plot_interval ,init, @geo, ord);
         X = RKn(init, @geo, dt, ord);
         plot([init(1), X(1)], [init(2), X(2)], 'r:^' );
-
+        
+        plot_interval = norm(X(1:2) - init(1:2));
 
         % plot_interval = norm(init)*dt;
         X_theo = TheoPredic_n(init, plot_interval, ord);
@@ -123,6 +128,27 @@ end
 function next_pos = TheoPredic_n(curr_pos, d, order)
     switch order
         case 4
+            r = curr_pos(1);
+                
+            k1 = [0, d];
+        
+            x2 = [r - k1(1)/2 , k1(2)/2];
+            dx2 = d*x2(2)/sqrt(x2(1).^2 + x2(2).^2);
+            dy2 = d*x2(1)/sqrt(x2(1).^2 + x2(2).^2);
+            k2 = [dx2, dy2];
+        
+            x3 = [r - k2(1)/2 , k2(2)/2];
+            dx3 = d*x3(2)/sqrt(x3(1).^2 + x3(2).^2);
+            dy3 = d*x3(1)/sqrt(x3(1).^2 + x3(2).^2);
+            k3 = [dx3, dy3];
+        
+            x4 = [r - k3(1) , k3(2)];
+            dx4 = d*x4(2)/sqrt(x4(1).^2 + x4(2).^2);
+            dy4 = d*x4(1)/sqrt(x4(1).^2 + x4(2).^2);
+            k4 = [dx4, dy4];
+            
+            next_pos = [(r - (k1(1) + 2* k2(1) + 2*k3(1) + k4(1))/6) , (k1(2) + 2* k2(2) + 2*k3(2) + k4(2))/6 ];
+
 
         case 3
 
