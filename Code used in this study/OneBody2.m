@@ -15,11 +15,12 @@ E = E_list(ii);
 ecc = ecc_list(jj);
 nume_name = numerical_method(ord);
 
-filename = sprintf("OneBody2_E%1.2f_ecc%1.1f_%s.txt", E, ecc, nume_name);
-figurename = sprintf("OneBody2_E%1.2f_ecc%1.1f_%s.pdf", E, ecc, nume_name);
+filename = sprintf("OneBody2_E%1.2f_ecc%1.2f_%s.txt", E, ecc, nume_name);
+figurename = sprintf("OneBody2_E%1.2f_ecc%1.2f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
 fprintf(filename);
+fprintf("\n");
 
 M = 1;m = 1 ;G = 1;
 v_init = [0, sqrt(-E/(-m/2+m/(ecc+1)))];
