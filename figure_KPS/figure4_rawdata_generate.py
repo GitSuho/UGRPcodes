@@ -21,13 +21,21 @@ def Cal_ContinuousCurvature(_t, _a, _b):
 def Cal_ContinuousCurvature_Rate(t, a, b):
     return - (3 * a * b * (a ** 2 - b ** 2) * math.cos(t) * math.sin(t)) / (b ** 2 * math.cos(t) ** 2 + a ** 2 * math.sin(t) ** 2) ** 2.5
 
-
+"""
 ab_list = [ [4 , 2], [3.9 , 8/3.9], [3.8 , 8/3.8 ]] #"e = 0.866""e = 0.850""e = 0.832"
 ecc_list = ["0.866", "0.850", "0.832"]
+"""
 
+ecc_list = [ i/6*0.3 + 0.6 for i in range(7)]
+b_list = [2*math.sqrt(2)*(1-e**2)**(1/4) for e in ecc_list]
 
-for ab in range(3):
-    a ,b = ab_list[ab][0] , ab_list[ab][1]
+print(f"ecc list : {ecc_list}\nb_list : {b_list}")
+
+for ab in range(len(b_list)):
+    b = b_list[ab]
+    a = 8/b
+    
+    print(f'a : {a} , b : {b}')
     
     file_name = f"CurPerAbsErr_e{ecc_list[ab]}_a{a}b{b}_PlotInt0.001.txt"
     with open(file_name,"w") as wf:
@@ -42,7 +50,6 @@ for ab in range(3):
 
         div_num = 100
         for i in range(div_num):
-            print(f'{ab}, {i}')
             # given angle
             t = math.pi / 2 * i / div_num
             thetas.append(t)
