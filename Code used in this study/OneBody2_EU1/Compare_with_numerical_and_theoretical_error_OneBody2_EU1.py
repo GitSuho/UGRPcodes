@@ -153,7 +153,7 @@ for file_name in FileList:
     for i in range(1, len(newt_err)):
         hoo = theoretical_error(Find_curvature(newt_err[i-1][0] + a -rp, newt_err[i-1][1]) , Norm2(newt_err[i-1][3] - newt_err[i][0], newt_err[i-1][4] - newt_err[i][1]))
         ioo = float(newt_err[i][2])
-        f.write(f"{i}|{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
+        f.write(f"{i},{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
         n_rela_err.append(abs(100*(ioo-hoo)/ioo))
     
     f.write(f"\n\ngeodesic relative error mean : {np.nanmean(g_rela_err)}\n")
