@@ -2,7 +2,7 @@
 clear all;
 
 E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
-ecc_list = [0.9, 0.75, 0.6 , 0.45 , 0.3 , 0.15];
+ecc_list = [0.9, 0.75, 0.6 , 0.45 , 0.3 , 0.15, 0];
 numerical_method = ["EU1","HE2","KU3","RK4"];
 
 for ord = 1:1
@@ -16,7 +16,7 @@ ecc = ecc_list(jj);
 nume_name = numerical_method(ord);
 
 filename = sprintf("OneBody2_thetadivide_E%1.2f_ecc%1.2f_%s.txt", E, ecc, nume_name);
-figurename = sprintf("OneBody2_zook_numericalmethod_E%1.2f_ecc%1.2f_%s.pdf", E, ecc, nume_name);
+figurename = sprintf("OneBody2_thetadivide_E%1.2f_ecc%1.2f_%s.pdf", E, ecc, nume_name);
 fig1 = figure(1);
 
 fprintf(filename);
@@ -218,6 +218,12 @@ function next_pos = RKn(curr_pos, func, dt, order)
 end
 %calculate point of a moving particle when theta is given
 function xy_coor = OrbEqu(theta)
+    global l_const; global A_coeff; global k_const;
+    r = 1/(A_coeff*cos(theta)+(k_const/(l_const.^2)));
+    xy_coor = [r*cos(theta), r*sin(theta)];
+end
+%calculate point of a moving particle's velocity when theta is given
+function xy_velosity = OrbEqu(theta)
     global l_const; global A_coeff; global k_const;
     r = 1/(A_coeff*cos(theta)+(k_const/(l_const.^2)));
     xy_coor = [r*cos(theta), r*sin(theta)];

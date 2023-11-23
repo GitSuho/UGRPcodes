@@ -2,7 +2,7 @@
 clear all;
 
 E_list = [-0.05, -0.1, -0.15, -0.20, -0.25];
-ecc_list = [0.9, 0.75, 0.6 , 0.45 , 0.3 , 0.15];
+ecc_list = [0.9, 0.75, 0.6 , 0.45 , 0.3 , 0.15, 0];
 numerical_method = ["EU1","HE2","KU3","RK4"];
 
 for ord = 1:1
@@ -143,7 +143,7 @@ while(1)
     fprintf(wfile, format, j + F_count*100, P_error(j,1), P(j,1), P(j,2), P_error(j,2), P_error(j,3));
     end
     
-    if(P_error(101, 1) < P_error(100, 1) || i < 101)
+    if(P_error(i, 1) < P_error(i-1, 1))
         break;
     end
 
