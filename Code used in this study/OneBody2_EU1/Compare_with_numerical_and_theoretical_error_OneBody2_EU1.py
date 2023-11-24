@@ -146,7 +146,7 @@ for file_name in FileList:
     for i in range(1, len(geod_err)):
         hoo = theoretical_error(Find_curvature(geod_err[i-1][0] + a -rp, geod_err[i-1][1]) , Norm2(geod_err[i-1][3] - geod_err[i][0], geod_err[i-1][4] - geod_err[i][1]))
         ioo = float(geod_err[i][2])
-        f.write(f"{i}|{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
+        f.write(f"{i},{ioo},{hoo},{abs(100*(ioo-hoo)/ioo)}\n")
         g_rela_err.append(abs(100*(ioo-hoo)/ioo))
         
 
