@@ -7,7 +7,7 @@ numerical_method = ["EU1","HE2","KU3","RK4"];
 
 for ord = 1:1
     for ii = 1:1
-        for jj = 1:length(ecc_list)
+        for jj = 7:length(ecc_list)
 close all;
 hold on;
 
@@ -114,7 +114,7 @@ while(1)
     fprintf(wfile, format, j + F_count*100, X_error(j,1), X(j,1), X(j,2), X_error(j,2), X_error(j,3));
     end
     
-    if(X_error(101, 1) < X_error(100, 1) || i < 101)
+    if(X_error(i, 1) < X_error(i-1, 1) || i < 101)
         break;
     end
 
@@ -129,7 +129,7 @@ fprintf(wfile, format, 1, P_error(1,1), P(1,1), P(1,2), P_error(1,2), P_error(1,
 while(1)
     for i = 2:101
         %use Runge-Kutta method and predict next position
-        P(i, :) = RKn(P(i-1,3:4), @lag, dt, ord);    
+        P(i, :) = RKn(P(i-1,1:4), @lag, dt, ord);    
         %Error estimation according to analytic solution
         P_error(i, :) = Err_est(P(i,1), P(i,2));    
 
@@ -143,7 +143,7 @@ while(1)
     fprintf(wfile, format, j + F_count*100, P_error(j,1), P(j,1), P(j,2), P_error(j,2), P_error(j,3));
     end
     
-    if(P_error(i, 1) < P_error(i-1, 1))
+    if(P_error(i, 1) < P_error(i-1, 1) || i < 101)
         break;
     end
 

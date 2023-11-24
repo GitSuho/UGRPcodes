@@ -6,8 +6,10 @@ def Norm2(x, y):
     return (x**2 + y**2)**0.5
 def get_rad(theta, y):
     if y>= 0:
+        print("theta : ",theta)
         return np.arccos(theta)
     else:
+        print("theta : ",theta)
         return np.pi*2 - np.arccos(theta)
 
 
@@ -25,6 +27,7 @@ for file_name in FileList:
     init = list()
     ecc =  float(file_name.split("ecc")[1].split("_")[0])
     a, b = int(), int()
+    G, M = 1, 1
 
     
     ang_err_lis = list()
@@ -44,7 +47,7 @@ for file_name in FileList:
                 ra = rp*(1+ecc)/(1-ecc)
                 a = (ra+rp)/2
                 b = a*(1-ecc**2)**0.5
-                                       
+            
 
             try :
                 int(line.split("|")[0])
@@ -57,13 +60,19 @@ for file_name in FileList:
             x2 = float(var2[1])
             y2 = float(var2[2])
             
-            angle = get_rad( (a*ecc + Norm2(x2,y2)*np.cos(float(var2[0])))/a ,y2)          
+            # angle = get_rad( (a*ecc + Norm2(x2,y2)*np.cos()))/a ,y2)          
             
-            r_0 = Norm2(a*np.cos(angle) - (a-rp), b*np.sin(angle))
+            k_const = G*M
+            l_const = Norm2(init[0], init[1])*Norm2(init[2], init[3])*np.sin(np.arccos((Norm2(init[0], init[1])**2+Norm2(init[2], init[3])**2-Norm2(init[0]-init[2], init[1]-init[3])**2) /(2*Norm2(init[0], init[1])*Norm2(init[2], init[3]))))
+            A_coeff =  (1/Norm2(init[0], init[1]) - (k_const/(l_const**2)))/(init[0]/Norm2(init[0], init[1]))
+            r_0 = 1/(A_coeff*np.cos(float(var2[0]))+(k_const/(l_const**2)))
+            # r_0 = Norm2(a*np.cos(angle) - (a-rp), b*np.sin(angle))
             absolute_error = abs( r_0 - Norm2(x2, y2)  )
             relative_err = 100 * absolute_error / r_0
-                       
-            f.write(f'{int(line.split("|")[0])}|{float(var2[0])},{float(var2[1])},{float(var2[2])},{absolute_error},{relative_err}\n')         
+            
+            f.write(f'{int(line.split("|")[0])},{float(var2[0])},{float(var2[1])},{float(var2[2])},{absolute_error},{relative_err}\n')         
             
     f.close()
     print(f"end_{file_name}")
+
+
