@@ -21,9 +21,9 @@ E = (1/2)*m*Norm(v_initial[0], v_initial[1])**2 \
 T = E + G*M*m/Norm(x1, x2)
 
 # geodesic equation
-F1 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))/T*v1 \
+F1 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))*v1 \
     + 1/T*diff(T, x2)*v2*v1 + 1/(2*T)*diff(T, x1)*(v2)**2
-F2 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))/T*v2 \
+F2 = (-G*M*m*(x1*v1+x2*v2)/(Norm(x1, x2)**3))*v2 \
     + 1/T*diff(T, x1)*v2*v1 + 1/(2*T)*diff(T, x2)*(v1)**2    
 
 
