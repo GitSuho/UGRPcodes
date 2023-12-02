@@ -16,8 +16,8 @@ clc
 
 % %Xiaoming Lia , Shijun Liao. December 2017 
 % I.A_{100}^{i.c.}
-% v_1 = 0.0670760777;
-% v_2 = 0.5889627892;
+v_1 = 0.0670760777;
+v_2 = 0.5889627892;
 %I.A_{77}^{i.c.}
 % v_1 = 0.4159559963;
 % v_2 = 0.2988672319;
@@ -28,16 +28,16 @@ clc
 % v_1 = 0.3231926176;
 % v_2 = 0.3279135713;
 % % 
-% x_init = [-1 0 ; 1 0; 0 0];
-% v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
-% m = [1, 1, 1];
+x_init = [-1 0 ; 1 0; 0 0];
+v_init = [v_1 v_2; v_1 v_2; -2*v_1 -2*v_2];
+m = [1, 1, 1];
 
 % %lagrange equliteral triangular solution
-m = [1, 2, 3];
-s3_size = 1; s3_rad = 0;
-x_init = 2*[0 2 ; -sqrt(3) -1 ; sqrt(3) -1];
-v_init = 1/sum(m) * [(-m(2)-m(3)/2) (-sqrt(3)/2*m(3));(m(1)+m(3)/2) (-sqrt(3)/2*m(3)); (m(1)/2-m(2)/2) (sqrt(3)/2*m(1)+sqrt(3)/2*m(2))];
-v_init = s3_size*v_init*[cos(s3_rad) sin(s3_rad) ; -sin(s3_rad) cos(s3_rad)];
+% m = [1, 2, 3];
+% s3_size = 1; s3_rad = 0;
+% x_init = 2*[0 2 ; -sqrt(3) -1 ; sqrt(3) -1];
+% v_init = 1/sum(m) * [(-m(2)-m(3)/2) (-sqrt(3)/2*m(3));(m(1)+m(3)/2) (-sqrt(3)/2*m(3)); (m(1)/2-m(2)/2) (sqrt(3)/2*m(1)+sqrt(3)/2*m(2))];
+% v_init = s3_size*v_init*[cos(s3_rad) sin(s3_rad) ; -sin(s3_rad) cos(s3_rad)];
 
 % %Euler collinear solution
 % m = [1 2 3];
@@ -103,7 +103,7 @@ for i = 1:3
         ge{i, j} = 0;
         for k = 1:3
             for l = 1:2
-                ge{i, j} = ge{i, j}  - diff(T_sym, x_sym(k,l))*x_sym(k,l+2)*x_sym(i,j+2) ...
+                ge{i, j} = ge{i, j}  - diff(T_sym, x_sym(k,l))*x_sym(k,l+2)*x_sym(i,j+2)/T_sym ...
                     + 1/(2*T_sym)*diff(T_sym, x_sym(i,j))*x_sym(k,l+2)^2;
             end
         end
@@ -145,13 +145,13 @@ for i = 1:3 %particles' index
 end
 
 
-dt = 1/50;
+dt = 1/20;
 cycle = 2;
-% clear("X")
+clear("X")
 clear("Xt")
 clear("P")
 
-% X(1, :) = init;
+X(1, :) = init;
 Xt(1, :) = init;
 P(1, :) = init;
 
@@ -159,23 +159,21 @@ P(1, :) = init;
 hold on;
 while(1)
     for i = 1:cycle
-        
-        % T_kinetic = E + G*m(1)*m(2)/norm(X(i,1:2)) + G*m(3)*m(2)/norm(X(i,5:6)) + G*m(1)*m(3)/norm(X(i,7:8));
-        T_kinetic = E + G*m(1)*m(2)/norm(Xt(i,1:2)) + G*m(3)*m(2)/norm(Xt(i,5:6)) + G*m(1)*m(3)/norm(Xt(i,7:8));
 
 
-        % X(i+1, :) = RK4(X(i, :), @g, T_kinetic*dt);
-        Xt(i+1, :) = RK4(Xt(i, :), @g_t, T_kinetic*dt);
-        P(i+1, :) = RK4(P(i, :), @eulagrange, 5*dt);
+
+        X(i+1, :) = RK4(X(i, :), @g, dt);
+        Xt(i+1, :) = RK4(Xt(i, :), @g_t, dt);
+        P(i+1, :) = RK4(P(i, :), @eulagrange, dt/10);
     end
 
-    % plot(X(:, 1),X(:, 2), 'r-');
-    % plot(X(:, 5),X(:, 6), 'g-');
-    % plot(X(:, 9),X(:, 10), 'b-');
+    plot(X(:, 1),X(:, 2), 'r:');
+    plot(X(:, 5),X(:, 6), 'g:');
+    plot(X(:, 9),X(:, 10), 'b:');
 
-    plot(Xt(:, 1),Xt(:, 2), 'b-');
-    plot(Xt(:, 5),Xt(:, 6), 'r-');
-    plot(Xt(:, 9),Xt(:, 10), 'g-');
+    plot(Xt(:, 1),Xt(:, 2), 'c:');
+    plot(Xt(:, 5),Xt(:, 6), 'y:');
+    plot(Xt(:, 9),Xt(:, 10), 'm:');
 
     plot(P(:, 1),P(:, 2), 'black:');
     plot(P(:, 5),P(:, 6), 'black:');
@@ -185,7 +183,7 @@ while(1)
     % plot_curr_triangle(Xt(cycle+1,:));
     % plot_curr_triangle(P(cycle+1,:));
 
-    % X(1, :) = X(cycle+1, :);
+    X(1, :) = X(cycle+1, :);
     Xt(1, :) = Xt(cycle+1, :);
     P(1, :) = P(cycle+1, :);
     pause(0.1);
